@@ -1,0 +1,217 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_22.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_24.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>IRW_SAVE_DESC 结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+这一节的内容是介绍 IRW_SAVE_DESC 结构所有成员变量的含义。这是一个比较“纯正”的插件内
+部用结构:)，因为它只出现于插件信息表结构中，在软件的其它地方不会再定义该结构的实体变量
+。这个结构的用途是存储插件保存功能所需要的一些参数。下面将举例说明这个结构的工作原理：<br>
+<br>
+假如现在我们用系统（Windows）自带的画图程序制作了一张图片，然后想用“另存为”命令将其
+保存为一张JPEG格式的图像文件，这时你会看到画图程序为你打开了一个标题为“另存为”的对
+话框，等待你输入保存文件名以及选择保存格式。这个对话框看起来可能会像下面的这副图：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="isnew_23_01.png"><br><br>
+通过阅读资料我们知道，JPEG图像在保存时有一个重要的保存参数需要设定，这就是“品质系数”
+，这个系数最终决定了保存图像的清晰度和文件尺寸。而在上图中我们却没有发现让我们设定这个
+系数的地方，这是因为系统自带的这个画图程序是一个比较简单的软件，它在保存JPEG图像时使用
+了一个固定的品质系数值，从而简化了程序设计。而在一些较专业的图像类软件中（比如PhotoShop），
+保存对话框会在你选择了JPEG格式后再弹出一个对话框，让你选择图像的品质系数，这无疑让用户
+拥有了更多的选择机会，软件的专业性和友好性大大的增强了。ISeeExplorer作为一个的图像类软
+件，也将采用类似的方法，让用户保存图像时可以对某些图像格式做进一步的参数设定。<br>
+<br>
+这个想法应该说是很不错的，但在ISeeExplorer中要实现这个功能却不是一件容易的事。因为我们
+无法模仿PhotoShop那种再弹出一个对话框的方式让用户来设定进一步的参数，因为这第二个对话框
+是由PhotoShop图像读写插件自己显示的，而我们的ISeeExplorer图像读写插件中没有界面代码，无
+法显示对话框，而且插件在被调用的过程中也不能反过来调用主程序的函数，所以我们必须采用在
+插件内放置一些保存用的参数，然后由主程序代为形成参数选择对话框，以完成进一步的保存参数设
+定。我们还是拿JPEG插件做例子来说明这一工作机制。<br>
+<br>
+在保存JPEG图像时，我们需要让用户选择保存时的品质系数，我们不采用PhotoShop的再弹出对话框
+的方法，而是直接在系统（Windows）提供的通用保存对话框的下部加入一个品质系数的下拉列表，
+如下图所示：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="isnew_23_02.png"><br><br>
+用户在选择保存类型为JPEG格式后，主程序将动态的在“保存类型”下拉列表的下面新增加一个
+标题为“品质系数：”的下拉列表。用户可以通过这个列表来对JPEG图像的品质系数作出选择。
+如果用户选择的保存类型不是JPEG格式而是另一种格式，主程序则会显示另一个下拉列表，以供
+用户对该格式的保存参数作进一步的设定（我们可以使用MFC中的子类化技术来动态改变对话
+框控件）。<br>
+<br>
+可能你看到这儿的时候会产生一些疑惑，那就是主程序怎么知道在用户选择了JPEG保存类型后
+，在保存对话框的底部要增加一个标题为“品质系数：”的下拉列表呢？而且这个下拉列表中
+的内容主程序是怎么知道的呢？现在就让我们看看主程序是如何做到这一点的。<br>
+<br>
+以前我们说过，每一个图像读写插件中都存在一个“插件信息表”（即IRWP_INFO结构），而
+插件信息表中有一个 IRW_SAVE_DESC 结构，它就是用来存储这些下拉列表数据的。这其中包括
+要主程序显示的下拉列表个数、它们的标题、对应的下拉列表内容等参数。主程序在用户选择了
+一个保存用图像格式后，将立即访问该格式插件的插件信息表，并提取 IRW_SAVE_DESC 结构中
+的内容，然后根据这些内容，在对话框上增添新的下拉列表。这就是新增下拉列表的一个完整
+过程。<br>
+<br>
+那么在用户选择完了这些保存参数后，主程序是如何将用户的选择传入插件的呢？这一部分的
+内容请参见 SAVESTR 结构说明。<br>
+<br>
+下面的内容将介绍 IRW_SAVE_DESC 结构中每一个成员变量的含义：<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+bitcount;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+位深支持描述。用户在保存一幅图像时一般都会选择一个合适的位深度（比如8位、24位、32位等等
+），但对于一个具体的插件来说，它在保存图像时往往并不能处理各式各样的位深度图像，每一种
+读写插件一般都只能处理少数的几种（比如PCX插件只能保存1、4、8、24位位深度的图像）。所以主
+程序在显示位深下拉列表时，将首先读取本变量的值，从而让用户在本插件支持的位深度参数中选择
+一个合适地位深值。<br>
+<br>
+如果插件支持哪个位深度图像的保存功能，它就应该将本变量的对应位置1。举例来说，如果插件的
+保存功能支持1位位深的图像，那么它就应该将本变量的0位（最低位）置1，如果支持4位位深的图像
+，就应该将本变量的第3位置1。也是要将支持的位深值减1后的本变量位置1。比如PCX插件中本变量
+的值就是（二进制内容）：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>0000 0000   1000 0000   0000 0000   1000 1001</strong> 。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>
+img_num;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+对图像个数的要求，1－只能保存一副图像  2－可保存多幅图像。有些图像格式（比如ICO、GIF）
+允许将多幅图像保存在同一个图像文件中，本变量将指出某个插件是否支持多幅图像的保存
+功能。插件代码可将本变量置为1或是2，其它值则表示这个数据还没有被初始化。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>
+count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+它指出了要主程序显示的下拉列表的个数。比如在上面举出的JPEG插件例子，它里面只要求主程序
+新增一个下拉列表（标题为“品质系数：”的那个），所以在JPEG插件中本变量的值就是1。如果
+某种插件可选择的保存参数较多，可多设几个下拉列表以供用户选择，这时本变量的值将与新增
+下拉列表的个数相同。<br>
+<br>
+从代码的角度来看，本变量其实就是下面的结构数组变量 para 中有效项的个数（从0元素开始）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">IRW_SAVE_PARA_DESC</font><br>
+para[ISD_ITEM_NUM];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+这是一个 IRW_SAVE_PARA_DESC 型结构数组，每一个结构元素将用于存放一个新增下拉列表的
+相关数据。每个插件最多允许让主程序新增 4 个保存参数下拉列表（即宏ISD_ITEM_NUM）。
+有关 IRW_SAVE_PARA_DESC 结构的详细说明请参见 IRW_SAVE_PARA_DESC 结构说明一节。
+</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 023-20303</font></td>
+<td align="right"><a href="isnew_22.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_24.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

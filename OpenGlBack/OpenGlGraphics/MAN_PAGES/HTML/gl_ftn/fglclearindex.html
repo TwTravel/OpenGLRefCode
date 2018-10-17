@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglClearIndex</STRONG>	- specify the clear value for the color	index
+	  buffers
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglClearIndex</STRONG>( REAL*4 <EM>c</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>c</EM>  Specifies the index used when the color index buffers are
+	     cleared.  The initial value is 0.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglClearIndex</STRONG>	specifies the index used by <STRONG>fglClear</STRONG> to	clear
+	  the color index buffers.  <EM>c</EM> is not clamped.  Rather, <EM>c</EM> is
+	  converted to a fixed-point value with	unspecified precision
+	  to the right of the binary point.  The integer part of this
+	  value	is then	masked with 2m-1, where	m is the number	of
+	  bits in a color index	stored in the frame buffer.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglClearIndex</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_INDEX_CLEAR_VALUE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_INDEX_BITS</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglClear</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

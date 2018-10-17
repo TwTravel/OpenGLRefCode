@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXDestroyContext</STRONG> - destroy a	GLX context
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXDestroyContext</STRONG>( Display *<EM>dpy</EM>,
+				  GLXContext <EM>ctx</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>  Specifies the connection	to the X server.
+
+	  <EM>ctx</EM>  Specifies the GLX context to be destroyed.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  If the GLX rendering context <EM>ctx</EM> is not current to any
+	  thread, <STRONG>glXDestroyContext</STRONG> destroys it	immediately.
+	  Otherwise, <EM>ctx</EM> is destroyed when it becomes not current to
+	  any thread.  In either case, the resource ID referenced by
+	  <EM>ctx</EM> is freed immediately.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> is not a valid GLX
+	  context.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXMakeCurrent</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

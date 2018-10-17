@@ -1,0 +1,162 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglTexCoord1d,</STRONG> <STRONG>fglTexCoord1f,</STRONG>	<STRONG>fglTexCoord1i,</STRONG> <STRONG>fglTexCoord1s,</STRONG>
+	  <STRONG>fglTexCoord2d,</STRONG> <STRONG>fglTexCoord2f,</STRONG>	<STRONG>fglTexCoord2i,</STRONG> <STRONG>fglTexCoord2s,</STRONG>
+	  <STRONG>fglTexCoord3d,</STRONG> <STRONG>fglTexCoord3f,</STRONG>	<STRONG>fglTexCoord3i,</STRONG> <STRONG>fglTexCoord3s,</STRONG>
+	  <STRONG>fglTexCoord4d,</STRONG> <STRONG>fglTexCoord4f,</STRONG>	<STRONG>fglTexCoord4i,</STRONG> <STRONG>fglTexCoord4s,</STRONG>
+	  <STRONG>fglTexCoord1dv,</STRONG> <STRONG>fglTexCoord1fv,</STRONG> <STRONG>fglTexCoord1iv,</STRONG>
+	  <STRONG>fglTexCoord1sv,</STRONG> <STRONG>fglTexCoord2dv,</STRONG> <STRONG>fglTexCoord2fv,</STRONG>
+	  <STRONG>fglTexCoord2iv,</STRONG> <STRONG>fglTexCoord2sv,</STRONG> <STRONG>fglTexCoord3dv,</STRONG>
+	  <STRONG>fglTexCoord3fv,</STRONG> <STRONG>fglTexCoord3iv,</STRONG> <STRONG>fglTexCoord3sv,</STRONG>
+	  <STRONG>fglTexCoord4dv,</STRONG> <STRONG>fglTexCoord4fv,</STRONG> <STRONG>fglTexCoord4iv,</STRONG>
+	  <STRONG>fglTexCoord4sv</STRONG> - set the current texture coordinates
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglTexCoord1d</STRONG>( REAL*8 <EM>s</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord1f</STRONG>( REAL*4 <EM>s</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord1i</STRONG>( INTEGER*4 <EM>s</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord1s</STRONG>( INTEGER*2 <EM>s</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord2d</STRONG>( REAL*8 <EM>s</EM>,
+				    REAL*8 <EM>t</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2f</STRONG>( REAL*4 <EM>s</EM>,
+				    REAL*4 <EM>t</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2i</STRONG>( INTEGER*4 <EM>s</EM>,
+				    INTEGER*4 <EM>t</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord2s</STRONG>( INTEGER*2 <EM>s</EM>,
+				    INTEGER*2 <EM>t</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord3d</STRONG>( REAL*8 <EM>s</EM>,
+				    REAL*8 <EM>t</EM>,
+				    REAL*8 <EM>r</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3f</STRONG>( REAL*4 <EM>s</EM>,
+				    REAL*4 <EM>t</EM>,
+				    REAL*4 <EM>r</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3i</STRONG>( INTEGER*4 <EM>s</EM>,
+				    INTEGER*4 <EM>t</EM>,
+				    INTEGER*4 <EM>r</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord3s</STRONG>( INTEGER*2 <EM>s</EM>,
+				    INTEGER*2 <EM>t</EM>,
+				    INTEGER*2 <EM>r</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord4d</STRONG>( REAL*8 <EM>s</EM>,
+				    REAL*8 <EM>t</EM>,
+				    REAL*8 <EM>r</EM>,
+				    REAL*8 <EM>q</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4f</STRONG>( REAL*4 <EM>s</EM>,
+				    REAL*4 <EM>t</EM>,
+				    REAL*4 <EM>r</EM>,
+				    REAL*4 <EM>q</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4i</STRONG>( INTEGER*4 <EM>s</EM>,
+				    INTEGER*4 <EM>t</EM>,
+				    INTEGER*4 <EM>r</EM>,
+				    INTEGER*4 <EM>q</EM>	)
+	  SUBROUTINE <STRONG>fglTexCoord4s</STRONG>( INTEGER*2 <EM>s</EM>,
+				    INTEGER*2 <EM>t</EM>,
+				    INTEGER*2 <EM>r</EM>,
+				    INTEGER*2 <EM>q</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>s</EM>, <EM>t</EM>,	<EM>r</EM>, <EM>q</EM>
+		   Specify <EM>s</EM>, <EM>t</EM>, <EM>r</EM>, and	<EM>q</EM>  texture coordinates.	 Not
+		   all parameters are present in all forms of the
+		   command.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglTexCoord1dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord1fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord1iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord1sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord2sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord3sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglTexCoord4sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>v</EM>    Specifies a pointer to an array of one, two, three, or
+	       four elements, which in turn specify the	<EM>s</EM>, <EM>t</EM>, <EM>r</EM>, and <EM>q</EM>
+	       texture coordinates.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglTexCoord</STRONG> specifies	texture	coordinates in one, two,
+	  three, or four dimensions. <STRONG>fglTexCoord1</STRONG> sets the current
+	  texture coordinates to (<EM>s</EM>, 0,	0, 1); a call to
+	  <STRONG>fglTexCoord2</STRONG> sets them to (<EM>s</EM>,	<EM>t</EM>, 0, 1).  Similarly,
+	  <STRONG>fglTexCoord3</STRONG> specifies the texture coordinates as (<EM>s</EM>,	<EM>t</EM>, <EM>r</EM>,
+	  1), and <STRONG>fglTexCoord4</STRONG> defines all four	components explicitly
+	  as (<EM>s</EM>, <EM>t</EM>, <EM>r</EM>, <EM>q</EM>).
+
+	  The current texture coordinates are part of the data that is
+	  associated with each vertex and with the current raster
+	  position. Initially, the values for <EM>s</EM>, <EM>t</EM>, <EM>r</EM>, and <EM>q</EM> are (0,
+	  0, 0,	1).
+
+     <STRONG>NOTES</STRONG>
+	  The current texture coordinates can be updated at any	time.
+	  In particular,
+	  <STRONG>fglTexCoord</STRONG> can be called between a call to <STRONG>fglBegin</STRONG> and the
+	  corresponding	call to	<STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_CURRENT_TEXTURE_COORDS</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglTexCoordPointer</STRONG>, <STRONG>fglVertex</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

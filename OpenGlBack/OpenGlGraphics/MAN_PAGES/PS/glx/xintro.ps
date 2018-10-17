@@ -1,0 +1,1609 @@
+%!PS-Adobe-1.0
+%%Creator: splat:n8 (Nate Robins,,,,,,,<engr>)
+%%Title: stdin (ditroff)
+%%CreationDate: Tue Jul 22 19:21:37 1997
+%%EndComments
+% Start of psdit.pro -- prolog for ditroff translator
+% Copyright (c) 1985,1987 Adobe Systems Incorporated. All Rights Reserved. 
+% GOVERNMENT END USERS: See Notice file in TranScript library directory
+% -- probably /usr/lib/ps/Notice
+% $Revision: 1.2 $
+/$DITroff 140 dict def $DITroff begin
+/fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def
+/xi {0 72 11 mul translate 72 resolution div dup neg scale 0 0 moveto
+  /fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def F
+  /pagesave save def}def
+/PB{save /psv exch def currentpoint translate
+  resolution 72 div dup neg scale 0 0 moveto}def
+/PE{psv restore}def
+/m1 matrix def /m2 matrix def /m3 matrix def /oldmat matrix def
+/tan{dup sin exch cos div}bind def
+/point{resolution 72 div mul}bind def
+/dround	{transform round exch round exch itransform}bind def
+/xT{/devname exch def}def
+/xr{/mh exch def /my exch def /resolution exch def}def
+/xp{}def
+/xs{docsave restore end}def
+/xt{}def
+/xf{/fontname exch def /slotno exch def fontnames slotno get fontname eq not
+ {fonts slotno fontname findfont put fontnames slotno fontname put}if}def
+/xH{/fontheight exch def F}bind def
+/xS{/fontslant exch def F}bind def
+/s{/fontsize exch def /fontheight fontsize def F}bind def
+/f{/fontnum exch def F}bind def
+/F{fontheight 0 le {/fontheight fontsize def}if
+   fonts fontnum get fontsize point 0 0 fontheight point neg 0 0 m1 astore
+   fontslant 0 ne{1 0 fontslant tan 1 0 0 m2 astore m3 concatmatrix}if
+   makefont setfont .04 fontsize point mul 0 dround pop setlinewidth}bind def
+/X{exch currentpoint exch pop moveto show}bind def
+/N{3 1 roll moveto show}bind def
+/Y{exch currentpoint pop exch moveto show}bind def
+/S /show load def
+/ditpush{}def/ditpop{}def
+/AX{3 -1 roll currentpoint exch pop moveto 0 exch ashow}bind def
+/AN{4 2 roll moveto 0 exch ashow}bind def
+/AY{3 -1 roll currentpoint pop exch moveto 0 exch ashow}bind def
+/AS{0 exch ashow}bind def
+/MX{currentpoint exch pop moveto}bind def
+/MY{currentpoint pop exch moveto}bind def
+/MXY /moveto load def
+/cb{pop}def	% action on unknown char -- nothing for now
+/n{}def/w{}def
+/p{pop showpage pagesave restore /pagesave save def}def
+/abspoint{currentpoint exch pop add exch currentpoint pop add exch}def
+/dstroke{currentpoint stroke moveto}bind def
+/Dl{2 copy gsave rlineto stroke grestore rmoveto}bind def
+/arcellipse{oldmat currentmatrix pop
+ currentpoint translate 1 diamv diamh div scale /rad diamh 2 div def
+ rad 0 rad -180 180 arc oldmat setmatrix}def
+/Dc{gsave dup /diamv exch def /diamh exch def arcellipse dstroke 
+    grestore diamh 0 rmoveto}def
+/De{gsave /diamv exch def /diamh exch def arcellipse dstroke
+    grestore diamh 0 rmoveto}def
+/Da{currentpoint /by exch def /bx exch def /fy exch def /fx exch def
+   /cy exch def /cx exch def /rad cx cx mul cy cy mul add sqrt def
+   /ang1 cy neg cx neg atan def /ang2 fy fx atan def cx bx add cy by add
+   2 copy rad ang1 ang2 arcn stroke exch fx add exch fy add moveto}def
+/Barray 200 array def % 200 values in a wiggle
+/D~{mark}def
+/D~~{counttomark Barray exch 0 exch getinterval astore /Bcontrol exch def pop
+ /Blen Bcontrol length def Blen 4 ge Blen 2 mod 0 eq and
+ {Bcontrol 0 get Bcontrol 1 get abspoint /Ycont exch def /Xcont exch def
+  Bcontrol 0 2 copy get 2 mul put Bcontrol 1 2 copy get 2 mul put
+  Bcontrol Blen 2 sub 2 copy get 2 mul put
+  Bcontrol Blen 1 sub 2 copy get 2 mul put
+  /Ybi /Xbi currentpoint 3 1 roll def def 0 2 Blen 4 sub
+  {/i exch def
+   Bcontrol i get 3 div Bcontrol i 1 add get 3 div
+   Bcontrol i get 3 mul Bcontrol i 2 add get add 6 div
+   Bcontrol i 1 add get 3 mul Bcontrol i 3 add get add 6 div
+   /Xbi Xcont Bcontrol i 2 add get 2 div add def
+   /Ybi Ycont Bcontrol i 3 add get 2 div add def
+   /Xcont Xcont Bcontrol i 2 add get add def
+   /Ycont Ycont Bcontrol i 3 add get add def
+   Xbi currentpoint pop sub Ybi currentpoint exch pop sub rcurveto
+  }for dstroke}if}def
+end
+/ditstart{$DITroff begin
+ /nfonts 60 def			% NFONTS makedev/ditroff dependent!
+ /fonts[nfonts{0}repeat]def
+ /fontnames[nfonts{()}repeat]def
+/docsave save def
+}def
+
+% character outcalls
+/oc {/pswid exch def /cc exch def /name exch def
+   /ditwid pswid fontsize mul resolution mul 72000 div def
+   /ditsiz fontsize resolution mul 72 div def
+   ocprocs name known{ocprocs name get exec}{name cb}
+   ifelse}def
+/fractm [.65 0 0 .6 0 0] def
+/fraction
+ {/fden exch def /fnum exch def gsave /cf currentfont def
+  cf fractm makefont setfont 0 .3 dm 2 copy neg rmoveto
+  fnum show rmoveto currentfont cf setfont(\244)show setfont fden show 
+  grestore ditwid 0 rmoveto} def
+/oce {grestore ditwid 0 rmoveto}def
+/dm {ditsiz mul}def
+/ocprocs 50 dict def ocprocs begin
+(14){(1)(4)fraction}def
+(12){(1)(2)fraction}def
+(34){(3)(4)fraction}def
+(13){(1)(3)fraction}def
+(23){(2)(3)fraction}def
+(18){(1)(8)fraction}def
+(38){(3)(8)fraction}def
+(58){(5)(8)fraction}def
+(78){(7)(8)fraction}def
+(sr){gsave .05 dm .16 dm rmoveto(\326)show oce}def
+(is){gsave 0 .15 dm rmoveto(\362)show oce}def
+(->){gsave 0 .02 dm rmoveto(\256)show oce}def
+(<-){gsave 0 .02 dm rmoveto(\254)show oce}def
+(==){gsave 0 .05 dm rmoveto(\272)show oce}def
+end
+% DIThacks fonts for some special chars
+50 dict dup begin
+/FontType 3 def
+/FontName /DIThacks def
+/FontMatrix [.001 0.0 0.0 .001 0.0 0.0] def
+/FontBBox [-220 -280 900 900] def% a lie but ...
+/Encoding 256 array def
+0 1 255{Encoding exch /.notdef put}for
+Encoding
+ dup 8#040/space put %space
+ dup 8#110/rc put %right ceil
+ dup 8#111/lt put %left  top curl
+ dup 8#112/bv put %bold vert
+ dup 8#113/lk put %left  mid curl
+ dup 8#114/lb put %left  bot curl
+ dup 8#115/rt put %right top curl
+ dup 8#116/rk put %right mid curl
+ dup 8#117/rb put %right bot curl
+ dup 8#120/rf put %right floor
+ dup 8#121/lf put %left  floor
+ dup 8#122/lc put %left  ceil
+ dup 8#140/sq put %square
+ dup 8#141/bx put %box
+ dup 8#142/ci put %circle
+ dup 8#143/br put %box rule
+ dup 8#144/rn put %root extender
+ dup 8#145/vr put %vertical rule
+ dup 8#146/ob put %outline bullet
+ dup 8#147/bu put %bullet
+ dup 8#150/ru put %rule
+ dup 8#151/ul put %underline
+ pop
+/DITfd 100 dict def
+/BuildChar{0 begin
+ /cc exch def /fd exch def
+ /charname fd /Encoding get cc get def
+ /charwid fd /Metrics get charname get def
+ /charproc fd /CharProcs get charname get def
+ charwid 0 fd /FontBBox get aload pop setcachedevice
+ 40 setlinewidth
+ newpath 0 0 moveto gsave charproc grestore
+ end}def
+/BuildChar load 0 DITfd put
+%/UniqueID 5 def
+/CharProcs 50 dict def
+CharProcs begin
+/space{}def
+/.notdef{}def
+/ru{500 0 rls}def
+/rn{0 750 moveto 500 0 rls}def
+/vr{20 800 moveto 0 -770 rls}def
+/bv{20 800 moveto 0 -1000 rls}def
+/br{20 770 moveto 0 -1040 rls}def
+/ul{0 -250 moveto 500 0 rls}def
+/ob{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath stroke}def
+/bu{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath fill}def
+/sq{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath stroke}def
+/bx{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath fill}def
+/ci{355 333 rmoveto currentpoint newpath 333 0 360 arc
+    50 setlinewidth stroke}def
+
+/lt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 add exch s4 a4p stroke}def
+/lb{20 800 moveto 0 -550 rlineto currx -200 2cx s4 add exch s4 a4p stroke}def
+/rt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 sub exch s4 a4p stroke}def
+/rb{20 800 moveto 0 -500 rlineto currx -200 2cx s4 sub exch s4 a4p stroke}def
+/lk{20 800 moveto 20 300 -280 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/rk{20 800 moveto 20 300 320 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/lf{20 800 moveto 0 -1000 rlineto s4 0 rls}def
+/rf{20 800 moveto 0 -1000 rlineto s4 neg 0 rls}def
+/lc{20 -200 moveto 0 1000 rlineto s4 0 rls}def
+/rc{20 -200 moveto 0 1000 rlineto s4 neg 0 rls}def
+end
+
+/Metrics 50 dict def Metrics begin
+/.notdef 0 def
+/space 500 def
+/ru 500 def
+/br 0 def
+/lt 250 def
+/lb 250 def
+/rt 250 def
+/rb 250 def
+/lk 250 def
+/rk 250 def
+/rc 250 def
+/lc 250 def
+/rf 250 def
+/lf 250 def
+/bv 250 def
+/ob 350 def
+/bu 350 def
+/ci 750 def
+/bx 750 def
+/sq 750 def
+/rn 500 def
+/ul 500 def
+/vr 0 def
+end
+
+DITfd begin
+/s2 500 def /s4 250 def /s3 333 def
+/a4p{arcto pop pop pop pop}def
+/2cx{2 copy exch}def
+/rls{rlineto stroke}def
+/currx{currentpoint pop}def
+/dround{transform round exch round exch itransform} def
+end
+end
+/DIThacks exch definefont pop
+
+ditstart
+(psc)xT
+576 1 1 xr
+1(Times-Roman)xf 1 f
+2(Times-Italic)xf 2 f
+3(Times-Bold)xf 3 f
+4(Times-BoldItalic)xf 4 f
+5(Helvetica)xf 5 f
+6(Helvetica-Bold)xf 6 f
+7(Courier)xf 7 f
+8(Courier-Bold)xf 8 f
+9(Symbol)xf 9 f
+10(DIThacks)xf 10 f
+10 s
+1 f
+xi
+%%EndProlog
+
+%%Page: 1 1
+10 s 0 xH 0 xS 1 f
+10 f
+96(h)Y
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LX)X
+368(XI)X
+422(IN)X
+448(NT)X
+502(TR)X
+548(RO)X
+598(O)X
+656(\()X
+658(\()X
+694(\))X
+696(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3556(G)X
+3558(GL)X
+3612(LX)X
+3658(XI)X
+3712(IN)X
+3738(NT)X
+3792(TR)X
+3838(RO)X
+3888(O)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+266 864(N)N
+268(NA)X
+322(AM)X
+376(ME)X
+442(E)X
+3 f
+10 s
+554 960(glXIntro)N
+1 f
+9 f
+872(-)X
+1 f
+936(Introduction)X
+1352(to)X
+1434(OpenGL)X
+1735(in)X
+1817(the)X
+1935(X)X
+2013(window)X
+2291(system)X
+9 s
+266 1190(O)N
+268(OV)X
+322(VE)X
+376(ER)X
+422(RV)X
+472(VI)X
+526(IE)X
+552(EW)X
+598(W)X
+10 s
+554 1286(OpenGL)N
+862(\(called)X
+1108(GL)X
+1242(in)X
+1331(other)X
+1523(pages\))X
+1760(is)X
+1840(a)X
+1903(high-performance)X
+2507(3D-oriented)X
+2923(renderer.)X
+3260(It)X
+3337(is)X
+3418(available)X
+3736(in)X
+3826(the)X
+3952(X)X
+554 1382(window)N
+836(system)X
+1082(through)X
+1355(the)X
+1477(GLX)X
+1666(extension.)X
+2037(To)X
+2150(determine)X
+2495(whether)X
+2777(the)X
+2898(GLX)X
+3086(extension)X
+3416(is)X
+3492(supported)X
+3831(by)X
+3934(an)X
+554 1478(X)N
+632(server,)X
+869(and)X
+1005(if)X
+1074(so,)X
+1185(what)X
+1361(version)X
+1617(is)X
+1690(supported,)X
+2046(call)X
+3 f
+2182(glXQueryExtension)X
+1 f
+2877(and)X
+3 f
+3013(glXQueryVersion)X
+1 f
+3618(.)X
+554 1612(GLX)N
+743(extended)X
+1057(servers)X
+1309(make)X
+1507(a)X
+1567(subset)X
+1791(of)X
+1882(their)X
+2053(visuals)X
+2299(available)X
+2613(for)X
+2731(OpenGL)X
+3036(rendering.)X
+3408(Drawables)X
+3777(created)X
+554 1708(with)N
+726(these)X
+921(visuals)X
+1173(can)X
+1315(also)X
+1474(be)X
+1580(rendered)X
+1892(using)X
+2095(the)X
+2223(core)X
+2391(X)X
+2478(renderer)X
+2776(and)X
+2921(with)X
+3092(the)X
+3219(renderer)X
+3517(of)X
+3613(any)X
+3758(other)X
+3952(X)X
+554 1804(extension)N
+881(that)X
+1021(is)X
+1094(compatible)X
+1470(with)X
+1632(all)X
+1732(core)X
+1891(X)X
+1969(visuals.)X
+554 1938(GLX)N
+746(extends)X
+1019(drawables)X
+1373(with)X
+1543(several)X
+1799(buffers)X
+2055(other)X
+2248(than)X
+2414(the)X
+2540(standard)X
+2840(color)X
+3033(buffer.)X
+3298(These)X
+3518(buffers)X
+3774(include)X
+554 2034(back)N
+728(and)X
+866(auxiliary)X
+1173(color)X
+1360(buffers,)X
+1630(a)X
+1687(depth)X
+1886(buffer,)X
+2124(a)X
+2181(stencil)X
+2411(buffer,)X
+2649(and)X
+2786(a)X
+2843(color)X
+3029(accumulation)X
+3482(buffer.)X
+3740(Some)X
+3943(or)X
+554 2130(all)N
+654(are)X
+773(included)X
+1069(in)X
+1151(each)X
+1319(X)X
+1397(visual)X
+1608(that)X
+1748(supports)X
+2039(OpenGL.)X
+554 2264(To)N
+676(render)X
+915(using)X
+1121(OpenGL)X
+1435(into)X
+1592(an)X
+1701(X)X
+1793(drawable,)X
+2142(you)X
+2296(must)X
+2485(\256rst)X
+2643(choose)X
+2900(a)X
+2970(visual)X
+3195(that)X
+3349(de\256nes)X
+3610(the)X
+3742(required)X
+554 2360(OpenGL)N
+857(buffers.)X
+3 f
+1147(glXChooseVisual)X
+1 f
+1755(can)X
+1889(be)X
+1987(used)X
+2156(to)X
+2240(simplify)X
+2528(selecting)X
+2835(a)X
+2893(compatible)X
+3270(visual.)X
+3522(If)X
+3597(more)X
+3783(control)X
+554 2456(of)N
+645(the)X
+767(selection)X
+1076(process)X
+1341(is)X
+1418(required,)X
+1730(use)X
+3 f
+1861(XGetVisualInfo)X
+1 f
+2427(and)X
+3 f
+2567(glXGetCon\256g)X
+1 f
+3062(to)X
+3148(select)X
+3356(among)X
+3599(all)X
+3704(the)X
+3827(avail-)X
+554 2552(able)N
+708(visuals.)X
+554 2686(Use)N
+704(the)X
+827(selected)X
+1111(visual)X
+1327(to)X
+1414(create)X
+1632(both)X
+1799(a)X
+1860(GLX)X
+2050(context)X
+2311(and)X
+2453(an)X
+2555(X)X
+2639(drawable.)X
+3000(GLX)X
+3191(contexts)X
+3484(are)X
+3609(created)X
+3868(with)X
+3 f
+554 2782 0.2083(glXCreateContext)AN
+1 f
+1179(,)X
+1228(and)X
+1373(drawables)X
+1728(are)X
+1856(created)X
+2118(with)X
+2289(either)X
+3 f
+2500(XCreateWindow)X
+1 f
+3107(or)X
+3 f
+3202(glXCreateGLXPixmap)X
+1 f
+3990(.)X
+554 2878(Finally,)N
+827(bind)X
+996(the)X
+1121(context)X
+1384(and)X
+1528(the)X
+1654(drawable)X
+1977(together)X
+2268(using)X
+3 f
+2469(glXMakeCurrent)X
+1 f
+3066(.)X
+3134(This)X
+3304(context/drawable)X
+3885(pair)X
+554 2974(becomes)N
+879(the)X
+1021(current)X
+1293(context)X
+1573(and)X
+1733(current)X
+2005(drawable,)X
+2364(and)X
+2524(it)X
+2612(is)X
+2709(used)X
+2900(by)X
+3024(all)X
+3148(OpenGL)X
+3473(commands)X
+3864(until)X
+3 f
+554 3070(glXMakeCurrent)N
+1 f
+1171(is)X
+1244(called)X
+1456(with)X
+1618(different)X
+1915(arguments.)X
+554 3204(Both)N
+731(core)X
+892(X)X
+972(and)X
+1110(OpenGL)X
+1413(commands)X
+1782(can)X
+1916(be)X
+2014(used)X
+2183(to)X
+2268(operate)X
+2528(on)X
+2631(the)X
+2752(current)X
+3003(drawable.)X
+3361(The)X
+3509(X)X
+3590(and)X
+3729(OpenGL)X
+554 3300(command)N
+892(streams)X
+1159(are)X
+1280(not)X
+1404(synchronized,)X
+1874(however,)X
+2193(except)X
+2425(at)X
+2504(explicitly)X
+2827(created)X
+3081(boundaries)X
+3454(generated)X
+3788(by)X
+3889(cal-)X
+554 3396(ling)N
+3 f
+698(glXWaitGL)X
+1 f
+1102(,)X
+3 f
+1142(glXWaitX)X
+1 f
+1489(,)X
+3 f
+1529(XSync)X
+1 f
+1751(,)X
+1791(and)X
+3 f
+1927(glFlush)X
+1 f
+2179(.)X
+9 s
+266 3530(E)N
+268(EX)X
+314(XA)X
+368(AM)X
+422(MP)X
+488(PL)X
+530(LE)X
+576(ES)X
+622(S)X
+10 s
+554 3626(Below)N
+803(is)X
+896(the)X
+1034(minimum)X
+1384(code)X
+1576(required)X
+1884(to)X
+1986(create)X
+2219(an)X
+2335(RGBA-format,)X
+2858(X)X
+2956(window)X
+3254(that's)X
+3472(compatible)X
+3868(with)X
+554 3722(OpenGL)N
+859(and)X
+999(to)X
+1085(clear)X
+1266(it)X
+1334(to)X
+1420(yellow.)X
+1702(The)X
+1851(code)X
+2027(is)X
+2104(correct,)X
+2372(but)X
+2498(it)X
+2566(does)X
+2736(not)X
+2861(include)X
+3120(any)X
+3259(error)X
+3439(checking.)X
+3792(Return)X
+554 3818(values)N
+2 f
+779(dpy)X
+1 f
+895(,)X
+2 f
+935(vi)X
+1 f
+993(,)X
+2 f
+1033(cx)X
+1 f
+1105(,)X
+2 f
+1145(cmap)X
+1 f
+1319(,)X
+1359(and)X
+2 f
+1495(win)X
+1 f
+1630(should)X
+1863(all)X
+1963(be)X
+2059(tested.)X
+554 3952(#include)N
+850(<GL/glx.h>)X
+1251(#include)X
+1547(<GL/gl.h>)X
+1908(#include)X
+2204(<unistd.h>)X
+554 4144(static)N
+758(int)X
+877(attributeListSgl[])X
+1463(=)X
+1543({)X
+1904(GLX_RGBA,)X
+2674(GLX_RED_SIZE,)X
+3343(1,)X
+3439(/*get)X
+3635(the)X
+3769(deepest)X
+554 4240(buffer)N
+771(with)X
+933(1)X
+993(red)X
+1116(bit*/)X
+1570(GLX_GREEN_SIZE,)X
+2291(1,)X
+2659(GLX_BLUE_SIZE,)X
+3342(1,)X
+3710(None)X
+3904(};)X
+554 4432(static)N
+743(int)X
+847(attributeListDbl[])X
+1432(=)X
+1497({)X
+1843(GLX_RGBA,)X
+2598(GLX_DOUBLE_BUFFER,)X
+3509(/*In)X
+3659(case)X
+3819(single)X
+554 4528(buffering)N
+938(is)X
+1076(not)X
+1263(supported*/)X
+2014(GLX_RED_SIZE,)X
+2733(1,)X
+3165(GLX_GREEN_SIZE,)X
+3950(1,)X
+842 4624(GLX_BLUE_SIZE,)N
+1525(1,)X
+1893(None)X
+2087(};)X
+554 4912(static)N
+743(Bool)X
+918(WaitForNotify\(Display)X
+1690(*d,)X
+1810(XEvent)X
+2075(*e,)X
+2191(char)X
+2350(*arg\))X
+2540({)X
+634 5008(return)N
+846(\(e->type)X
+1139(==)X
+1249(MapNotify\))X
+1652(&&)X
+1796(\(e->xmap.window)X
+2407(==)X
+2517(\(Window\)arg\);)X
+3019(})X
+554 5200(int)N
+658(main\(int)X
+949(argc,)X
+1128(char)X
+1287(**argv\))X
+1557({)X
+634 5296(Display)N
+903(*dpy;)X
+634 5392(XVisualInfo)N
+1055(*vi;)X
+634 5488(Colormap)N
+974(cmap;)X
+634 5584(XSetWindowAttributes)N
+1410(swa;)X
+634 5680(Window)N
+930(win;)X
+634 5776(GLXContext)N
+1072(cx;)X
+266 6144(Page)N
+442(1)X
+3577(July)X
+3730(22,)X
+3850(1997)X
+
+2 p
+%%Page: 2 2
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LX)X
+368(XI)X
+422(IN)X
+448(NT)X
+502(TR)X
+548(RO)X
+598(O)X
+656(\()X
+658(\()X
+694(\))X
+696(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3556(G)X
+3558(GL)X
+3612(LX)X
+3658(XI)X
+3712(IN)X
+3738(NT)X
+3792(TR)X
+3838(RO)X
+3888(O)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+10 s
+634 864(XEvent)N
+899(event;)X
+634 960(int)N
+738(swap_\257ag)X
+1083(=)X
+1148(FALSE;)X
+634 1248(/*)N
+716(get)X
+834(a)X
+890(connection)X
+1262(*/)X
+634 1344(dpy)N
+774(=)X
+839(XOpenDisplay\(0\);)X
+634 1536(/*)N
+716(get)X
+834(an)X
+930(appropriate)X
+1316(visual)X
+1527(*/)X
+634 1632(vi)N
+716(=)X
+781(glXChooseVisual\(dpy,)X
+1537 0.1806(DefaultScreen\(dpy\),)AX
+2211(attributeListSgl\);)X
+634 1728(if)N
+703(\(vi)X
+812(==)X
+922(NULL\))X
+1183({)X
+694 1824(vi)N
+776(=)X
+841(glXChooseVisual\(dpy,)X
+1597 0.1806(DefaultScreen\(dpy\),)AX
+2271(attributeListDbl\);)X
+694 1920(swap_\257ag)N
+1039(=)X
+1104(TRUE;)X
+634 2016(})N
+634 2208(/*)N
+716(create)X
+929(a)X
+985(GLX)X
+1170(context)X
+1426(*/)X
+634 2304(cx)N
+730(=)X
+795(glXCreateContext\(dpy,)X
+1565(vi,)X
+1667(0,)X
+1747(GL_TRUE\);)X
+634 2496(/*)N
+716(create)X
+929(a)X
+985(color)X
+1170(map)X
+1328(*/)X
+634 2592(cmap)N
+836(=)X
+909(XCreateColormap\(dpy,)X
+1692(RootWindow\(dpy,)X
+2318(vi->screen\),)X
+3665(vi->visual,)X
+554 2688(AllocNone\);)N
+634 2880(/*)N
+716(create)X
+929(a)X
+985(window)X
+1263(*/)X
+634 2976(swa.colormap)N
+1102(=)X
+1167(cmap;)X
+634 3072(swa.border_pixel)N
+1209(=)X
+1274(0;)X
+634 3168(swa.event_mask)N
+1182(=)X
+1247(StructureNotifyMask;)X
+634 3264(win)N
+774(=)X
+839(XCreateWindow\(dpy,)X
+1570(RootWindow\(dpy,)X
+2188(vi->screen\),)X
+2595(0,)X
+2675(0,)X
+2755(100,)X
+2915(100,)X
+1034 3360(0,)N
+1114(vi->depth,)X
+1466(InputOutput,)X
+1897(vi->visual,)X
+1034 3456(CWBorderPixel)N
+9 f
+1550(|)X
+1 f
+(CWColormap)S
+9 f
+2015(|)X
+1 f
+(CWEventMask,)S
+2565(&swa\);)X
+634 3552(XMapWindow\(dpy,)N
+1302(win\);)X
+634 3648(XIfEvent\(dpy,)N
+1120(&event,)X
+1396(WaitForNotify,)X
+1912(\(char*\)win\);)X
+634 3840(/*)N
+716(connect)X
+986(the)X
+1104(context)X
+1360(to)X
+1442(the)X
+1560(window)X
+1838(*/)X
+634 3936(glXMakeCurrent\(dpy,)N
+1369(win,)X
+1529(cx\);)X
+634 4128(/*)N
+716(clear)X
+893(the)X
+1011(buffer)X
+1228(*/)X
+634 4224(glClearColor\(1,1,0,1\);)N
+634 4320(glClear\(GL_COLOR_BUFFER_BIT\);)N
+634 4416(glFlush\(\);)N
+634 4512(if)N
+703(\(swap_\257ag\))X
+1102(glXSwapBuffers\(dpy,win\);)X
+634 4704(/*)N
+716(wait)X
+874(a)X
+930(while)X
+1128(*/)X
+634 4800(sleep\(10\);)N
+975(})X
+9 s
+266 4934(N)N
+268(NO)X
+322(OT)X
+376(TE)X
+422(ES)X
+468(S)X
+10 s
+554 5030(A)N
+632(color)X
+817(map)X
+975(must)X
+1150(be)X
+1246(created)X
+1499(and)X
+1635(passed)X
+1869(to)X
+3 f
+1951(XCreateWindow)X
+1 f
+2530(.)X
+2590(See)X
+2726(the)X
+2844(preceding)X
+3181(example)X
+3473(code.)X
+554 5164(A)N
+641(GLX)X
+835(context)X
+1100(must)X
+1284(be)X
+1389(created)X
+1651(and)X
+1796(attached)X
+2093(to)X
+2184(an)X
+2289(X)X
+2376(drawable)X
+2700(before)X
+2935(OpenGL)X
+3246(commands)X
+3623(can)X
+3765(be)X
+3871(exe-)X
+554 5260(cuted.)N
+788(OpenGL)X
+1089(commands)X
+1456(issued)X
+1676(while)X
+1874(no)X
+1974(context/drawable)X
+2547(pair)X
+2692(is)X
+2765(current)X
+3013(result)X
+3211(in)X
+3293(unde\256ned)X
+3629(behavior.)X
+554 5394(Exposure)N
+878(events)X
+1104(indicate)X
+1379(that)X
+2 f
+1520(all)X
+1 f
+1625(buffers)X
+1874(associated)X
+2225(with)X
+2388(the)X
+2507(speci\256ed)X
+2813(window)X
+3092(may)X
+3251(be)X
+3348(damaged)X
+3659(and)X
+3797(should)X
+554 5490(be)N
+653(repainted.)X
+1015(Although)X
+1340(certain)X
+1582(buffers)X
+1833(of)X
+1923(some)X
+2115(visuals)X
+2359(on)X
+2461(some)X
+2652(systems)X
+2927(may)X
+3087(never)X
+3288(require)X
+3538(repainting)X
+3885(\(the)X
+554 5586(depth)N
+756(buffer,)X
+997(for)X
+1116(example\),)X
+1460(it)X
+1529(is)X
+1607(incorrect)X
+1918(to)X
+2005(write)X
+2195(a)X
+2256(program)X
+2553(assuming)X
+2880(that)X
+3025(these)X
+3215(buffers)X
+3468(will)X
+3617(not)X
+3744(be)X
+3845(dam-)X
+554 5682(aged.)N
+266 6144(July)N
+419(22,)X
+539(1997)X
+3794(Page)X
+3970(2)X
+
+3 p
+%%Page: 3 3
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LX)X
+368(XI)X
+422(IN)X
+448(NT)X
+502(TR)X
+548(RO)X
+598(O)X
+656(\()X
+658(\()X
+694(\))X
+696(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3556(G)X
+3558(GL)X
+3612(LX)X
+3658(XI)X
+3712(IN)X
+3738(NT)X
+3792(TR)X
+3838(RO)X
+3888(O)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+10 s
+554 864(GLX)N
+770(commands)X
+1168(manipulate)X
+1575(XVisualInfo)X
+2027(structures)X
+2390(rather)X
+2629(than)X
+2818(pointers)X
+3127(to)X
+3240(visuals)X
+3513(or)X
+3631(visual)X
+3874(IDs.)X
+554 960(XVisualInfo)N
+987(structures)X
+1330(contain)X
+2 f
+1597(visual)X
+1 f
+1788(,)X
+2 f
+1839(visualID)X
+1 f
+2115(,)X
+2 f
+2166(screen)X
+1 f
+2376(,)X
+2427(and)X
+2 f
+2574(depth)X
+1 f
+2783(elements,)X
+3119(as)X
+3217(well)X
+3386(as)X
+3484(other)X
+3680(X-speci\256c)X
+554 1056(information.)N
+9 s
+266 1190(U)N
+268(US)X
+322(SI)X
+364(IN)X
+390(NG)X
+444(G)X
+528(G)X
+530(GL)X
+584(LX)X
+630(X)X
+714(E)X
+716(EX)X
+762(XT)X
+816(TE)X
+862(EN)X
+908(NS)X
+962(SI)X
+1004(IO)X
+1030(ON)X
+1084(NS)X
+1138(S)X
+10 s
+554 1286(All)N
+683(supported)X
+1026(GLX)X
+1218(extensions)X
+1583(will)X
+1734(have)X
+1913(a)X
+1976(corresponding)X
+2462(de\256nition)X
+2795(in)X
+2884(glx.h)X
+3073(and)X
+3217(a)X
+3281(token)X
+3487(in)X
+3577(the)X
+3703(extension)X
+554 1382(string)N
+768(returned)X
+1068(by)X
+3 f
+1179(glXQueryExtensionsString)X
+1 f
+2098(.)X
+2169(For)X
+2311(example,)X
+2634(if)X
+2714(the)X
+3 f
+2843(EXT_visual_info)X
+1 f
+3450(extension)X
+3788(is)X
+3872(sup-)X
+554 1478(ported,)N
+807(then)X
+973(this)X
+1116(token)X
+1322(will)X
+1475(be)X
+1580(de\256ned)X
+1845(in)X
+1936(glx.h)X
+2127(and)X
+3 f
+2272(EXT_visual_info)X
+1 f
+2877(will)X
+3030(appear)X
+3274(in)X
+3365(the)X
+3492(extension)X
+3828(string)X
+554 1574(returned)N
+844(by)X
+3 f
+946(glXQueryExtensionsString)X
+1 f
+1865(.)X
+1907(The)X
+2054(de\256nitions)X
+2413(in)X
+2497(glx.h)X
+2681(can)X
+2815(be)X
+2913(used)X
+3082(at)X
+3162(compile)X
+3442(time)X
+3606(to)X
+3689(determine)X
+554 1670(if)N
+623(procedure)X
+965(calls)X
+1132(corresponding)X
+1611(to)X
+1693(an)X
+1789(extension)X
+2116(exist)X
+2287(in)X
+2369(the)X
+2487(library.)X
+554 1804(OpenGL)N
+855(itself)X
+1035(has)X
+1162(also)X
+1311(been)X
+1483(extended.)X
+1813(Refer)X
+2012(to)X
+3 f
+2094(glIntro)X
+1 f
+2354(for)X
+2468(more)X
+2653(information.)X
+9 s
+266 1938(G)N
+268(GL)X
+322(LX)X
+368(X)X
+452(1)X
+454(1.)X
+492(.1)X
+512(1)X
+580(a)X
+582(an)X
+616(nd)X
+654(d)X
+722(G)X
+724(GL)X
+778(LX)X
+824(X)X
+908(1)X
+910(1.)X
+948(.2)X
+968(2)X
+10 s
+554 2034(GLX)N
+739(1.2)X
+859(is)X
+932(now)X
+1090(supported.)X
+1446(It)X
+1515(is)X
+1588(backward)X
+1921(compatible)X
+2297(with)X
+2459(GLX)X
+2644(1.1)X
+2764(and)X
+2900(GLX)X
+3085(1.0.)X
+554 2168(GLX)N
+801(1.2)X
+983(corresponds)X
+1453(to)X
+1598(OpenGL)X
+1962(version)X
+2281(1.1)X
+2464(and)X
+2663(introduces)X
+3080(the)X
+3261(following)X
+3655(new)X
+3872(call:)X
+3 f
+554 2264(glGetCurrentDisplay)N
+1 f
+1279(.)X
+554 2398(GLX)N
+748(1.1)X
+877(corresponds)X
+1294(to)X
+1385(OpenGL)X
+1695(version)X
+1960(1.0)X
+2089(and)X
+2234(introduces)X
+2597(the)X
+2724(following)X
+3064(new)X
+3227(calls:)X
+3 f
+3445(glXQueryExten-)X
+554 2494(sionsString)N
+1 f
+935(,)X
+3 f
+975(glXQueryServerString)X
+1 f
+1754(,)X
+1794(and)X
+3 f
+1930(glXGetClientString)X
+1 f
+2597(.)X
+554 2628(Call)N
+3 f
+712(glQueryVersion)X
+1 f
+1284(to)X
+1371(determine)X
+1717(at)X
+1800(runtime)X
+2074(what)X
+2255(version)X
+2516(of)X
+2608(GLX)X
+2799(is)X
+2878(available.)X
+3 f
+3214(glQueryVersion)X
+1 f
+3787(returns)X
+554 2724(the)N
+678(version)X
+940(that)X
+1086(is)X
+1165(supported)X
+1507(on)X
+1613(the)X
+1737(connection.)X
+2135(Thus)X
+2321(if)X
+2396(1.2)X
+2522(is)X
+2601(returned,)X
+2914(both)X
+3081(the)X
+3204(client)X
+3407(and)X
+3548(server)X
+3770(support)X
+554 2820(GLX)N
+743(1.2.)X
+907(You)X
+1069(can)X
+1205(also)X
+1358(check)X
+1571(the)X
+1694(GLX)X
+1884(version)X
+2145(at)X
+2228(compile)X
+2511(time:)X
+2700(GLX_VERSION_1_1)X
+3437(will)X
+3586(be)X
+3687(de\256ned)X
+3948(in)X
+554 2916(glx.h)N
+743(if)X
+819(GLX)X
+1011(1.1)X
+1138(calls)X
+1312(are)X
+1438(supported)X
+1781(and)X
+1924(GLX_VERSION_1_2)X
+2663(will)X
+2814(be)X
+2917(de\256ned)X
+3180(if)X
+3256(GLX)X
+3448(1.2)X
+3574(calls)X
+3747(are)X
+3872(sup-)X
+554 3012(ported.)N
+9 s
+266 3146(S)N
+268(SE)X
+310(EE)X
+356(E)X
+432(A)X
+434(AL)X
+488(LS)X
+534(SO)X
+576(O)X
+3 f
+10 s
+554 3242(glIntro)N
+1 f
+(,)S
+3 f
+834(glFinish)X
+1 f
+1108(,)X
+3 f
+1148(glFlush)X
+1 f
+1400(,)X
+3 f
+1440(glXChooseVisual)X
+1 f
+2026(,)X
+3 f
+2066(glXCopyContext)X
+1 f
+2640(,)X
+3 f
+554 3338 0.2083(glXCreateContext)AN
+1 f
+1179(,)X
+3 f
+1219(glXCreateGLXPixmap)X
+1 f
+2007(,)X
+3 f
+2047(glXDestroyContext)X
+1 f
+2707(,)X
+3 f
+554 3434(glXGetClientString)N
+1 f
+1221(,)X
+3 f
+1261(glXGetCon\256g)X
+1 f
+1732(,)X
+3 f
+1772(glXIsDirect)X
+1 f
+2169(,)X
+3 f
+2209(glXMakeCurrent)X
+1 f
+2806(,)X
+3 f
+554 3530(glXQueryExtension)N
+1 f
+1229(,)X
+3 f
+1381(glXQueryExtensionsString)X
+1 f
+2300(,)X
+3 f
+2453(glXQueryServerString)X
+1 f
+3232(,)X
+3 f
+3385(glXQueryVersion)X
+1 f
+3990(,)X
+3 f
+554 3626(glXSwapBuffers)N
+1 f
+(,)S
+3 f
+1154(glXUseXFont)X
+1 f
+1617(,)X
+3 f
+1657(glXWaitGL)X
+1 f
+2061(,)X
+3 f
+2101(glXWaitX)X
+1 f
+2448(,)X
+3 f
+2488(XCreateColormap)X
+1 f
+3126(,)X
+3 f
+3166(XCreateWindow)X
+1 f
+3745(,)X
+3 f
+3785(XSync)X
+1 f
+266 6144(Page)N
+442(3)X
+3577(July)X
+3730(22,)X
+3850(1997)X
+10 f
+0 6428(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+
+3 p
+%%Trailer
+xt
+
+xs

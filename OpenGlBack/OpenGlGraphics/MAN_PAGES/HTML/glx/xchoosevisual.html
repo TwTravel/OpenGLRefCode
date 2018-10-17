@@ -1,0 +1,214 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXChooseVisual</STRONG> - return a visual that matches specified
+	  attributes
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  XVisualInfo* <STRONG>glXChooseVisual</STRONG>(	Display	*<EM>dpy</EM>,
+					int <EM>screen</EM>,
+					int *<EM>attribList</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	      Specifies	the connection to the X	server.
+
+	  <EM>screen</EM>      Specifies	the screen number.
+
+	  <EM>attribList</EM>  Specifies	a list of boolean attributes and
+		      integer attribute/value pairs.  The last
+		      attribute	must be	<STRONG>None</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXChooseVisual</STRONG> returns a pointer to an XVisualInfo
+	  structure describing the visual that best meets a minimum
+	  specification.  The boolean GLX attributes of	the visual
+	  that is returned will	match the specified values, and	the
+	  integer GLX attributes will meet or exceed the specified
+	  minimum values. If all other attributes are equivalent, then
+	  TrueColor and	PseudoColor visuals have priority over
+	  DirectColor and StaticColor visuals, respectively.  If no
+	  conforming visual exists, <STRONG>NULL</STRONG> is returned.  To free the
+	  data returned	by this	function, use <STRONG>XFree</STRONG>.
+
+	  All boolean GLX attributes default to	<STRONG>False</STRONG> except
+	  <STRONG>GLX_USE_GL</STRONG>, which defaults to	<STRONG>True</STRONG>.  All integer GLX
+	  attributes default to	zero.  Default specifications are
+	  superseded by	attributes included in <EM>attribList</EM>.  Boolean
+	  attributes included in <EM>attribList</EM> are	understood to be <STRONG>True</STRONG>.
+	  Integer attributes and enumerated type attributes are
+	  followed immediately by the corresponding desired or minimum
+	  value.  The list must	be terminated with <STRONG>None</STRONG>.
+
+	  The interpretations of the various GLX visual	attributes are
+	  as follows:
+
+	  <STRONG>GLX_USE_GL</STRONG>		Ignored.  Only visuals that can	be
+				rendered with GLX are considered.
+
+	  <STRONG>GLX_BUFFER_SIZE</STRONG>	Must be	followed by a nonnegative
+				integer	that indicates the desired
+				color index buffer size.  The smallest
+				index buffer of	at least the specified
+				size is	preferred.  Ignored if
+				<STRONG>GLX_RGBA</STRONG> is asserted.
+
+	  <STRONG>GLX_LEVEL</STRONG>		Must be	followed by an integer
+				buffer-level specification.  This
+				specification is honored exactly.
+				Buffer level zero corresponds to the
+				main frame buffer of the display.
+				Buffer level one is the	first overlay
+				frame buffer, level two	the second
+				overlay	frame buffer, and so on.
+				Negative buffer	levels correspond to
+				underlay frame buffers.
+
+	  <STRONG>GLX_RGBA</STRONG>		If present, only TrueColor and
+				DirectColor visuals are	considered.
+				Otherwise, only	PseudoColor and
+				StaticColor visuals are	considered.
+
+	  <STRONG>GLX_DOUBLEBUFFER</STRONG>	If present, only double-buffered
+				visuals	are considered.	  Otherwise,
+				only single-buffered visuals are
+				considered.
+
+	  <STRONG>GLX_STEREO</STRONG>		If present, only stereo	visuals	are
+				considered.  Otherwise,	only
+				monoscopic visuals are considered.
+
+	  <STRONG>GLX_AUX_BUFFERS</STRONG>	Must be	followed by a nonnegative
+				integer	that indicates the desired
+				number of auxiliary buffers.  Visuals
+				with the  smallest number of auxiliary
+				buffers	that meets or exceeds the
+				specified number are preferred.
+
+	  <STRONG>GLX_RED_SIZE</STRONG>		Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, the smallest available
+				red buffer is preferred.  Otherwise,
+				the largest available red buffer of at
+				least the minimum size is preferred.
+
+	  <STRONG>GLX_GREEN_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, the smallest available
+				green buffer is	preferred.  Otherwise,
+				the largest available green buffer of
+				at least the minimum size is
+				preferred.
+
+	  <STRONG>GLX_BLUE_SIZE</STRONG>		Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, the smallest available
+				blue buffer is preferred.  Otherwise,
+				the largest available blue buffer of
+				at least the minimum size is
+				preferred.
+
+	  <STRONG>GLX_ALPHA_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, the smallest available
+				alpha buffer is	preferred.  Otherwise,
+				the largest available alpha buffer of
+				at least the minimum size is
+				preferred.
+
+	  <STRONG>GLX_DEPTH_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, visuals with no depth
+				buffer are preferred.  Otherwise, the
+				largest	available depth	buffer of at
+				least the minimum size is preferred.
+
+	  <STRONG>GLX_STENCIL_SIZE</STRONG>	Must be	followed by a nonnegative
+				integer	that indicates the desired
+				number of stencil bitplanes.  The
+				smallest stencil buffer	of at least
+				the specified size is preferred.  If
+				the desired value is zero, visuals
+				with no	stencil	buffer are preferred.
+
+	  <STRONG>GLX_ACCUM_RED_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, visuals with no red
+				accumulation buffer are	preferred.
+				Otherwise, the largest possible	red
+				accumulation buffer of at least	the
+				minimum	size is	preferred.
+
+	  <STRONG>GLX_ACCUM_GREEN_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, visuals with no green
+				accumulation buffer are	preferred.
+				Otherwise, the largest possible	green
+				accumulation buffer of at least	the
+				minimum	size is	preferred.
+
+	  <STRONG>GLX_ACCUM_BLUE_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, visuals with no blue
+				accumulation buffer are	preferred.
+				Otherwise, the largest possible	blue
+				accumulation buffer of at least	the
+				minimum	size is	preferred.
+
+	  <STRONG>GLX_ACCUM_ALPHA_SIZE</STRONG>	Must be	followed by a nonnegative
+				minimum	size specification.  If	this
+				value is zero, visuals with no alpha
+				accumulation buffer are	preferred.
+				Otherwise, the largest possible	alpha
+				accumulation buffer of at least	the
+				minimum	size is	preferred.
+
+     <STRONG>EXAMPLES</STRONG>
+	  <EM>attribList</EM> =
+		      {<STRONG>GLX_RGBA</STRONG>, <STRONG>GLX_RED_SIZE</STRONG>, 4, <STRONG>GLX_GREEN_SIZE</STRONG>, 4,
+		      <STRONG>GLX_BLUE_SIZE</STRONG>, 4,	<STRONG>None</STRONG>};
+
+	  Specifies a single-buffered RGB visual in the	normal frame
+	  buffer, not an overlay or underlay buffer.  The returned
+	  visual supports at least four	bits each of red, green, and
+	  blue,	and possibly no	bits of	alpha.	It does	not support
+	  color	index mode, double-buffering, or stereo	display.  It
+	  may or may not have one or more auxiliary color buffers, a
+	  depth	buffer,	a stencil buffer, or an	accumulation buffer.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>XVisualInfo</STRONG> is defined in <EM>Xutil</EM>.<EM>h</EM>.  It is a structure	that
+	  includes <EM>visual</EM>, <EM>visualID</EM>, <EM>screen</EM>, and <EM>depth</EM> elements.
+
+	  <STRONG>glXChooseVisual</STRONG> is implemented as a client-side utility
+	  using	only <STRONG>XGetVisualInfo</STRONG> and	<STRONG>glXGetConfig</STRONG>.  Calls to	these
+	  two routines can be used to implement	selection algorithms
+	  other	than the generic one implemented by <STRONG>glXChooseVisual</STRONG>.
+
+	  GLX implementers are strongly	discouraged, but not
+	  proscribed, from changing the	selection algorithm used by
+	  <STRONG>glXChooseVisual</STRONG>.  Therefore, selections may change from
+	  release to release of	the client-side	library.
+
+	  There	is no direct filter for	picking	only visuals that
+	  support GLXPixmaps.  GLXPixmaps are supported	for visuals
+	  whose	<STRONG>GLX_BUFFER_SIZE</STRONG>	is one of the pixmap depths supported
+	  by the X server.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>NULL</STRONG> is returned if an undefined GLX attribute is
+	  encountered in <EM>attribList</EM>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXGetConfig</STRONG>
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,102 @@
+--------------------Configuration: Shadow - Win32 Debug--------------------
+Begining build with project "E:\PrgGL\Shadow\Shadow.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Shadow.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x804 /fo"Debug/Shadow.res" /d "_DEBUG" /d "_AFXDLL" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/Shadow.bsc" "
+			"COFF Linker for 80x86" with flags "opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Shadow.pdb" /debug /machine:I386 /out:"Debug/Shadow.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\TEMP\RSP241.TMP" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Shadow.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\PrgGL\Shadow\Color.cpp"
+"E:\PrgGL\Shadow\Pencil.cpp"
+"E:\PrgGL\Shadow\ShadowView.cpp"
+>
+Creating command line "cl.exe @C:\TEMP\RSP241.TMP" 
+Creating temp file "C:\TEMP\RSP0242.TMP" with contents <opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Shadow.pdb" /debug /machine:I386 /out:"Debug/Shadow.exe" /pdbtype:sept 
+.\Debug\Color.obj
+.\Debug\MainFrm.obj
+.\Debug\Pencil.obj
+.\Debug\Point.obj
+.\Debug\Shadow.obj
+.\Debug\ShadowDoc.obj
+.\Debug\ShadowView.obj
+.\Debug\StdAfx.obj
+.\Debug\Shadow.res>
+Creating command line "link.exe @C:\TEMP\RSP0242.TMP" 
+Compiling...
+Color.cpp
+E:\PrgGL\Shadow\Color.h(152) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(153) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(154) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(155) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Generating Code...
+Compiling...
+Pencil.cpp
+E:\PrgGL\Shadow\Point.h(207) : warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(218) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(227) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(244) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(244) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(253) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Point.h(278) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(152) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(153) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(154) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(155) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(21) : warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(23) : warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(28) : warning C4305: '=' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(29) : warning C4305: '=' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(43) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(43) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(43) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(44) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(45) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(45) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(45) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(46) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(46) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(46) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(47) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(47) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(48) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(48) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(48) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(49) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(49) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(49) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(49) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(50) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(50) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(50) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\Pencil.cpp(103) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(104) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(122) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Pencil.cpp(123) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+ShadowView.cpp
+E:\PrgGL\Shadow\point.h(207) : warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(218) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(227) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(244) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(244) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(253) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\point.h(278) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(152) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(153) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(154) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\Color.h(155) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\PrgGL\Shadow\ShadowView.cpp(211) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\ShadowView.cpp(223) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\ShadowView.cpp(223) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+E:\PrgGL\Shadow\ShadowView.cpp(270) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+Generating Code...
+Linking...
+
+
+
+Shadow.exe - 0 error(s), 60 warning(s)

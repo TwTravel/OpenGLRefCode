@@ -1,0 +1,215 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglTexEnvf,</STRONG> <STRONG>fglTexEnvi,</STRONG> <STRONG>fglTexEnvfv,</STRONG> <STRONG>fglTexEnviv</STRONG> - set
+	  texture environment parameters
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglTexEnvf</STRONG>( INTEGER*4 <EM>target</EM>,
+				 INTEGER*4 <EM>pname</EM>,
+				 REAL*4	<EM>param</EM> )
+	  SUBROUTINE <STRONG>fglTexEnvi</STRONG>( INTEGER*4 <EM>target</EM>,
+				 INTEGER*4 <EM>pname</EM>,
+				 INTEGER*4 <EM>param</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>target</EM>  Specifies a texture environment.  Must be
+		  <STRONG>GL_TEXTURE_ENV</STRONG>.
+
+	  <EM>pname</EM>	  Specifies the	symbolic name of a single-valued
+		  texture environment parameter.  Must be
+		  <STRONG>GL_TEXTURE_ENV_MODE</STRONG>.
+
+	  <EM>param</EM>	  Specifies a single symbolic constant,	one of
+		  <STRONG>GL_MODULATE</STRONG>, <STRONG>GL_DECAL</STRONG>, <STRONG>GL_BLEND</STRONG>, or <STRONG>GL_REPLACE</STRONG>.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglTexEnvfv</STRONG>( INTEGER*4 <EM>target</EM>,
+				  INTEGER*4 <EM>pname</EM>,
+				  CHARACTER*8 <EM>params</EM> )
+	  SUBROUTINE <STRONG>fglTexEnviv</STRONG>( INTEGER*4 <EM>target</EM>,
+				  INTEGER*4 <EM>pname</EM>,
+				  CHARACTER*8 <EM>params</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>target</EM>
+	       Specifies a texture environment.	 Must be
+	       <STRONG>GL_TEXTURE_ENV</STRONG>.
+
+	  <EM>pname</EM>
+	       Specifies the symbolic name of a	texture	environment
+	       parameter.  Accepted values are <STRONG>GL_TEXTURE_ENV_MODE</STRONG> and
+	       <STRONG>GL_TEXTURE_ENV_COLOR</STRONG>.
+
+	  <EM>params</EM>
+	       Specifies a pointer to a	parameter array	that contains
+	       either a	single symbolic	constant or an RGBA color.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  A texture environment	specifies how texture values are
+	  interpreted when a fragment is textured.  <EM>target</EM> must	be
+	  <STRONG>GL_TEXTURE_ENV</STRONG>.  <EM>pname</EM> can be	either <STRONG>GL_TEXTURE_ENV_MODE</STRONG> or
+	  <STRONG>GL_TEXTURE_ENV_COLOR</STRONG>.
+
+	  If <EM>pname</EM> is <STRONG>GL_TEXTURE_ENV_MODE</STRONG>, then	<EM>params</EM> is (or points
+	  to) the symbolic name	of a texture function.	Four texture
+	  functions may	be specified:  <STRONG>GL_MODULATE</STRONG>, <STRONG>GL_DECAL</STRONG>,
+	  <STRONG>GL_BLEND</STRONG>, and	<STRONG>GL_REPLACE</STRONG>.
+
+	  A texture function acts on the fragment to be	textured using
+	  the texture image value that applies to the fragment (see
+	  <STRONG>fglTexParameter</STRONG>) and produces	an RGBA	color for that
+	  fragment.  The following table shows how the RGBA color is
+	  produced for each of the three texture functions that	can be
+	  chosen.  C is	a triple of color values (RGB) and A is	the
+	  associated alpha value.  RGBA	values extracted from a
+	  texture image	are in the range [0,1].	 The subscript f
+	  refers to the	incoming fragment, the subscript t to the
+	  texture image, the subscript c to the	texture	environment
+	  color, and subscript v indicates a value produced by the
+	  texture function.
+
+	  A texture image can have up to four components per texture
+	  element (see <STRONG>fglTexImage1D</STRONG>, <STRONG>fglTexImage2D</STRONG>,
+	  <STRONG>fglCopyTexImage1D</STRONG>, and <STRONG>fglCopyTexImage2D</STRONG>). In	a one-
+	  component image, L  indicates	that single component.	A
+	  two-component	imag<STRONG>e</STRONG> uses L  and A .  A three-component image
+	  has only a color value, C <STRONG>.</STRONG>  A fo<STRONG>u</STRONG>r-component	image has both
+	  a color value	C  and an a<STRONG>l</STRONG>pha	value A	.
+			 t		       t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     _______________________________________________________________________
+     |<EM>Base</EM> <EM>internal</EM> ||		    <EM>Texture</EM> <EM>functions</EM>			    |
+     |	 <EM>format</EM>	    ||<STRONG>GL_MODULATE</STRONG>    <STRONG>GL_DECAL</STRONG>	    <STRONG>GL_BLEND</STRONG>	 <STRONG>GL_REPLACE</STRONG> |
+     <EM>|</EM>______________<EM>||</EM>______________________________________________________|
+     |	<STRONG>GL_ALPHA</STRONG>    ||	 C =C	  |		|    C =C      |   C =C	    |
+     |		    ||	A <STRONG>=</STRONG>A <STRONG>A</STRONG>	  |  undefined	|    Av=Af     |   Av=Af    |
+     <EM>|</EM>______________<EM>||</EM>___<STRONG>_</STRONG>__<STRONG>_</STRONG>_<STRONG>_</STRONG>___<EM>|</EM>_____________<EM>|</EM>_____<STRONG>_</STRONG>__<STRONG>_</STRONG>_____<EM>|</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____|
+     |<STRONG>GL_LUMINANCE</STRONG>  ||	C =L C	  |  undefined	| C =(1-L )C   |   C =L	    |
+     |	    1	    ||	 v  t f	  |		|  v +L	Ct  f  |    v  t    |
+     |		    ||		  |		|      t c     |	    |
+     |		    ||	 A =A	  |		|     A	=A     |   A =A	    |
+     <EM>|</EM>______________<EM>||</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____<EM>|</EM>_____________<EM>|</EM>______<STRONG>_</STRONG>__<STRONG>_</STRONG>____<EM>|</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____|
+     |<STRONG>GL_LUMINANCE</STRONG>  ||	C =L C	  |  undefined	| C =(1-L )C   |   C =L	    |
+     |	 <STRONG>_ALPHA</STRONG>	    ||	 v  t f	  |		|  v  +L <STRONG>C</STRONG>  f  |    v  t    |
+     |	    2	    ||		  |		|	t c    |	    |
+     |		    ||	A =A A	  |		|   A =A A     |   A =A	    |
+     <EM>|</EM>______________<EM>||</EM>___<STRONG>_</STRONG>__<STRONG>_</STRONG>_<STRONG>_</STRONG>___<EM>|</EM>_____________<EM>|</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>_<STRONG>_</STRONG>____<EM>|</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____|
+     |<STRONG>GL_INTENSITY</STRONG>  ||	C =C I	  |  undefined	| C =(1-I )C   |   C =I	    |
+     |		    ||	 v  f t	  |		|  v +I	Ct  f  |    v  t    |
+     |		    ||		  |		|      t c     |	    |
+     |		    ||	A =A I	  |		| A =(1-I )A   |   A =I	    |
+     |		    ||	 v  f t	  |		|  v +I	At  f  |    v  t    |
+     <EM>|</EM>______________<EM>||</EM>____________<EM>|</EM>_____________<EM>|</EM>______<STRONG>_</STRONG>_<STRONG>_</STRONG>_____<EM>|</EM>____________|
+     |	 <STRONG>GL_RGB</STRONG>	    ||	C =C C	  |    C =C	| C =(1-C  C   |   C =C	    |
+     |	    3	    ||	 v  t f	  |	v  t	|  v  +C <STRONG>C</STRONG>) f  |    v  t    |
+     |		    ||		  |		|	t c    |	    |
+     |		    ||	 A =A	  |    A =A	|    A =A      |   A =A	    |
+     <EM>|</EM>______________<EM>||</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____<EM>|</EM>_____<STRONG>_</STRONG>__<STRONG>_</STRONG>____<EM>|</EM>_____<STRONG>_</STRONG>__<STRONG>_</STRONG>_____<EM>|</EM>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____|
+     |	 <STRONG>GL_RGBA</STRONG>    ||	C =C C	  | C =(1-A )C	| C =(1-C  C   |   C =C	    |
+     |	    4	    ||	 v  t f	  |  v +A Ct  f	|  v  +C <STRONG>C</STRONG>) f  |    v  t    |
+     |		    ||		  |	 t t	|	t c    |	    |
+     |		    ||	A =A A	  |    A =A	|   A =A A     |   A =A	    |
+     <EM>|</EM>______________<EM>||</EM>___<STRONG>_</STRONG>__<STRONG>_</STRONG>_<STRONG>_</STRONG>___<EM>|</EM<STRONG>|</STRONG>_____<STRONG>_</STRONG>__<STRONG>_</STRONG>____<EM>|</EM<STRONG>|</STRONG>____<STRONG>_</STRONG>__<STRONG>_</STRONG>_<STRONG>_</STRONG>____<EM>|</EM<STRONG>|</STRONG>____<STRONG>_</STRONG>__<STRONG>_</STRONG>____|
+
+	  If <EM>pname</EM> is <STRONG>GL_TEXTURE_ENV_COLOR</STRONG>, <EM>params</EM> is a	pointer	to an
+	  array	that holds an RGBA color consisting of four values.
+	  Integer color	components are interpreted linearly such that
+	  the most positive integer maps to 1.0, and the most negative
+	  integer maps to -1.0.	 The values are	clamped	to the range
+	  [0,1]	when they are specified.  C  takes these four values.
+					   c
+	  <STRONG>GL_TEXTURE_ENV_MODE</STRONG> defaults to <STRONG>GL_MODULATE</STRONG> and
+	  <STRONG>GL_TEXTURE_ENV_COLOR</STRONG> defaults	to (0, 0, 0, 0).
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>GL_REPLACE</STRONG> may only be used if the GL	version	is 1.1 or
+	  greater.
+
+	  Internal formats other than 1, 2, 3, or 4 may	only be	used
+	  if the GL version is 1.1 or greater.
+
+     <STRONG>ERRORS</STRONG>
+
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated when <EM>target</EM> or <EM>pname</EM> is not one
+	  of the accepted defined values, or when <EM>params</EM> should	have a
+	  defined constant value (based	on the value of	<EM>pname</EM>) and
+	  does not.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglTexEnv</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGetTexEnv</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglCopyPixels</STRONG>, <STRONG>fglCopyTexImage1D</STRONG>, <STRONG>fglCopyTexImage2D</STRONG>,
+	  <STRONG>fglCopyTexSubImage1D</STRONG>,	<STRONG>fglCopyTexSubImage2D</STRONG>, <STRONG>fglTexImage1D</STRONG>,
+	  <STRONG>fglTexImage2D</STRONG>, <STRONG>fglTexParameter</STRONG>, <STRONG>fglTexSubImage1D</STRONG>,
+	  <STRONG>fglTexSubImage2D</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

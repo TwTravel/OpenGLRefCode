@@ -1,0 +1,37 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: 3DSglLoader - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP17.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/3DSglLoader.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\文稿\《OpenGL三维图形系统开发与实用技术》\本书所附源代码光盘\Chapter09\3DSglLoader\3DSglLoaderView.cpp"
+]
+Creating command line "cl.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP17.tmp" 
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP18.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/3DSglLoader.pdb" /debug /machine:I386 /out:"Debug/3DSglLoader.exe" /pdbtype:sept 
+".\Debug\3DSglLoader.obj"
+".\Debug\3DSglLoaderDoc.obj"
+".\Debug\3DSglLoaderView.obj"
+".\Debug\MainFrm.obj"
+".\Debug\StdAfx.obj"
+".\Debug\3DSglLoader.res"
+]
+Creating command line "link.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP18.tmp"
+<h3>Output Window</h3>
+Compiling...
+3DSglLoaderView.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+3DSglLoader.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

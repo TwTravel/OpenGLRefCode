@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_23.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_25.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>SAVESTR 结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+SAVESTR 结构将用于主程序向插件的保存接口函数传递用户对新增下拉列表的选择数据。这个
+结构非常简单，只有一个成员变量，而且它应用的范围也非常小，只会出现在插件的保存接
+口函数的参数表中（最后一个入口参数项）。要理解本结构在插件代码中所起的作用，请参
+看 IRW_SAVE_DESC 结构说明一节中对插件保存机制的说明。
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="30%" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="70%"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>
+para_value[ISD_ITEM_NUM];
+</td>
+<td align="left" bgcolor="#f4f4f4">
+用户对插件所有新增下拉列表的选择值。每一个插件都可以让主程序在保存对话框中新增一个
+或数个保存参数下拉列表，用户在作出选择后，主程序会将每一个列表的选择值（即列表的当前索引值，
+以0为基）存入本变量的对应元素中，也就是将第一个新增下拉列表的当前索引值存入本变量
+的0下标元素中，第二个新增下拉列表的当前索引值存入本变量的1下标元素中，依此类推。插件
+的保存接口函数将根据本变量中各元素的值到插件信息表的 irwp_save 变量中查找对应的实际
+保存参数，然后再将这些实际参数应用到保存操作中。
+</td>
+</tr>
+
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="30%" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="70%"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+</td></tr>
+
+<tr align="center">
+<td align="center">
+<br><br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+当前在本结构中只有一个成员变量，不过在未来根据形式需要，可能会增加一些其它的成员变量。
+<br><br>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 024-20303</font></td>
+<td align="right"><a href="isnew_23.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_25.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

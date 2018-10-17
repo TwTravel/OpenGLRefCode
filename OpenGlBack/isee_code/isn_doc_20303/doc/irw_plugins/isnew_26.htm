@@ -1,0 +1,158 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_25.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href=""><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>IRWP_DESC_INFO 结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+插件描述信息（扩展名信息）。该结构描述了插件支持的图像扩展名的信息。包括图像的缺省
+扩展名和各种扩展名别名。主程序在判断一个插件支持哪些图像格式时，将读取本结构中所有
+扩展名信息，进而主程序就会认为该插件支持本结构中出现的所有图像格式（以扩展名为图像格
+式标志）。所以插件编写人必须将插件（主要是读图像功能）支持的图像后缀名（即扩展名）
+全都写入本结构中，包括缺省扩展名和扩展名别名。这样主程序才能将特定格式的图像发给特
+定的插件来处理。<br>
+<br>
+对于缺省扩展名与扩展名别名则是根据大众对某种图像扩展名的认知程度来区分的，比如BMP图
+像格式，它的缺省扩展名就是 .bmp，扩展名别名就是 .dib。其实这两种扩展名都是指同一种图
+像格式，但 .bmp 使用的较多，所以就将它作为了BMP图像格式的缺省扩展名，而 .dib 则作为了
+扩展名别名。这种划分方法没有统一的标准，插件编写人可自行决定，这不会影响插件的使用效
+果。<br>
+<br>
+下面就是 IRWP_DESC_INFO 结构中所有成员变量的说明：
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">char</font><br>
+idi_currency_name[IDI_CURRENCY_NAME_SIZE];
+</td>
+<td align="left" bgcolor="#f4f4f4">
+缺省（通用）扩展名。本变量将用于存放插件支持的图像格式的缺省扩展名信息。扩展名的长度
+不能超过15（即IDI_CURRENCY_NAME_SIZE-1）个字节，扩展名必须用大写的英文字符表述，而且
+结尾必须是'\0'符。需要注意的是，扩展名字串中不能含有‘.’（即点）字符。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+idi_rev;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+保留，用于字节对齐或未来扩展。其值可设为0。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+idi_synonym_count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+扩展名别名个数（也即衍生扩展名有效项个数）。本变量描述了插件支持的扩展名别名个数。
+如果一个插件没有扩展名别名（比如PSD插件），那么它可以将本变量设为0。本变量也同时
+指出了下面的数组变量 idi_synonym 中前多少个组的数据是有效的。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">char</font><br>
+idi_synonym[IDI_SYNONYM_NAME_COUNT][IDI_CURRENCY_NAME_SIZE];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+扩展名别名数组（也即衍生扩展名数组）。这是一个二维字符型数组变量，共有4（即IDI_SYNONYM_NAME_COUNT）
+个组，每个组16（即IDI_CURRENCY_NAME_SIZE）个字节，也就是说
+本变量最多能存储4个扩展名别名字串，每个扩展名别名字串的长度不能超过15个字节，串结尾必须
+以'\0'符结束，而且字串中不能含有‘.’字符（它的规则与缺省扩展名字串的规则相同）。
+</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+</td></tr>
+
+<tr align="center">
+<td align="center">
+<br><br>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 026-20303</font></td>
+<td align="right"><a href="isnew_25.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href=""><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

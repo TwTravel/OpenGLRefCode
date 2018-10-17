@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_11.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_31.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>ISeeMem系统综述</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<br>
+对于一个经常使用C或C++开发程序的人来说，那些莫名其妙的内存泄漏和内存访问异常历来是令人头
+疼的一个问题。这类问题很不好查，费时、费力、而且非常枯燥。为此，很多软件公司都开发了
+性能各异的内存防护软件，供开发人员排查此类错误。比如由Matt Pietrek主持设计的BoundsChecker
+就是一个很不错的产品。不过这里有个问题，就是一般这类的软件要价都比较狠，个人或者是小公
+司是承担不起的。而且这种软件有时还会出现误报的情况，常常给你一种忙中添乱的感觉。<br>
+<br>
+那么编译器方面是否为我们提供了一些排查此类错误的功能呢，回答是：有。在VC++编译器中，如
+果我们用malloc/free、new/delete在软件的调试版中进行内存操作的话，那么VC++会对这些内存进
+行跟踪，并在程序结束时报告是否发生了内存泄漏或溢出。不过VC++提供的这套内存防护系统的能力
+是很弱的，它只能应付一些简单的内存操作错误，如果程序中内存操作十分频繁的话，这套系统就
+会变得非常脆弱（可以用不堪一击来形容）。<br>
+<br>
+iseeexplorer作为一个图象类软件，内存操作是非常频繁的，无论是图象的解码、转换、显示，还
+是图象处理，几乎都会进行大量的内存操作。这就给BUG的产生提供了一个温床，那么如何发现这些
+错误就成为一个很重要的任务（我们不能等着这些错误在用户那里发生），我们需要一个更彻底
+的、更健壮的内存防护系统。于是，经过一段时间的开发、调试，ISee组完成了一套取名为ISeeMem
+的内存防护系统。该系统采用了私有堆和虚拟内存页管理技术，将用户内存区与系统内存区彻底分离
+，并在用户内存的前后增加了宽范围的防溢出区，而且内存块的跟踪节点与内存块本身分离，使故障
+点的判断更加精确。同时，该系统还会在软件退出时报告内存的使用情况，开发员可以根据这些信息
+改进软件的内存操作。从某种意义上来说，ISeeMem相对于VC++的内存防护机制是前进了一大步（如果
+想更多的了解该系统详细的工作原理，请参见下一章“ISeeMem系统设计原理”）。<br>
+<br>
+ISeeMem当前还处于测试、完善期，暂时不会应用于iseeexplorer，如果你对该系统有任何建议或
+疑问，欢迎来信联系，来信请至：<a href="mailto:isee@vip.163.com">isee@vip.163.com</a> 。YZ
+当前负责该系统的维护工作。<br>
+<br>
+<em>注：ISeeMem源码文件处于源码包中 irw\iseemem 目录下。</em>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 030-20624</font></td>
+<td align="right"><a href="isnew_11.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_31.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+
+</font>
+
+</BODY>
+</HTML>

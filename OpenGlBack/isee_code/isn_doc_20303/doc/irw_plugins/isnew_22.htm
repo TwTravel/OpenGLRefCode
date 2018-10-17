@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_21.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_23.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>IRW_SAVE_PARA_DESC 结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+这一节的内容是介绍 IRW_SAVE_PARA_DESC 结构所有成员变量的含义。这个结构只应用于 IRW_SAVE_DESC
+结构中。它用于存放某个具体的保存参数选择项（即新增下拉列表）的数据。有关这个参数如何运用
+及它的工作原理请参见 IRW_SAVE_DESC 结构说明一节。
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>
+count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+保存参数选择项中内容的条数。本变量描述了在一个新增下拉列表中可选项的总个数。这个数值也
+表明了下面的数组变量 value 和 value_desc 中前多少个数组元素是有效的。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">char</font><br>
+desc[ISPD_STRING_SIZE];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+保存参数选择项的标题串（也即新增下拉列表的标题）。这是一个字符型数组，插件编写人
+可以将保存参数选择项的标题字符写入这个数组。主程序在特定的时候会将这些字符显示在
+保存对话框中新增下拉列表的头部。<br>
+<br>
+标题串的长度（以字节计）不能大于31（即ISPD_STRING_SIZE-1），而且标题串要以'\0'字符
+结尾。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>
+value[ISPD_ITEM_NUM];
+</td>
+<td align="left" bgcolor="#f4f4f4">
+保存参数选择项内容（即新增下拉列表的所有可选内容）的对应数据值。每一个元素对应
+一个下拉列表可选项。本变量中的数据并不会用于主程序显示，它的含义由插件自己负责解释
+。当主程序调用插件的保存接口函数时，插件将从本变量中提取相应数据来解释用户作出的选
+择。<br>
+<br>
+在一个保存参数选择项中最多只允许有16个（即ISPD_ITEM_NUM）可选项，所以本变量也最多
+只能有16个对应值。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">char</font><br>
+value_desc[ISPD_ITEM_NUM][ISPD_STRING_SIZE];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+保存参数选择项的所有可显示内容。这是一个字符型的二维数组，其中存放了保存参数选择项的所有
+可选内容（即新增下拉列表的所有可选内容）。它共分为16（即ISPD_ITEM_NUM）个组，每个组
+由32（即ISPD_STRING_SIZE）个字节组成一个缓冲区，用来存放对应选择项的可显示内容。主程序
+在特定的时候将这些可显示内容逐条的存放在保存对话框的一个新增下拉列表里，供用户选择。<br>
+<br>
+本变量与上面的 value 变量的关系是：本变量中的内容是主程序用来生成新增下拉列表的，而
+ value 变量则是插件代码用来理解用户所作选择的含义的。这两个变量中的元素含义是一一对
+应的。
+<br>
+</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+</td></tr>
+
+<tr align="center">
+<td align="center">
+<br><br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+以上内容中提到的“保存参数选择项”和“新增下拉列表”指的是同一种东西，有关它们的含义
+请参考 IRW_SAVE_DESC 结构说明一节。<br><br>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 022-20303</font></td>
+<td align="right"><a href="isnew_21.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_23.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

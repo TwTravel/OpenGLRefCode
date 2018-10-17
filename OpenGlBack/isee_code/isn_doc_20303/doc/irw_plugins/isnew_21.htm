@@ -1,0 +1,262 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_20.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_22.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>IRWP_INFO 结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+下面的内容将介绍在图像读写插件中占有重要位置的一个结构：IRWP_INFO，这个结构又称为插件
+信息表，用于存储插件内部很多重要的信息。这个结构由插件的内部函数 _init_irwp_info() 负
+责填写，主程序在加载插件时读取结构的内容。下面就是这个结构中每一个成员变量的含义说明：<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+init_tag;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+初始化标签，0－表示未初始化，1－表示已初始化。如果标签值为0，则表示插件还没有调用过
+_init_irwp_info() 内部函数来填写信息表内容，结构中所有其它变量的值都没有意义。如果为
+1则表示结构中的变量值已被正确的填写（初始化），程序可以使用这些值。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+rev0;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+保留，用于字节对齐和未来扩展。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">char</font><br>
+irwp_name[IRWP_NAME_SIZE];
+</td>
+<td align="left" bgcolor="#f4f4f4">
+插件名称。每一个图像读写插件都有一个自己的名称串，主程序有时候会将这个串显示给用户
+（比如安装或卸载插件时），插件编写人必须为自己的插件起一个名字，并将它保存到本变量
+中。名字可以随意起，但必须易于理解，如果你对这个名字不是很在意的话，也可以使用插件
+初始代码自动为你生成的插件名称串（宏MODULE_NAME）。<br>
+<br>
+名称串可以是英文的、汉字的、英汉混合的，也可以夹带数字或符号（包括空格符）。名称串
+的长度不能大于31个字节（宏IRWP_NAME_SIZE-1），名称串应以'\0'结尾。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">char</font><br>
+irwp_func_prefix[IRWP_FUNC_PREFIX_SIZE];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+插件缩词字母。在ISeeExplorer的图像读写插件中，每一个插件都有自己的插件缩词字母，这
+些字母会安插到插件的接口函数名及一些关键变量名的前面。这一特性主要是为了让图像读写
+插件的Linux版中不会出现同名接口函数的现象。<br>
+<br>
+插件缩词字母由小写的英文字符名后跟一个'_'下划线组成。字符名可以取插件支持图像的后缀
+名，也可以是该图像格式的简要描述符。缩词字母的总长度（包括最后的'_'）不应超过 15 个
+字节（宏IRWP_FUNC_PREFIX_SIZE-1），并要以'\0'结尾。<br>
+<br>
+这里举两个插件缩词字母的例子，比如BMP插件的缩词字母就可以取 "bmp_"，JPEG插件的缩词字
+母可以是 "jpeg_" 。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+irwp_version;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+插件版本号。插件版本号由一个十进制整数表示，数值的十位表示主版本号，个位为副版本，
+如整数12，即表示1.2版，整数20即表示2.0版。插件的版本号与插件代码文件的版本号（即源码
+文件首部注释信息中的版本号）和主程序的版本号没有对应关系，它们是相互独立的，也就是说
+插件版本号可以独立升级。<br>
+<br>
+任何新编插件的版本号都应从2.0版开始（即数值20），以便统一起点。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+irwp_build_set;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+插件发布类型，0－调试版插件，1－发布版插件。用VC编译插件代码可以产生两种类型的插件
+发布文件，一种是调试版的（Debug），另一种是发布版的（Release）。在软件的开发阶段，
+我们将只使用调试版插件，这样可以尽可能多的发现插件潜在的问题。<br>
+<br>
+插件可以通过判断代码项目中是否定义了 DEBUG 来确定插件的发布类型。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+irwp_function;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+功能标识，0位是读支持标志，1位是写支持标志，其它位未用。本变量将用于描述一个插件是
+否支持读图像和保存（写）图像的功能（也就是相应接口函数中是否存在有效的功能代码）。
+如果变量的0位（最低位）为1则说明插件支持读图像功能，为0则表示不支持。变量的1位为0则
+说明插件支持保存图像功能，为0则表示不支持。本变量的其它位现在还没有使用。<br>
+<br>
+在编码工作中，插件编写人可以使用“位或”操作符（'|'）来组合宏 IRWP_READ_SUPP 和 
+IRWP_WRITE_SUPP，来正确设定插件拥有的功能。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">IRW_SAVE_DESC</font><br>
+irwp_save;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+保存功能描述。这是一个 IRW_SAVE_DESC 型的结构变量，其中包含了有关插件保存功能需要
+用到的一些数据。详见 IRW_SAVE_DESC 结构说明一节。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+irwp_author_count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+开发者人数，即开发者信息（结构中irwp_author）变量里有效项的个数。每一个插件模块可以
+由一个人单独完成，也可以由多个人合作完成，这些插件编写人的信息都将被存放到结构变量 
+irwp_author 中，irwp_author 变量是一个结构型数组，每一个数组元素存放一个编写人的信息
+，本变量就是描述在 irwp_author 数组中前多少个数组元素的内容是有效的，这个值也就等于
+插件编写人的个数。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">AUTHOR_INFO</font><br>
+irwp_author[IRWP_AUTHOR_SIZE];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+开发者信息。这是一个 AUTHOR_INFO 型的结构变量数组，其中每一个数组元素（也即每一个
+ AUTHOR_INFO 结构）将存放一个插件编写人的信息。详情参见 AUTHOR_INFO 结构说明一节。<br>
+<br>
+对于某个插件而言，最多允许存放16个插件编写人的信息（即IRWP_AUTHOR_SIZE）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">IRWP_DESC_INFO</font><br>
+irwp_desc_info;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+插件描述信息（扩展名信息）。这是一个 IRWP_DESC_INFO 型结构变量，其中描述了插件支持
+的图像扩展名的信息。包括支持图像的缺省扩展名，以及各种扩展名别名。详情参见 IRWP_DESC_INFO
+结构说明一节。<br>
+<br>
+有关缺省扩展名与扩展名别名是根据大众对某种图像扩展名的认知程度来区分的，比如BMP图像
+格式，它的缺省扩展名就是 .bmp，扩展名别名就是 .dib。其实这两种扩展名都是指同一种图像
+格式，但 .bmp 使用的较多，所以就将它作为了BMP图像格式的缺省扩展名，而 .dib 则作为了
+扩展名别名。这种划分方法没有统一的标准，编写人可自行决定，这不会影响插件的使用。
+</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 021-20302</font></td>
+<td align="right"><a href="isnew_20.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_22.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

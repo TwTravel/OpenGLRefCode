@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXCopyContext</STRONG> - copy	state from one rendering context to
+	  another
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXCopyContext</STRONG>( Display *<EM>dpy</EM>,
+			       GLXContext <EM>src</EM>,
+			       GLXContext <EM>dst</EM>,
+			       unsigned	long <EM>mask</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	Specifies the connection to the	X server.
+
+	  <EM>src</EM>	Specifies the source context.
+
+	  <EM>dst</EM>	Specifies the destination context.
+
+	  <EM>mask</EM>	Specifies which	portions of <EM>src</EM>	state are to be	copied
+		to <EM>dst</EM>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXCopyContext</STRONG> copies	selected groups	of state variables
+	  from <EM>src</EM> to <EM>dst</EM>.  <EM>mask</EM> indicates which groups	of state
+	  variables are	to be copied.  <EM>mask</EM> contains the bitwise OR of
+	  the same symbolic names that are passed to the GL command
+	  <STRONG>glPushAttrib</STRONG>.	 The single symbolic constant
+	  <STRONG>GL_ALL_ATTRIB_BITS</STRONG> can be used to copy the maximum possible
+	  portion of rendering state.
+
+	  The copy can be done only if the renderers named by <EM>src</EM> and
+	  <EM>dst</EM> share an address space.  Two rendering contexts share an
+	  address space	if both	are nondirect using the	same server,
+	  or if	both are direct	and owned by a single process.	Note
+	  that in the nondirect	case it	is not necessary for the
+	  calling threads to share an address space, only for their
+	  related rendering contexts to	share an address space.
+
+	  Not all values for GL	state can be copied.  For example,
+	  pixel	pack and unpack	state, render mode state, and select
+	  and feedback state are not copied.  The state	that can be
+	  copied is exactly the	state that is manipulated by the GL
+	  command
+	  <STRONG>glPushAttrib</STRONG>.
+
+	  An implicit <STRONG>glFlush</STRONG> is done by <STRONG>glXCopyContext</STRONG>	if <EM>src</EM> is the
+	  current context for the calling thread.
+
+     <STRONG>NOTES</STRONG>
+	  A <EM>process</EM> is a single	execution environment, implemented in
+	  a single address space, consisting of	one or more threads.
+	  A <EM>thread</EM> is one of a set of subprocesses that	share a	single
+	  address space, but maintain separate program counters, stack
+	  spaces, and other related global data.  A <EM>thread</EM> that	is the
+	  only member of its subprocess	group is equivalent to a
+	  <EM>process</EM>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>BadMatch</STRONG> is generated	if rendering contexts <EM>src</EM> and <EM>dst</EM> do
+	  not share an address space or	were not created with respect
+	  to the same screen.
+
+	  <STRONG>BadAccess</STRONG> is generated if <EM>dst</EM>	is current to any thread
+	  (including the calling thread) at the	time <STRONG>glXCopyContext</STRONG> is
+	  called.
+
+	  <STRONG>GLXBadCurrentWindow</STRONG> is generated if <EM>src</EM> is the current
+	  context and the current drawable is a	window that is no
+	  longer valid.
+
+	  <STRONG>GLXBadContext</STRONG>	is generated if	either <EM>src</EM> or <EM>dst</EM> is not a
+	  valid	GLX context.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glPushAttrib</STRONG>,	<STRONG>glXCreateContext</STRONG>, <STRONG>glXIsDirect</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

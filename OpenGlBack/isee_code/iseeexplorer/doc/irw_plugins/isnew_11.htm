@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_10.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_30.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>ISeeIO系统接口形式及使用说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<br>
+一、<font color="blue"><strong>接口形式</strong></font><br>
+<br>
+ISeeIO的接口模仿的是C 运行态函数库中的流IO，也就是大家所熟悉的fopen、fread等函数
+。之所以模仿这套IO系统，主要是它的可移植性比较好，它在Windows 系列平台及UNIX系列
+平台都有对应的实现。但ISeeIO并没有模仿出所有的流IO接口，它只是实现了一些主要的接
+口函数，不过这对于图像插件的读写要求也就足够了。下面是ISeeIO已实现的接口函数及对
+应的流IO函数：<br>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISeeIO接口函数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对应的流IO函数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---------------------------------------------------------<br>
+<font color="#008022">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_open&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fopen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_close&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fclose<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_read&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fread<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_write&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fwrite<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_flush&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fflush<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_seek&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fseek<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_rewind&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewind<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_tell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftell<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_eof&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;feof<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ferror<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_clearerr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clearerr<br>
+</font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---------------------------------------------------------<br>
+<br>
+<br>
+<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+二、<font color="blue"><strong>使用说明</strong></font><br>
+<br>
+可以说，你只要会使用fopen ，那么你就会使用ISeeIO系统，很简单。下面我通过实例说明
+具体的使用方法。<br>
+<br>
+假如现在你的上司给你一个任务，用C语言作一个BMP图像的读取模块，那么你该怎么做？你
+可能会说“呵呵，很容易！用fopen打开BMP文件，然后用fread将图像数据读入内存就完了！
+”，OK，确实是这样，不过你的上司又来找你了（讨厌的家伙！），他拍了拍你的肩头说：
+“伙计，你可能还要加点东西，因为用户的BMP数据可能会在一个数据库中，你看这该怎么
+办？”，“噢....这个....”，这大概就是你三秒钟之内所发出的所有声音:)<br>
+<br>
+从上面这个例子中可以看出，我们在做图像的读写模块时，不自觉的会认为目标图像是一个
+存放在磁盘中的图像文件，所以我们上来就会用fopen、fread之类的函数。但实际情况可能
+会很复杂，图像数据的来源往往不是独立的磁盘文件，它可能存在于某个大文件中（比如
+DLL文件中的图像资源），也可能在内存中（比如从数据库读出的图像数据），等等。我们
+不可能为每一种数据来源都编写一个对应的读写模块，不然软件的体积将会迅速的膨胀，这
+是我们所不希望看到的。有什么解决之道吗？有，就是使用ISeeIO系统！（啊呦！拜托不要
+再扔西红柿了！:）。<br>
+<br>
+还是通过上面的实例来说明如何使用ISeeIO。假如你做的BMP读取模块的接口是这样：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char * load_bmp(char *file_name);<br>
+<br>
+也就是说由用户提供一个文件名，然后返回一个包含图像数据的内存块地址。你首先要做的
+就是改变接口函数中的文件名参数file_name，因为这个参数的文件意识太强了，我们无法让
+它指向其它的图像数据来源。如何改呢？很简单，你只需将char *file_name改为PISADDR 
+file_name就行了，是很简单吧:)，但为什么这样改呢？因为单纯的char *参数无法将数据来
+源的信息传递给读取模块，而ISADDR结构中就可以包含这些信息，采用PISADDR参数后，图像
+数据的来源信息也将一同被传送到读取模块中。OK，到此，你可能会问，“我如何指定图像
+数据的来源呢？”，这个工作将由ISeeIO提供的辅助函数isio_open_param帮助你完成。方法
+是先定义一个ISADDR结构（该结构定义在iseeio.h文件中），然后调用isio_open_param函数
+，就像下面的形式：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISADDR		isa;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_open_param(&isa, ISEEIO_CONFER_LOC_FILE, "d:\\example.bmp", 0, 0);<br>
+<br>
+isio_open_param函数的第二个参数就是指定图像数据来源的（上例代码中指定的数据来源是
+本地文件，其它来源的标识值可参见iseeio.h文件中枚举类型ISEEIO_CONFER_TYPE的定义），
+第三、四、五参数是一些附加数据，根据数据来源的不同有不同的含义（参见iseeio.c文件中
+函数首部注释信息）。isio_open_param函数调用完毕后，结构isa中就包含了相应的图像数据
+来源信息（isio_open_param这个函数其实就是一个填写结构的函数，它实质并不处理什么数
+据），此时，我们就可以将这个结构发送到读取模块中了，如：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;load_bmp((PISADDR)&isa);<br>
+<br>
+现在，让我们进入load_bmp内部看看ISeeIO该做些什么。在一般的图像读取模块中，大致的
+流程应该是这样：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE	*file;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file = fopen(file_name, "rb");&nbsp;&nbsp;&nbsp;&nbsp;/*打开图像文件*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fread(buf, size, 1, file);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*读出数据*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fclose(file);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*关闭文件*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return buf;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*返回数据*/<br>
+<br>
+第一个函数fopen用于打开用户指定的一个图像文件，但现在的问题是，load_bmp传入的参数
+已不再是char *型的文件路径了，改成了PISADDR，而fopen又处理不了PISADDR型参数，怎么
+办？！呵呵:)，当然是使用ISeeIO中的对应函数isio_open了，这个函数的入口参数与fopen
+的一模一样，可直接替换，如：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fopen(file_name, "rb");<br>
+可改为：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isio_open((char*)pisa, "rb");	/*pisa是经load_bmp传入的PISADDR参数*/<br>
+<br>
+不过还有一个问题，就是isio_open返回的不是一个FILE *型数据，而是ISeeIO特有的ISFILE *
+型数据，所以前面的接受变量也应改为ISFILE *型变量。再接下来就是fread函数，现在我们也
+不能再使用这个函数了，因为我们前面使用的isio_open函数返回的是ISFILE *数据，而不是
+FILE *数据，fread函数是无法处理ISFILE *数据的，所以我们仍需用ISeeIO函数来替代它，这
+个替代函数就是isio_read。它的用法也和fread相似，只不过最后一个参数是ISFILE *数据罢
+了。同理，其它的流IO函数都应改为ISeeIO的对应函数（对应表见ISeeIO接口形式一节）。<br>
+<br>
+这样，读取模块中所有与外部设备打交道的部分都被ISeeIO给分隔开了，从读取模块的角度看，
+图像数据是从哪来的它根本就不知道（也无需知道），用户如果想读取某种设备中的图像数据，
+只需在调用isio_open_param函数时指定一些参数就行了，无需改动已有的读取模块。<br>
+<br><br>
+以上就是ISeeIO系统的大致用法，这套系统现在还处于一个不完善的阶段，其中只实现了本地
+文件、本地内存两种数据来源的代码，其它数据来源的代码还有待开发（感兴趣的朋友可自行
+扩展:）。同时，如果你发现了什么错误或者有什么新奇的想法，欢迎来信交流！<br><br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 011-20620</font></td>
+<td align="right"><a href="isnew_10.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_30.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

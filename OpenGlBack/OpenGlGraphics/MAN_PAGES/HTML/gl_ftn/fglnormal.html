@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglNormal3b,</STRONG> <STRONG>fglNormal3d,</STRONG> <STRONG>fglNormal3f,</STRONG> <STRONG>fglNormal3i,</STRONG>
+	  <STRONG>fglNormal3s,</STRONG> <STRONG>fglNormal3bv,</STRONG> <STRONG>fglNormal3dv,</STRONG> <STRONG>fglNormal3fv,</STRONG>
+	  <STRONG>fglNormal3iv,</STRONG>	<STRONG>fglNormal3sv</STRONG> - set the current normal vector
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglNormal3b</STRONG>( INTEGER*1 <EM>nx</EM>,
+				  INTEGER*1 <EM>ny</EM>,
+				  INTEGER*1 <EM>nz</EM> )
+	  SUBROUTINE <STRONG>fglNormal3d</STRONG>( REAL*8 <EM>nx</EM>,
+				  REAL*8 <EM>ny</EM>,
+				  REAL*8 <EM>nz</EM> )
+	  SUBROUTINE <STRONG>fglNormal3f</STRONG>( REAL*4 <EM>nx</EM>,
+				  REAL*4 <EM>ny</EM>,
+				  REAL*4 <EM>nz</EM> )
+	  SUBROUTINE <STRONG>fglNormal3i</STRONG>( INTEGER*4 <EM>nx</EM>,
+				  INTEGER*4 <EM>ny</EM>,
+				  INTEGER*4 <EM>nz</EM> )
+	  SUBROUTINE <STRONG>fglNormal3s</STRONG>( INTEGER*2 <EM>nx</EM>,
+				  INTEGER*2 <EM>ny</EM>,
+				  INTEGER*2 <EM>nz</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>nx</EM>, <EM>ny</EM>, <EM>nz</EM>
+		    Specify the	x, y, and z coordinates	of the new
+		    current normal.  The initial value of the current
+		    normal is the unit vector, (0, 0, 1).
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglNormal3bv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglNormal3dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglNormal3fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglNormal3iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglNormal3sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>v</EM>    Specifies a pointer to an array of three	elements:  the
+	       x, y, and z coordinates of the new current normal.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  The current normal is	set to the given coordinates whenever
+	  <STRONG>fglNormal</STRONG> is issued.	Byte, short, or	integer	arguments are
+	  converted to floating-point format with a linear mapping
+	  that maps the	most positive representable integer value to
+	  1.0, and the most negative representable integer value to
+	  -1.0.
+
+	  Normals specified with <STRONG>fglNormal</STRONG> need	not have unit length.
+	  If normalization is enabled, then normals specified with
+	  <STRONG>fglNormal</STRONG> are	normalized after transformation.  To enable
+	  and disable normalization, call <STRONG>fglEnable</STRONG> and	<STRONG>fglDisable</STRONG>
+	  with the argument <STRONG>GL_NORMALIZE</STRONG>.  Normalization is initially
+	  disabled.
+
+     <STRONG>NOTES</STRONG>
+	  The current normal can be updated at any time.  In
+	  particular, <STRONG>fglNormal</STRONG>	can be called between a	call to
+	  <STRONG>fglBegin</STRONG> and the corresponding call to <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_CURRENT_NORMAL</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> with argument <STRONG>GL_NORMALIZE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglBegin</STRONG>, <STRONG>fglColor</STRONG>, <STRONG>fglIndex</STRONG>,	<STRONG>fglNormalPointer</STRONG>, <STRONG>fglTexCoord</STRONG>,
+	  <STRONG>fglVertex</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

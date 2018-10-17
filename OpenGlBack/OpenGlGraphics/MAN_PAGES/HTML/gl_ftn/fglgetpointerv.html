@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglGetPointerv</STRONG> - return the address of the specified pointer
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglGetPointerv</STRONG>( INTEGER*4 <EM>pname</EM>,
+				     CHARACTER*8 *<EM>params</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>pname</EM>	  Specifies the	array or buffer	pointer	to be
+		  returned.  Symbolic constants
+		  <STRONG>GL_COLOR_ARRAY_POINTER</STRONG>, <STRONG>GL_EDGE_FLAG_ARRAY_POINTER</STRONG>,
+		  <STRONG>GL_FEEDBACK_BUFFER_POINTER</STRONG>, <STRONG>GL_INDEX_ARRAY_POINTER</STRONG>,
+		  <STRONG>GL_NORMAL_ARRAY_POINTER</STRONG>,
+		  <STRONG>GL_TEXTURE_COORD_ARRAY_POINTER</STRONG>,
+		  <STRONG>GL_SELECTION_BUFFER_POINTER</STRONG>, and
+		  <STRONG>GL_VERTEX_ARRAY_POINTER</STRONG> are accepted.
+
+	  <EM>params</EM>  Returns the pointer value specified by <EM>pname</EM>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglGetPointerv</STRONG> returns pointer information. <EM>pname</EM> is a
+	  symbolic constant indicating the pointer to be returned, and
+	  <EM>params</EM> is a pointer to a location in which to	place the
+	  returned data.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglGetPointerv</STRONG> is available only if the GL version is	1.1 or
+	  greater.
+
+	  The pointers are all client-side state.
+
+	  The initial value for	each pointer is	0.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>pname</EM>	is not an accepted
+	  value.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglEdgeFlagPointer</STRONG>, <STRONG>fglFeedbackBuffer</STRONG>, <STRONG>fglIndexPointer</STRONG>,
+	  <STRONG>fglInterleavedArrays</STRONG>,	<STRONG>fglNormalPointer</STRONG>, <STRONG>fglSelectBuffer</STRONG>,
+	  <STRONG>fglTexCoordPointer</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: RTime - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "c:\windows\TEMP\RSP7155.TMP" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/RTime.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Book\Samples\Chapt19\RTime\RTime.c"
+]
+Creating command line "cl.exe @c:\windows\TEMP\RSP7155.TMP" 
+Creating temporary file "c:\windows\TEMP\RSP7156.TMP" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/RTime.pdb" /machine:I386 /out:"Release/RTime.exe" 
+.\Release\RTime.obj
+.\Release\Resource.res
+]
+Creating command line "link.exe @c:\windows\TEMP\RSP7156.TMP"
+<h3>Output Window</h3>
+Compiling...
+RTime.c
+C:\Book\Samples\Chapt19\RTime\RTime.c(420) : warning C4244: '=' : conversion from 'double ' to 'float ', possible loss of data
+Linking...
+
+
+
+<h3>Results</h3>
+RTime.exe - 0 error(s), 1 warning(s)
+</pre>
+</body>
+</html>

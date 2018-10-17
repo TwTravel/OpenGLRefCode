@@ -1,0 +1,2 @@
+export MESA_GLX_FX=fullscreen
+LD_LIBRARY_PATH=/root/Mesa-3.0/lib:/usr/local/glide/lib 

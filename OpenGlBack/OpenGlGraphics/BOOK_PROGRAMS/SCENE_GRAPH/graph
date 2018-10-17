@@ -1,0 +1,509 @@
+A Simple Scene Graph
+
+Although there are a few standard scene graph APIs available,
+including VRML and JAVA 3D, none have yet become dominant.
+Rather than discuss one of these, we shall opt instead to
+contruct our own simple scene graph API. 
+It will include the basics shared by more complex scene graph 
+APIs and will be easy to extend. First, we start with
+the public interface that a user can use to define a
+scene graph and display it. Then we consider a possible
+implementation using the left-child 
+right-sibling data structure of section~8.6. 
+
+Our design will employ two bases classes: a node class that
+we will use to contruct all our objects including geometric
+objects, camera objects, material objects, and light source
+objects. These nodes will form a tree that is our scene
+graph.  We shall also need a simple mechanism that will
+allow us to view the scene graph with OpenGL. We use another
+simple class for this operation: the GLViewer class.
+
+\subsection{The Node Class}
+
+Our fundamental node has the public interface:
+
+//Node.h 
+
+class Node
+{
+ public:
+  Node();
+  virtual ~Node();
+  virtual void Render();
+  void AddChild(Node *);
+
+  friend class GLViewer;
+};
+
+We have both a constructor and destructor for creating and deleting
+nodes, which will enable us to work with dynamic graphs. We can
+define a hiearchy by having a single method for adding
+a child to a node. However, as we shall see when we
+discuss implementation, the order in which we add children
+will affect the display of the scene graph.
+
+As we will have many types of nodes (geometry, camera,
+materials, lights) each node must have its own render 
+method which will execute when the node is encountered
+as part of the traversal process. 
+
+We can invoke the rendering
+process from the viewer. The viewer will also let take care
+of the standard OpenGL interfac with the window system by using 
+GLUT. Here is the public part of the viewer
+
+class GLViewer
+{
+ public:
+  GLViewer();
+  ~GLViewer();
+
+  void CreateWin(char *Name, int Width, int Height);
+
+  //set buffer, backcolor
+  void SetValue(Enum PName, Enum Type);
+  void Init(int argc, char **argv);
+  void Show(Node *N);
+
+};
+
+We will be able to have multiple viewers so that we can, for
+example, display two different views using two different cameras
+in two OpenGL windows. We could also use different OpenGL windows
+to view different parts of the same scene graph by passing
+in different nodes to the Show method.
+
+Both the viewer and node classes will have many parameters 
+that are used to specify attributes, such as color, line style and material
+properties, and rendering options, such double buffering and
+hidden-surface removal. We take an approach similar to 
+OpenGL and GLUT by specifiying symbolic constants as an enumerated
+type:
+
+enum Enum
+{
+  PERSPECTIVE, ORTHO, POSITION, AIMAT, UPDIRECTION, ASPECT, 
+  NEAR, FAR, YANGLE, BLACK, WHITE, RED, GREEN, YELLOW, BLUE, 
+  MAGENTA, CYAN, GREY, WIDTH, HEIGHT,DEPTH,
+  AMBIENT, DIFFUSE, SPECULAR, SPOT_DIRECTION, DROPOFFRATE, 
+  CUTOFFANGLE, EMISSION, SHININESS, TRANSLATION, ROTATION, SCALE, 
+  BUFFER, SINGLE, DOUBLE, RADIUS, STYLE, POINTSIZE, LINEWIDTH, 
+  FILLED, LINE, POINT, BACKCOLOR
+};
+
+\subsection{The Nodes}
+
+We have five major subclasses of our Node: geometry nodes,
+light nodes, camera nodes, attribute nodes, and transformation
+nodes. From the OpenGL perspective, there are two types of
+operations: those that generate primitives and those that
+change state. However, from the perspective of a scene
+graph both types of functionality are allowed within a
+node.
+
+\subsubsection{Geometry Nodes}
+
+Our scene graph allows for the basic types of line and 
+polygons, and the more complex objects, including 
+cubes, cylinders, triangles, and spheres. Geometry nodes
+have many properties in common, including color attributes, 
+material properties, and instance matrices that can
+be applied to them. These properties can be set by a user
+program and we have included set methods for them in 
+a separate class
+
+//Geometry.h
+
+class Geometry: public Node
+{
+ public:
+  Geometry();
+  ~Geometry();
+
+  void SetColor(Enum);
+  void SetColor(float, float, float);
+  void SetColorv(float *);
+  void SetColor(Color *);
+  void SetMaterial(Enum, float, float, float, float);
+  void SetMaterialv(Enum, float *);
+  void SetMaterial(Enum, float);
+  void SetMaterial(Material *);
+  void SetTransform(Enum, float *, int);
+  void SetTransform(Enum, float, float, float, int);
+  void SetTransform(Enum, float, float, float, float, int);
+  void SetTransform(Transformation *);
+  void SetStyle(Enum, Enum);
+  void SetStyle(Enum, float);
+  void SetStyle(DrawStyle *);
+  virtual void Render();
+
+}
+
+Now we can look at some the geometry nodes. The
+simplest is a line segment which allows us to set
+the end points either directly or by a pointer to
+an array of two vertices. Note that in our simple
+system, we have included only three-dimensional
+vertices. It is a simple exercise to add two-dimensional
+vertices. Also, note that we could use a single
+function \mono{SetVertices} for all  cases as C++
+permits overloading of functions.
+
+//Line.h
+
+class Line: public Geometry
+{
+ public:
+  Line(){};
+  void SetVertices(float *, float *);
+  void SetVerticesv(float v[][3]);
+  void Render();
+
+};
+
+
+//Sphere.h
+
+class Sphere: public Geometry
+{
+ public:
+  Sphere(){};
+  Sphere(float R);
+  void SetValue(Enum Pname, float v);
+  void Render();
+
+};
+
+\subsection{An Example}
+
+Before discussing the implementation, let's consider a
+simple example, the robot figure again
+
+
+//Scene.cc
+
+#include "Scene.h"
+
+#define BaseRadius 0.2
+#define Radius 0.08
+#define BaseLen 1
+#define UpLen 0.6
+#define LowLen 0.6
+#define EyeRadius 0.04
+#define ChairLegLen 0.55
+
+int
+main(int argc, char **argv)
+{
+
+  float v[][3]={{-0.3,-0.2,0.0},{0.3, -0.2, 0.0},
+		{0.3, 0.2, 0.0},{-0.3, 0.2, 0.0} };
+
+  //Light nodes
+  Light *Light1=new Light;
+  Light *Light2=new Light;
+  TurnOff *Off1=new TurnOff(Light1);
+  TurnOff *Off2=new TurnOff(Light2);
+
+  //Setting Light Values :
+  Light1->SetValue(POSITION, -2, -3, 1.5, 1);
+  Light1->SetValue(SPOT_DIRECTION, 2, 3, -1.5);
+  Light1->SetValue(CUTOFFANGLE, 40.0);
+  Light1->TurnOn();
+
+  Light2->SetValue(POSITION, 5, 5, 5, 0);
+  Light2->SetValue(SPECULAR, 1.0, 1.0, 1.0, 1.0);
+  Light2->SetValue(DIFFUSE, 1.0, 1.0, 1.0, 1.0);
+  Light2->TurnOn();
+
+
+  //Nodes for Camera:
+  Camera *Camera1=new Camera(PERSPECTIVE);
+
+  Camera1->SetValue(POSITION, 2.2, 0.9, 3);
+  Camera1->SetValue(AIMAT, 0, 0, 0);
+  Camera1->SetValue(UPDIRECTION, 0, 1, 0);
+  Camera1->SetValue(ASPECT, 1);
+  Camera1->SetValue(NEAR, 1);
+  Camera1->SetValue(FAR, 20);
+  Camera1->SetValue(YANGLE, 50);
+  
+  //Nodes for Robot:
+  Material *RobotMat=new Material;
+  Material *EyeMat=new Material;
+
+  Cylinder *Base=new Cylinder;
+  Sphere *Head=new Sphere;
+  Sphere *EyeL=new Sphere;
+  Sphere *EyeR=new Sphere;
+  Cylinder *UpperArmL=new Cylinder;
+  Cylinder *UpperArmR=new Cylinder;
+  Cylinder *LowerArmL=new Cylinder;
+  Cylinder *LowerArmR=new Cylinder;
+  Cylinder *UpperLegL=new Cylinder;
+  Cylinder *UpperLegR=new Cylinder;
+  Cylinder *LowerLegL=new Cylinder;
+  Cylinder *LowerLegR=new Cylinder;
+  Polygon *Paper=new Polygon;
+
+  Transformation *EyeLTrans=new Transformation;
+  Transformation *EyeRTrans=new Transformation;
+  Transformation *HeadTrans=new Transformation;
+  Transformation *UpArmLTrans=new Transformation;
+  Transformation *UpArmRTrans=new Transformation;
+  Transformation *LowArmTrans=new Transformation;
+  Transformation *UpLegLTrans=new Transformation;
+  Transformation *UpLegRTrans=new Transformation;
+  Transformation *LowLegTrans=new Transformation;
+  Transformation *BaseTrans=new Transformation;
+
+  //Robot Value:
+  RobotMat->SetValue(DIFFUSE, 0.0, 0.0, 1.0, 1.0);
+  RobotMat->SetValue(AMBIENT, 0.0, 0.0, 1.0, 1.0);
+  RobotMat->SetValue(SPECULAR, 1.0, 1.0, 1.0, 1.0);
+  RobotMat->SetValue(SHININESS, 100.0);
+
+  EyeMat->SetValue(DIFFUSE, 1.0, 1.0, 1.0, 1.0);
+  EyeMat->SetValue(AMBIENT, 1.0, 1.0, 1.0, 1.0);
+  EyeMat->SetValue(SPECULAR, 1.0, 1.0, 1.0, 1.0);
+  EyeMat->SetValue(SHININESS, 100.0);
+
+  Base->SetValue(HEIGHT, BaseLen);
+  Base->SetValue(RADIUS, BaseRadius);
+  Head->SetValue(RADIUS, BaseRadius);
+  EyeL->SetValue(RADIUS, EyeRadius);
+  EyeR->SetValue(RADIUS, EyeRadius);
+  UpperArmL->SetValue(HEIGHT, UpLen);
+  UpperArmL->SetValue(RADIUS, Radius);
+  LowerArmL->SetValue(HEIGHT, LowLen);
+  LowerArmL->SetValue(RADIUS, Radius);
+  UpperArmR->SetValue(HEIGHT, UpLen);
+  UpperArmR->SetValue(RADIUS, Radius);
+  LowerArmR->SetValue(HEIGHT, LowLen);
+  LowerArmR->SetValue(RADIUS, Radius);
+  UpperLegL->SetValue(HEIGHT, UpLen);
+  UpperLegL->SetValue(RADIUS, Radius);
+  LowerLegL->SetValue(HEIGHT, LowLen);
+  LowerLegL->SetValue(RADIUS, Radius);
+  UpperLegR->SetValue(HEIGHT, UpLen);
+  UpperLegR->SetValue(RADIUS, Radius);
+  LowerLegR->SetValue(HEIGHT, LowLen);
+  LowerLegR->SetValue(RADIUS, Radius);
+
+  Paper->SetVerticesv(v, 4);
+  Paper->SetMaterial(EyeMat);
+
+  EyeLTrans->SetValue(TRANSLATION, BaseRadius-EyeRadius/2, 0, 0, 0);
+  EyeLTrans->SetValue(ROTATION, 30, 0, 0, 1, 1);
+  EyeRTrans->SetValue(TRANSLATION, BaseRadius-EyeRadius/2, 0, 0, 0);
+  EyeRTrans->SetValue(ROTATION, -30, 0, 0, 1, 1);
+  HeadTrans->SetValue(TRANSLATION, 0, 0, BaseLen+BaseRadius+BaseRadius/3, 0);
+  UpArmLTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  UpArmLTrans->SetValue(ROTATION, -45, 0, 1, 0, 1);
+  UpArmLTrans->SetValue(TRANSLATION, 0, BaseRadius+Radius, BaseLen, 2);
+  UpArmRTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  UpArmRTrans->SetValue(ROTATION, -45, 0, 1, 0, 1);
+  UpArmRTrans->SetValue(TRANSLATION, 0, -(BaseRadius+Radius), BaseLen, 2);
+  LowArmTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  LowArmTrans->SetValue(ROTATION, -45, 0, 1, 0, 1);
+  UpLegLTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  UpLegLTrans->SetValue(ROTATION, -90, 0, 1, 0, 1);
+  UpLegLTrans->SetValue(TRANSLATION, 0, BaseRadius+Radius, 0, 2);
+  UpLegRTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  UpLegRTrans->SetValue(ROTATION, -100, 0, 1, 0, 1);
+  UpLegRTrans->SetValue(TRANSLATION, 0, -(BaseRadius+Radius), 0, 2);
+  LowLegTrans->SetValue(TRANSLATION, 0, 0, -UpLen, 0);
+  LowLegTrans->SetValue(ROTATION, 95, 0, 1, 0, 1);
+  BaseTrans->SetValue(ROTATION, -90, 1, 0, 0, 0);
+  BaseTrans->SetValue(ROTATION, -10, 0, 0, 1, 1);
+
+  Head->SetTransform(HeadTrans);
+  EyeL->SetTransform(EyeLTrans);
+  EyeR->SetTransform(EyeRTrans);
+  EyeR->SetMaterial(EyeMat);
+  EyeL->SetMaterial(EyeMat);
+  UpperArmL->SetTransform(UpArmLTrans);
+  LowerArmL->SetTransform(LowArmTrans);
+  UpperArmR->SetTransform(UpArmRTrans);
+  LowerArmR->SetTransform(LowArmTrans);
+  UpperLegL->SetTransform(UpLegLTrans);
+  LowerLegL->SetTransform(LowLegTrans);
+  UpperLegR->SetTransform(UpLegRTrans);
+  LowerLegR->SetTransform(LowLegTrans);
+  Base->SetTransform(BaseTrans);
+
+  Paper->SetTransform(ROTATION, 20, 0, 1, 0, 0);
+  Paper->SetTransform(TRANSLATION, 0.05, -0.15, -0.2, 1);
+
+  //Set Relationship in Robot:
+  RobotMat->AddChild(Light1);
+  Light1->AddChild(Base);
+
+  Base->AddChild(Off1);
+  Off1->AddChild(Light2);
+  Light2->AddChild(Head);
+  Head->AddChild(Off2);
+  Head->AddChild(EyeL);
+  Head->AddChild(EyeR);
+
+  Base->AddChild(UpperArmL);
+  UpperArmL->AddChild(LowerArmL);
+  Base->AddChild(UpperArmR);
+  UpperArmR->AddChild(LowerArmR);
+  Base->AddChild(UpperLegL);
+  UpperLegL->AddChild(LowerLegL);
+  Base->AddChild(UpperLegR);
+  UpperLegR->AddChild(LowerLegR);
+  LowerArmR->AddChild(Paper);
+
+  //Nodes for Chair:
+  Cube *Seat=new Cube(0.7, 0.06, 0.7);
+  Line *Leg1=new Line;
+  Line *Leg2=new Line;
+  Line *Leg3=new Line;
+  Line *Leg4=new Line;
+  DrawStyle *LegStyle=new DrawStyle;
+  Color *ChairColor=new Color;
+  
+  //Chair Value:
+  float v1[][3]={{-0.3, 0, 0.3},{-0.35, -1*ChairLegLen, 0.3}};
+  float v2[][3]={{0.3, 0, 0.3},{0.35, -1*ChairLegLen, 0.3}};
+  float v3[][3]={{0.3, 0, -0.3},{0.35, -1*ChairLegLen, -0.3}};
+  float v4[][3]={{-0.3, 0, -0.3},{-0.35, -1*ChairLegLen, -0.3}};
+
+  ChairColor->SetValue(RED);
+  Seat->SetTransform(TRANSLATION, 0, -0.15, 0, 0);
+  LegStyle->SetValue(LINEWIDTH, 7);
+  Leg1->SetStyle(LegStyle);
+  Leg1->SetVerticesv(v1);
+  Leg2->SetStyle(LegStyle);
+  Leg2->SetVerticesv(v2);
+  Leg3->SetStyle(LegStyle);
+  Leg3->SetVerticesv(v3);
+  Leg4->SetStyle(LegStyle);
+  Leg4->SetVerticesv(v4);
+  Seat->AddChild(Leg1);
+  Seat->AddChild(Leg2);
+  Seat->AddChild(Leg3);
+  Seat->AddChild(Leg4);
+  ChairColor->AddChild(Seat);
+
+  //Transformation Nodes for both Robot and Chair:
+  Transformation *Trans1=new Transformation;
+ 
+  Trans1->SetValue(TRANSLATION, -0.5, 0, 0, 2);
+
+  Trans1->AddChild(ChairColor);
+  Trans1->AddChild(RobotMat);
+
+  //Root Node:
+  Node *Root=new Node;
+
+  Root->AddChild(Trans1);
+  Root->AddChild(Camera1);
+  
+  //Viewer:
+  GLViewer *MyViewer=new GLViewer;
+
+  MyViewer->Init(argc, argv);
+  MyViewer->SetValue(BACKCOLOR, GREY);
+  MyViewer->SetValue(BUFFER, DOUBLE);
+  MyViewer->CreateWin("Working Hard", 500, 500);
+
+  GLViewer *MyViewer2=new GLViewer;
+  
+  MyViewer2->Init(argc, argv);
+  MyViewer2->SetValue(BACKCOLOR, MAGENTA);
+  MyViewer2->CreateWin("Working Hard2", 200, 200);
+  MyViewer2->SetValue(BUFFER, DOUBLE);
+
+  MyViewer->Show(Root);
+  MyViewer2->Show(Root);
+  return 0;
+}
+
+
+\subsection{Implementing a Node}
+
+Within the private part of the node is its 
+implementation as a left-sibling right-child
+tree. We have also included a traversal 
+method which is similar to the one
+we used for our robot but could be some
+other standard traversal
+
+There is a protected member, \mono{KeepMatrix}
+which can be used to push the present modelview
+or projection matrix on the stack. This boolean variable
+enables us to choose whether or not to pass the present
+matrix state onto a child and avoids the need for
+a separator node. Here is a basic traversal
+
+void Node::Traverse()
+{
+  if(!KeepMatrix)
+    glPushMatrix();
+ 
+  Render();
+  if(LeftChild!=NULL)
+    LeftChild->Traverse();
+  if(!KeepMatrix)
+    glPopMatrix();
+  if(RightSibling!=NULL)
+    RightSibling->Traverse();
+}
+
+Note that the use of the left-sibling right-child structure
+implies that children and siblings will be encountered in
+a predetermined order as the tree is traversed. 
+
+
+
+We can open a new window through the \mono{Create Window}
+method and start the rendering of the scene by passing
+a node to the \mono{Show}method.
+
+void
+GLViewer::Show(Node *N)
+{
+  GLInit();
+  Root[ViewerIndex]=N;
+  if(ViewerIndex==(ViewerNum-1))
+    glutMainLoop();
+}
+
+
+void
+GLViewer::Display0()
+{
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  Root[0]->Traverse();
+  if(BufType[0]==GLUT_DOUBLE)
+    glutSwapBuffers();
+  glFlush();
+}
+
+
+void
+GLViewer::Display1()
+{
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  Root[1]->Traverse();
+  if(BufType[1]==GLUT_DOUBLE)
+    glutSwapBuffers();
+  glFlush();
+}
+
+
+void
+GLViewer::Display2()
+{
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  Root[2]->Traverse();
+  if(BufType[2]==GLUT_DOUBLE)
+    glutSwapBuffers();
+  glFlush();
+}
+
+

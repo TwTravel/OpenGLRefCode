@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXQueryServerString</STRONG> - return	string describing the server
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  const	char * <STRONG>glXQueryServerString</STRONG>( Display *<EM>dpy</EM>,
+					     int <EM>screen</EM>,
+					     int <EM>name</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	  Specifies the	connection to the X server.
+
+	  <EM>screen</EM>  Specifies the	screen number.
+
+	  <EM>name</EM>	  Specifies which string is returned. One of
+		  <STRONG>GLX_VENDOR</STRONG>, <STRONG>GLX_VERSION</STRONG>, or <STRONG>GLX_EXTENSIONS</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXQueryServerString</STRONG> returns a pointer to a static, null-
+	  terminated string describing some aspect of the server's GLX
+	  extension. The possible values for <EM>name</EM> and the format of
+	  the strings is the same as for <STRONG>glXGetClientString</STRONG>. If	<EM>name</EM>
+	  is not set to	a recognized value, <STRONG>NULL</STRONG> is returned.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>glXQueryServerString</STRONG> is available only if the	GLX version is
+	  1.1 or greater.
+
+	  If the GLX version is	1.1 or 1.0, the	GL version must	be
+	  1.0.	If the GLX version is 1.2, the GL version must be 1.1.
+
+	  <STRONG>glXQueryServerString</STRONG> only returns information	about GLX
+	  extensions supported by the server.  Call <STRONG>glGetString</STRONG>	to get
+	  a list of GL extensions.  Call <STRONG>glXGetClientString</STRONG> to get a
+	  list of GLX extensions supported by the client.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXQueryVersion</STRONG>, <STRONG>glXGetClientString</STRONG>,
+	  <STRONG>glXQueryExtensionsString</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglIsTexture</STRONG> - determine if a	name corresponds to a texture
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  LOGICAL*1 <STRONG>fglIsTexture</STRONG>( INTEGER*4 <EM>texture</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>texture</EM>  Specifies a value that may be the name of a
+		   texture.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglIsTexture</STRONG> returns <STRONG>GL_TRUE</STRONG> if <EM>texture</EM> is currently the
+	  name of a texture.  If <EM>texture</EM> is zero, or is	a non-zero
+	  value	that is	not currently the name of a texture, or	if an
+	  error	occurs,	<STRONG>fglIsTexture</STRONG> returns <STRONG>GL_FALSE</STRONG>.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglIsTexture</STRONG> is available only if the	GL version is 1.1 or
+	  greater.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglIsTexture</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglBindTexture</STRONG>, <STRONG>fglCopyTexImage1D</STRONG>, <STRONG>fglCopyTexImage2D</STRONG>,
+	  <STRONG>fglDeleteTextures</STRONG>, <STRONG>fglGenTextures</STRONG>, <STRONG>fglGet</STRONG>,
+	  <STRONG>fglGetTexParameter</STRONG>, <STRONG>fglTexImage1D</STRONG>, <STRONG>fglTexImage2D</STRONG>,
+	  <STRONG>fglTexParameter</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

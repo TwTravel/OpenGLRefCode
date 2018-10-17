@@ -1,0 +1,247 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_18.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>插件编制方法</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+本节将详细描述图像读写插件各个接口函数的编制方法及一些注意事项，以及一个在图像
+读写插件中也占有重要位置的内部函数 _init_irwp_info() 的编写方法。
+<br>
+<br><br><br><br>
+<strong>1、_init_irwp_info() 内部函数</strong><br>
+<br>
+在插件初始代码中有一个重要的内部函数我们在上一节中没有介绍，它就是 _init_irwp_info() 
+。插件的DLL入口函数将通过调用它来填写插件信息表（即插件变量 xxx_irwp_info），如果这个
+函数没有正确填写插件信息表中的各种数据，那么主程序就会根据这些错误的信息而作出一系列
+错误的动作，后果是严重的。<br>
+<br>
+下面将讲述如何让 _init_irwp_info() 函数正确的填写插件信息表中的各种数据。有关
+插件信息表的成员含义请参见“插件用结构说明”一节中对结构 IRWP_INFO 的解释（此结构定义
+于iseeirw.h文件中）。<br>
+<br>
+&nbsp;&nbsp;<em>(1)、irwp_version － 设置插件版本号</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;插件信息表中有一个存放版本号的变量，主程序有时需要这个版本号来确定插件的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接口形式或插件功能。当前图像读写插件的版本号为2.0（宏MODULE_BUILDID的值）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，并且不能随意修改（改进代码只能修改代码文件的版本号，而不能修改插件的版<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本号），所以插件编写人可以直接将MODULE_BUILDID赋值给 irwp_version 变量，<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而无需做其它改动。<br>
+<br>
+&nbsp;&nbsp;<em>(2)、irwp_name － 设置插件名称</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个图像读写插件都有一个用户可以辨别的名称，主程序在安装或卸载一个插件时<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;会向用户显示这个插件名称。插件编写人可以自己为这个插件起一个名字，也可以<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用插件初始代码自动生成的插件名称（即宏定义MODULE_NAME）。irwp_name 变量<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最多可以容纳31个字符（字节）的名称串。<br>
+<br>
+&nbsp;&nbsp;<em>(3)、irwp_func_prefix － 设置插件缩词字母</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;插件缩词字母也称为插件函数前缀，主程序在访问一个插件的接口函数之前将使用<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用插件缩词字母与标准插件接口函数名进行拼接，进而得到这个插件的真实接口函<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数名。在一般情况下，插件编写人可以采用插件初始代码自动生成的插件缩词字母<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（即宏定义MODULE_FUNC_PREFIX）。<br>
+<br>
+&nbsp;&nbsp;<em>(4)、irwp_build_set － 设置插件执行体（DLL）的发布类型</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用VC编译程序可以生成两种版本的执行文件，一种是调试版的（Debug），另一种是<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布版的（Release），本变量将通过数值0或1来表示插件的发布类型。主程序有<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时需要这个信息来通知用户某个插件的发布类型。插件编写人可以直接使用插件初<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;始代码，无需改动。<br>
+<br>
+&nbsp;&nbsp;<em>(5)、irwp_function － 设置插件功能描述变量</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该变量将用于描述插件是否拥有读图像和保存图像的功能。它的0位标识读图像功能<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，1位标识保存图像功能（写图像）。如果插件将相应的位置1则说明插件支持对应的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;功能，如果置0则说明不支持。宏定义IRWP_READ_SUPP和IRWP_WRITE_SUPP可用于设置<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;功能描述。<br>
+<br>
+&nbsp;&nbsp;<em>(6)、irwp_save － 设置插件保存功能参数</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个结构（struct），里面包含了四个变量：bitcount－设定插件保存接口函数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持的图像位深度，该插件支持哪些位深度图像的保存就在该变量相应位数减1的位置<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上置1。img_num－设定插件保存接口函数支持的图像页数。一般都是一页图像对应一<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个图像文件（比如BMP、PCX等格式），但也有一些图像格式允许一个图像文件包含多<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页图像（如GIF等），如果插件允许保存多页图像，可将该变量设为2，如果只能保存<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1页图像就必须将变量设为1。count－设定保存描述项的有效个数（也就是下面para[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中有效项的个数）。para－保存功能描述，用户将使用该变量中的内容对保存参数作<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些选择。有关count和para变量的使用方法及含义请参见插件用结构说明一节中相关<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内容。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果插件不支持保存功能，那么可简单的将bitcount、img_num、count这三个变量设<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为0。而且，如果插件的保存功能并不需要用户作出什么选择，那么插件可将count<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量设为0，然后简单的设置一下bitcount和img_num变量即可。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有关irwp_save变量的使用可参考BMP、JPEG插件中相关的代码。<br>
+<br>
+&nbsp;&nbsp;<em>(7)、irwp_author_count － 设置插件代码开发者人数</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在插件信息表中有一项专门保存插件开发者信息的数组，本变量就是描述在这个数组<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中前多少个项是有效的，因为在数组中每一项代表一个人，所以本变量的值也就是插<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件开发者的人数值。<br>
+<br>
+&nbsp;&nbsp;<em>(8)、irwp_author - 设置插件代码开发者信息</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本变量是一个结构型数组，每一个结构项包含一个插件开发者的信息。这些信息包括<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：你的名字、E-Mail地址、留言。主程序可能会在恰当的时候向软件用户展示这些信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;息。（注：留言不能超过159个英文字符或79个汉字字符，开发者人数最多不能超过16<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人）。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然这些信息的填写不是强制性的，但在编码时最好能写上。一个没有作者的插件会<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;令人感到费解:-)<br>
+<br>
+&nbsp;&nbsp;<em>(9)、irwp_desc_info - 设置插件对应的图像扩展名信息</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每一个插件都会至少支持一种图像格式，而每一种图像格式都有一个或多个扩展名来<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对应，比如BMP格式的图像扩展名就有.bmp和.dib两种，其中.bmp是比较常用的。本变<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量将存储插件支持图像的各种扩展名信息，包括缺省扩展名（如.bmp）和它的扩展名<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别名（如.dib）。有关信息详见插件用结构说明一节中对结构IRWP_DESC_INFO的解释，<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并可参考BMP和PNM插件中相关代码的编制方法。<br>
+<br>
+&nbsp;&nbsp;<em>(10)、init_tag - 设置初始化标志</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当_init_irwp_info()函数做完插件信息表的初始化工作之后，应将本变量设为1，来<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示插件信息表已初始化过了（这个特性在Linux平台下将会很有用）。<br>
+<br><br><br><br>
+<strong>2、is_irw_plugin() 接口函数</strong><br>
+<br>
+本函数的作用是将插件信息表的首地址返回给主程序，函数体的实现代码非常简单，只有一行返回
+语句。插件编写人可以不加修改的利用插件初始代码中的is_irw_plugin()函数。<br>
+<br><br><br><br>
+<strong>3、xxx_get_image_info() 接口函数</strong><br>
+<br>
+本函数的作用是返回指定图像的概要性信息，并将这些信息保存到入口参数指定的数据包结构中。
+这些信息包括：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imgtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像类型<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imgformat&nbsp;&nbsp;&nbsp;&nbsp;- 图像存储格式<br>
+&nbsp;&nbsp;&nbsp;&nbsp;compression&nbsp; - 图像数据的压缩方式<br>
+&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像宽度<br>
+&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像高度<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bitcount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 每个像素所占的位数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像的上下顺序<br>
+&nbsp;&nbsp;&nbsp;&nbsp;r_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 各颜色分量的掩码值<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;b_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_state&nbsp;&nbsp;&nbsp;- 数据包当前的数据状态<br>
+<br>
+本函数在成功返回之前，必须完整填写以上的数据包变量，未列出的数据包变量不应改动。在图像
+的读取过程中，插件必须完全使用ISeeIO中的相关函数，而不能单独的使用其它I/O API（比如 C
+ 语言的fread、fopen，Windows系统的文件I/O等等）。<br>
+<br>
+函数在开始部分应首先用ISeeIO系统的isio_open()函数打开指定的图像流，然后读取图像首部
+的标志性信息（一般情况下，图像首部都有自己的标志性信息，但也有少数几种图像格式没有）
+，再根据已知的标志性信息与之比较来判断指定图像是否是插件支持的图像。如果不是，那么就
+应立即返回，并告知主程序图像格式不匹配。如果是则读取图像的概要性数据，比如图像宽度、
+高度、位深度等等，然后将这些信息进行适当地转换再赋值给入口传入的数据包变量。当接口
+函数即将退出时，关闭图像流（使用isio_close()函数）。<br>
+<br>
+这里有几点需要注意，数据包结构变量 imgformat 和 compression 是ISee组自定义的两个类型
+变量，如果插件编写人没有找到新插件对应的值，则可自行扩展这两个类型的内容。还有就是数
+据包变量 width 和 height 描述的是以象素为单位的图像宽度、高度，而不是字节单位。
+<br><br><br><br>
+<strong>4、xxx_load_image() 接口函数</strong><br>
+<br>
+本函数的作用是获取指定图像的概要性信息并读取图像的象素数据及调色板数据（如果存在的话），
+然后将这些数据保存在入口参数指定的数据包结构中。它负责填写的数据包变量如下：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imgtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像类型<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imgformat&nbsp;&nbsp;&nbsp;&nbsp;- 图像存储格式<br>
+&nbsp;&nbsp;&nbsp;&nbsp;compression&nbsp; - 图像数据的压缩方式<br>
+&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像宽度<br>
+&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像高度<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bitcount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 每个像素所占的位数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像的上下顺序 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;r_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 各颜色分量的掩码值<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;b_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a_mask<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pp_line_addr - 图像位数据中从0行到n-1行每一行的首地址<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p_bit_data&nbsp;&nbsp; - 图像位数据缓冲区首地址（即象素数据）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pal_count&nbsp;&nbsp;&nbsp; - 调色板有效项的个数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;palette&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 调色板数据<br>
+&nbsp;&nbsp;&nbsp;&nbsp;imgnumbers&nbsp;&nbsp; - 该文件中图像的个数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;psubimg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 子图像数据链地址<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_state&nbsp;&nbsp;&nbsp;- 数据包当前的数据状态<br>
+<br>
+函数首先应使用isio_open()打开指定的图像流，然后判断由入口传入的数据包中是否含有图像
+的概要性信息，如果有的话，可以跨过概要信息提取的过程，如果没有则必须从头提取这些信
+息（提取的步骤与xxx_get_image_info()函数类似）。具备了图像概要信息之后，函数应采用
+malloc()函数分配存放图像象素数据的内存缓冲区及存放行首地址的内存块，并根据图像的上
+下顺序初始化行首地址内存块。然后函数可以按照行的顺序逐次读取图像数据到象素数据缓冲
+区，在读取的过程中，函数还应不断监视用户中断变量的值（数据包变量break_mark），以及
+刷新读取进程变量（数据包变量process_current）的值。函数读取完图像象素数据之后，应
+相应的修改数据包变量data_state，以反应数据包当前的数据状态。函数退出之前应调用
+isio_close()函数关闭图像流。<br>
+<br>
+由于使用了系统的SEH异常处理机制，所以代码中的各种临时资源的释放代码应集中放置在 <font color=blue>__try
+</font><font color=black>...</font><font color=blue>__finally</font>
+ 块中。如果在代码执行中发生了错误或异常情况，应设置好相应的函数返回值。<br>
+<br><br><br><br>
+<strong>5、xxx_save_image() 接口函数</strong><br>
+<br>
+本函数的作用是保存数据包中的图像到用户指定的地方。函数在执行前必须先检验数据包中是否
+含有图像数据（包括概要信息、象素数据、调色板数据等），然后再检测数据包中的图像格式是
+否被插件保存功能所支持。如果这些都通过了才能执行保存动作。<br>
+<br>
+本函数不能修改数据包中的任何内容。<br>
+<br>
+如果用户指定的存储介质中有同名图像，则本函数可直接覆盖。提醒用户的责任由主程序负责。<br>
+<br><br><br>
+因图像格式千差万别，插件接口函数的具体编制方法也有很大不同，建议在编写新插件时能参
+考一些已有插件的对应代码，以减轻工作量并减少错误的发生。<br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 019-20301</font></td>
+<td align="right"><a href="isnew_18.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_20.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

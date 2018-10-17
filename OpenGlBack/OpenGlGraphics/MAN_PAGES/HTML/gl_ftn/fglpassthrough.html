@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglPassThrough</STRONG> - place a marker in the feedback buffer
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglPassThrough</STRONG>( REAL*4 <EM>token</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>token</EM>	 Specifies a marker value to be	placed in the feedback
+		 buffer	following a <STRONG>GL_PASS_THROUGH_TOKEN</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  Feedback is a	GL render mode.	 The mode is selected by
+	  calling <STRONG>fglRenderMode</STRONG>	with <STRONG>GL_FEEDBACK</STRONG>.  When	the GL is in
+	  feedback mode, no pixels are produced	by rasterization.
+	  Instead, information about primitives	that would have	been
+	  rasterized is	fed back to the	application using the GL.  See
+	  the <STRONG>fglFeedbackBuffer</STRONG>	reference page for a description of
+	  the feedback buffer and the values in	it.
+
+	  <STRONG>fglPassThrough</STRONG> inserts a user-defined	marker in the feedback
+	  buffer when it is executed in	feedback mode. <EM>token</EM> is
+	  returned as if it were a primitive; it is indicated with its
+	  own unique identifying value:	 <STRONG>GL_PASS_THROUGH_TOKEN</STRONG>.	 The
+	  order	of <STRONG>fglPassThrough</STRONG> commands with	respect	to the
+	  specification	of graphics primitives is maintained.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglPassThrough</STRONG> is ignored if the GL is not in	feedback mode.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglPassThrough</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_RENDER_MODE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglFeedbackBuffer</STRONG>, <STRONG>fglRenderMode</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

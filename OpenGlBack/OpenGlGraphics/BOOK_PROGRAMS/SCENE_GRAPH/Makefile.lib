@@ -1,0 +1,13 @@
+#Makefile
+
+all: GLoo.a
+
+CXXFLAGS=-Wall -O2 -g
+LOADLIBES=LDLIBS = -lglut -lGL -lGLU -lXmu -lX11 -lm -L/usr/X11R6/lib
+CC=g++
+
+GLoo.a: Gloo.a(Node.o Camera.o Color.o Cube.o GLViewer.o Geometry.o Light.o Material.o DrawStyle.o Transformation.o LightOff.o Line.o Sphere.o Polygon.o Cylinder.o)
+
+
+clean: 
+	-rm -f *.a *.o

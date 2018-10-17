@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXDestroyGLXPixmap</STRONG> -	destroy	a GLX pixmap
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXDestroyGLXPixmap</STRONG>( Display *<EM>dpy</EM>,
+				    GLXPixmap <EM>pix</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>  Specifies the connection	to the X server.
+
+	  <EM>pix</EM>  Specifies the GLX pixmap	to be destroyed.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  If the GLX pixmap <EM>pix</EM>	is not current to any client,
+	  <STRONG>glXDestroyGLXPixmap</STRONG> destroys it immediately.	Otherwise, <EM>pix</EM>
+	  is destroyed when it becomes not current to any client.  In
+	  either case, the resource ID is freed	immediately.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadPixmap</STRONG> is generated if <EM>pix</EM> is not a valid GLX pixmap.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateGLXPixmap</STRONG>, <STRONG>glXMakeCurrent</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

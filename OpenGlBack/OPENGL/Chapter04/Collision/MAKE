@@ -1,0 +1,2 @@
+rm ../run/collision
+gcc collision.c -I/usr/local/Mesa-3.0/include -I/usr/local/Mesa-3.0/glut-3.6/include/ -ffast-math -funroll-loops -O3 -Wall -DFX -L/usr/local/Mesa-3.0/glut-3.6/lib/mui/ -L/usr/local/Mesa-3.0/glut-3.6/lib/glut/ -L/usr/local/Mesa-3.0/lib  -L/usr/local/glide/lib -L/usr/X11/lib -lglut -lX11 -lXi -lGL -lGLU -lmui -lm -lXmu -DXMESA -o ../run/collision

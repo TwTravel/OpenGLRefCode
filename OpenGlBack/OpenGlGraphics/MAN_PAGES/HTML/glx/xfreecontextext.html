@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXFreeContextEXT</STRONG> - free client-side memory for imported
+	  context
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXFreeContextEXT</STRONG>( Display *<EM>dpy</EM>,
+				  GLXContext <EM>ctx</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>  Specifies the connection	to the X server.
+
+
+	  <EM>ctx</EM>  Specifies a GLX rendering context.
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXFreeContextEXT</STRONG> frees the client-side part of a GLXContext
+	  that was created with	<STRONG>glXImportContext</STRONG>. <STRONG>glXFreeContextEXT</STRONG>
+	  does not free	the server-side	context	information or the XID
+	  associated with the server-side context.
+
+	  <STRONG>glXFreeContextEXT</STRONG> is part of the <STRONG>EXT_import_context</STRONG>
+	  extension, not part of the core GLX command set. If
+	  <STRONG>GLX_EXT_import_context</STRONG> is included in	the string returned by
+	  <STRONG>glXQueryExtensionsString</STRONG>, when called	with argument
+	  <STRONG>GLX_EXTENSIONS</STRONG>, extension <STRONG>EXT_vertex_array</STRONG> is	supported.
+
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> does not refer to a	valid
+	  context.
+
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXQueryVersion</STRONG>, <STRONG>glXQueryExtensionsString</STRONG>,
+	  <STRONG>glXImportContextEXT</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

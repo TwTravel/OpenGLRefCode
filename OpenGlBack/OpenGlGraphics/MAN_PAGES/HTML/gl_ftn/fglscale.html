@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglScaled,</STRONG> <STRONG>fglScalef</STRONG> - multiply the current matrix by	a
+	  general scaling matrix
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglScaled</STRONG>(	REAL*8 <EM>x</EM>,
+				REAL*8 <EM>y</EM>,
+				REAL*8 <EM>z</EM> )
+	  SUBROUTINE <STRONG>fglScalef</STRONG>(	REAL*4 <EM>x</EM>,
+				REAL*4 <EM>y</EM>,
+				REAL*4 <EM>z</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>x</EM>, <EM>y</EM>,	<EM>z</EM>
+		 Specify scale factors along the <EM>x</EM>, <EM>y</EM>, and <EM>z</EM> axes,
+		 respectively.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglScale</STRONG> produces a nonuniform scaling along the <EM>x</EM>, <EM>y</EM>, and <EM>z</EM>
+	  axes.	The three parameters indicate the desired scale	factor
+	  along	each of	the three axes.
+
+	  The current matrix (see <STRONG>fglMatrixMode</STRONG>) is multiplied by this
+	  scale	matrix,	and the	product	replaces the current matrix as
+	  if <STRONG>fglScale</STRONG> were called with the following matrix as its
+	  argument:
+
+
+			      (	 x   0	 0   0	)
+			      |			|
+			      |	 0   y	 0   0	|
+			      |	 0   0	 z   0	|
+			      |			|
+			      (	 0   0	 0   1	)
+	  If the matrix	mode is	either <STRONG>GL_MODELVIEW</STRONG> or <STRONG>GL_PROJECTION</STRONG>,
+	  all objects drawn after <STRONG>fglScale</STRONG> is called are scaled.
+
+	  Use <STRONG>fglPushMatrix</STRONG> and	<STRONG>fglPopMatrix</STRONG> to	save and restore the
+	  unscaled coordinate system.
+
+     <STRONG>NOTES</STRONG>
+	  If scale factors other than 1	are applied to the modelview
+	  matrix and lighting is enabled, lighting often appears
+	  wrong.  In that case,	enable automatic normalization of
+	  normals by calling <STRONG>fglEnable</STRONG> with the	argument <STRONG>GL_NORMALIZE</STRONG>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglScale</STRONG>	is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MATRIX_MODE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MODELVIEW_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_PROJECTION_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_TEXTURE_MATRIX</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglMatrixMode</STRONG>, <STRONG>fglMultMatrix</STRONG>,	<STRONG>fglPushMatrix</STRONG>, <STRONG>fglRotate</STRONG>,
+	  <STRONG>fglTranslate</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

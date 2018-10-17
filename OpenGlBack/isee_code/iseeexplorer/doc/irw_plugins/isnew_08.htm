@@ -1,0 +1,431 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_15.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_09.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>数据包变量说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+本章将介绍ISeeExplorer图像读写插件中最重要的一个数据结构－INFOSTR（原型为_tag_infostr）。<br>
+它在ISeeExplorer图像读写插件的接口函数中将被频繁的使用，理解这个结构并会灵活的运用对使用<br>
+好ISeeExplorer图像读写插件会有很大帮助。以下将逐项的解释INFOSTR 中每一个变量的含义。有关<br>
+数据包的应用及它的设计原则请参考相关文档（注：INFOSTR定义在iseeirw.h文件中）。<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+sct_mark;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+数据包结构的标识。为了增强软件的稳定性，在数据包结构中加入了此标志，它是一个4字节的变量
+，在用isirw_alloc_INFOSTR()函数分配一个新数据包时，由isirw_alloc_INFOSTR()函数将它设置为
+INFOSTR_DBG_MARK。INFOSTR_DBG_MARK是“ISee”四个字符的ASCII值（iseeirw.h中定义）。ISeeExplorer的
+图像读写插件函数将根据一个数据包结构中是否存在这个标志，来判断是否发生了结构指针偏移的错
+误（如果指向数据包的指针发生了偏移或指向了一个无效的数据包，那么sct_mark将不会等于
+INFOSTR_DBG_MARK）。从而使软件设计中存在的问题可以尽快暴露出来。<br>&nbsp;<br>
+注意：这个变量是属于系统内部使用的，决不要手动去修改它的值（它是由isirw_alloc_INFOSTR()
+函数自动设置的），同时，它也是一个调试版专有变量，也就是说，它只存在于数据包的调试版中，
+在编译它的发布版时将被编译器自动删除。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">enum IMGTYPE</font><br>
+imgtype;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像类型。此变量将描述与此数据包相关联的图像的类型。“类型”一词的含义包括：
+光栅、矢量、静态、动态。请参见iseeirw.h文件中对枚举类型IMGTYPE的定义。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">enum IMGFORMAT</font><br>
+imgformat;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像格式（与缀名对应）。它描述了与此数据包相关联的图像的原始存储格式。请参见iseeirw.h中
+对枚举类型IMGFORMAT的定义。注：此处的原始存储格式就是图像未解压前的格式。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">enum IMGCOMPRESS</font><br>
+compression;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的压缩方式。即与数据包相关联的图像的压缩方式。请参见iseeirw.h中对枚举类型IMGCOMPRESS
+的定义。注：此处的压缩方式与数据包中目标图像缓冲区中的目标图像格式无关。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+width;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像的宽度（以象素为单位）。该变量指出了与数据包相关联的图像的宽度。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+height;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的高度（以象素为单位）。该变量指出了与数据包相关联的图像的高度。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+bitcount;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像的位深度（每个像素所占的位数）。这个变量是比较重要的，通过它你可以计算出图像调色板
+尺寸及目标格式中图像扫描行的尺寸。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+order;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的放置顺序，也就是图像是正向放置的，还是倒向放置的（倒向放置的含义就是图像最上部的
+象素数据被放在了图像数据的尾部），如果该值是0，则说明图像是正向的，如果是1则是倒向的。<br>
+注：大多数的图像格式都是按正向存储图像数据的，只有很少的几种格式才采用倒向存储方式，如某些BMP格式的图像等。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font>	r_mask;<br>
+<font color="blue">unsigned long</font>	g_mask;<br>
+<font color="blue">unsigned long</font>	b_mask;<br>
+<font color="blue">unsigned long</font>	a_mask;<br>
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像象素的红（R）、绿（G）、蓝（B）及alpha的掩码。这四个变量的作用很大，它们不单单通知
+调用者R、G、B、A各占了多少位，而且也指出了它们所处的位置。也就是说，图像的象素数据可能
+是RGBA方式排列的，也可能是BGRA方式的。调用者在显示图像时应仔细判断这四个变量中的值。<br>
+注：1～8位的图像无掩码数据。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned char</font><br>
+*p_bit_data;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+目标图像缓冲区。当客户程序调用ISeeExplorer图像读写插件，将某一图像读入（使用插件接口
+函数xxx_load_image()）数据包，插件代码将把图像解压为ISeeExplorer图像读写插件输出格式
+，并把解压后的数据保存到一个内存块中。p_bit_data变量既是指向该内存块首地址的指针，该
+内存块将由插件接口函数xxx_load_image()自动申请并维护，无需调用者干预，这一点与原来的数据
+包对应动作不同，减少了很多麻烦。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">void</font><br>
+**pp_line_addr;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+目标图像缓冲区行首地址数组。该数组的元素个数等于图像的高度，其中每一个元素都是一个指针，
+指向目标图像缓冲区(p_bit_data)中某一行图像数据的首地址，通过使用本数组，客户程序可以迅速
+的定位某个象素点在缓冲区中的位置。<br>
+另外，该数组还有一个重要特性，就是其中的行排列与图像的放置方式无关。例如，该数组[0]元素
+中的指针就是指向图像第一行的指针，而不管该图像是正向的还是倒向的（在倒向情况下，[0]元素
+中的指针将指向缓冲区的尾部）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+palette[MAX_PALETTE_COUNT];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的调色板数据。位深度1～8的图像将具有调色板数据（8位以上则没有），palette将用于
+存储这些数据。其中每个调色板项拥有4个字节（long），分别用于描述蓝、绿、红（由低位到高位），
+最高位的字节置0。如果是在Windows平台下应用，可将palette强制转换为RGBQUAD型指针来访问
+其中的数据。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned int</font><br>
+pal_count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+调色板尺寸。该变量描述了在palette中前多少个元素是有效的（从[0]元素算起）。在ISeeExplorer地目标
+格式中，1位位深的图像调色板尺寸恒定为2，2位位深的恒定为4，4位的恒定为16，8位的恒定为
+256。pal_count的值是多少，就说明palette数组中前多少个项是有效的。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+imgnumbers;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+数据包中存储的图像个数。如果此值为1，则说明数据包中只有一幅图像的数据，psubimg变量
+的值将是NULL。如果此值大于1（比如动态GIF，它里面可能有好几幅图像），就说明数据包中
+还存在子图像，即psubimg变量将指向一个子图像结构链表，这个链表将存放其它的几幅图像。
+在这种情况下，imgnumbers中的值是数据包中的首帧图像加上子图像的总个数。<br>
+注：该值只有在读函数(xxx_load_image)完全执行完毕之后才有意义。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">LPSUBIMGBLOCK</font><br>
+psubimg;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+子图像数据链首地址（如果图像个数imgnumbers为1，则本变量的值为NULL）。关于子图像结构
+的资料请参见SUBIMGBLOCK结构说明。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned short</font><br>
+data_state;		
+</td>
+<td align="left" bgcolor="#fbfbfb">
+数据包当前的数据状态：<br>
+&nbsp;&nbsp;0 － 空的数据包，没有任何变量数据是有效的（初始状态）<br>
+&nbsp;&nbsp;1 － 存在图像的描述信息<br>
+&nbsp;&nbsp;2 － 存在图像的描述信息、象素数据、及调色板数据<br>
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">CRITICAL_SECTION</font><br>
+access;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+数据包访问同步标志（只供主程序使用，插件代码将不使用这个标志）。使数据包可以在多线程度
+程序安全的运行。在新版ISeeExplorer中，它由isirw_alloc_INFOSTR()函数创建，由isirw_free_INFOSTR()函数销毁。<br>
+注：如果客户程序是一个单线程程序，那么可以不用考虑access变量，只当它不存在就可以了:)
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>
+break_mark;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+中断操作标志。在ISeeExplorer图像读写插件的接口函数中，xxx_load_image()和xxx_save_image()函数将支持中断
+特性。打一个比方可以更清晰的说明break_mark的用途。比如客户程序调用xxx_load_image()接口函数
+来读取用户指定的图像数据，在读取得过程中，用户突然想看其它的图像，此时客户程序就可以将
+break_mark变量设为1来中断xxx_load_image()函数的操作，从而提高程序对用户动作的相应速度。插件
+的xxx_load_image()和xxx_save_image()函数在执行的过程中将不断地监视该变量的值。<br>
+注：1、在新申请的数据包中，break_mark的值被初始化为0。<br>
+&nbsp;&nbsp;&nbsp;	2、中断特性将只能在多线程程序中使用，因为单线程程序将无法获得修改break_mark变量的
+控制权。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>
+process_total;<br>
+<font color="blue">int</font><br>
+process_current;<br>
+</td>
+<td align="left" bgcolor="#f4f4f4">
+当前作业的总进度尺度和当前作业的当前进度尺度。<br>说得有些饶嘴:)，其实这两个值也与
+xxx_load_image()、xxx_save_image()接口函数有关。这两个函数在执行某个作业（操作）的过程中，
+将不断地通过刷新包中的这两个变量的值，向客户程序报告当前的执行进度。<br>
+还是拿xxx_load_image()接口函数为例，假如客户程序要读取一副图像，控制权由客户程序转入插件
+中的xxx_load_image()函数，该函数首先会将总进度尺度变量设为一个值（这个值不是一个恒定值，它会
+根据图像的不同而不同（但可以保证它是一个大于0的值）），将当前进度尺度变量设为0。然后，
+随着图像数据被一点一点的读入，xxx_load_image()函数会逐步的增大当前进度尺度变量的值，当前作业
+完毕后，总进度尺度将与当前进度尺度相等。<br>
+注：1、不要对总进度尺度值作任何假设，因为每一次作业这个值都可能会变化，作业是否执行完毕，
+	应从当前进度尺度值与总进度尺度值是否相等来判断。<br>
+&nbsp;&nbsp;&nbsp;	2、客户程序不要手动改写这两个变量的值，只能读取。刷新（改写）的权利归插件所有:)
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long *</font><br>
+play_order;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+播放顺序表。如果图象类型是动态（IMT_RESDYN）的，并且图象个数大于一个时，插件可以设置播放顺序。设置的方法
+是申请一个（使用malloc函数）有X个元素的unsigned long型数组，数组的第一个元素存放播放序号的总个数。然后
+插件将播放序号写入后续的元素中。主图象的播放序号为0，第一幅子图象的序号为1，依此类推。<br>
+<br>
+如果图象的播放顺序是正常次序（即0、1、2、3....），那么插件可以不用设置本变量（将变量置为0）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font><br>
+time;<br>
+</td>
+<td align="left" bgcolor="#f4f4f4">
+首帧停留时间（即首帧显示延迟时间，以毫秒为单位）。如果图象类型是动态的，并且图象个数大于一个
+时，插件可以设置首帧停留时间。如果将本变量设置为0，则表示首帧图象显示无需延时即可显示下一帧图象。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+play_number;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+播放顺序表尺寸（以元素为单位）。该变量描述了play_order中元素的个数（也就是播放帧的个数）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">long</font><br>
+colorkey;<br>
+</td>
+<td align="left" bgcolor="#f4f4f4">
+首帧图象透明色值。（-1表示无透明色）</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了便于使用，iseeirw.h中使用了类型定义：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">typedef struct</font> _tag_infostr		INFOSTR;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">typedef struct</font> _tag_infostr		*LPINFOSTR;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以在程序中可以直接使用INFOSTR或LPINFOSTR这两个数据类型。
+<br><br><br>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 008-20603</font></td>
+<td align="right"><a href="isnew_15.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_09.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

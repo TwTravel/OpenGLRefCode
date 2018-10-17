@@ -1,0 +1,111 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluBeginPolygon,</STRONG> <STRONG>fgluEndPolygon</STRONG> - delimit a polygon
+	  description
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluBeginPolygon</STRONG>( CHARACTER*8 <EM>tess</EM>	)
+
+	  SUBROUTINE <STRONG>fgluEndPolygon</STRONG>( CHARACTER*8 <EM>tess</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>tess</EM>	Specifies the tessellation object (created with
+		<STRONG>fgluNewTess</STRONG>).
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluBeginPolygon</STRONG> and <STRONG>fgluEndPolygon</STRONG> delimit the definition
+	  of a nonconvex polygon.  To define such a polygon, first
+	  call <STRONG>fgluBeginPolygon</STRONG>.  Then define the contours of the
+	  polygon by calling <STRONG>fgluTessVertex</STRONG> for	each vertex and
+	  <STRONG>fgluNextContour</STRONG> to start each	new contour.  Finally, call
+	  <STRONG>fgluEndPolygon</STRONG> to signal the end of the definition.  See the
+	  <STRONG>fgluTessVertex</STRONG> and <STRONG>fgluNextContour</STRONG> reference pages for more
+	  details.
+
+	  Once <STRONG>fgluEndPolygon</STRONG> is called, the polygon is	tessellated,
+	  and the resulting triangles are described through callbacks.
+	  See <STRONG>fgluTessCallback</STRONG> for descriptions	of the callback
+	  functions.
+
+     <STRONG>NOTES</STRONG>
+	  This command is obsolete and is provided for backward
+	  compatibility	only. Calls to <STRONG>fgluBeginPolygon</STRONG>	are mapped to
+	  <STRONG>fgluTessBeginPolygon</STRONG> followed	by <STRONG>fgluTessBeginContour</STRONG>. Calls
+	  to <STRONG>fgluEndPolygon</STRONG> are	mapped to <STRONG>fgluTessEndContour</STRONG> followed
+	  by <STRONG>fgluTessEndPolygon</STRONG>.
+
+     <STRONG>EXAMPLE</STRONG>
+	  A quadrilateral with a triangular hole in it can be
+	  described like this:
+
+	  gluBeginPolygon(tobj);
+	     gluTessVertex(tobj, v1, v1);
+	     gluTessVertex(tobj, v2, v2);
+	     gluTessVertex(tobj, v3, v3);
+	     gluTessVertex(tobj, v4, v4); gluNextContour(tobj,
+	  GLU_INTERIOR);
+	     gluTessVertex(tobj, v5, v5);
+	     gluTessVertex(tobj, v6, v6);
+	     gluTessVertex(tobj, v7, v7); gluEndPolygon(tobj);
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+
+	  <STRONG>fgluNewTess</STRONG>, <STRONG>fgluNextContour</STRONG>,	<STRONG>fgluTessCallback</STRONG>,
+	  <STRONG>fgluTessVertex</STRONG>, <STRONG>fgluTessBeginPolygon</STRONG>,	<STRONG>fgluTessBeginContour</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

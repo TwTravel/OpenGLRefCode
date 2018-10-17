@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglTexCoordPointer</STRONG> - define an array of texture coordinates
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglTexCoordPointer</STRONG>( INTEGER*4 <EM>size</EM>,
+					 INTEGER*4 <EM>type</EM>,
+					 INTEGER*4 <EM>stride</EM>,
+					 CHARACTER*8 <EM>pointer</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>size</EM>	   Specifies the number	of coordinates per array
+		   element. Must be 1, 2, 3 or 4. The initial value is
+		   4.
+
+	  <EM>type</EM>	   Specifies the data type of each texture coordinate.
+		   Symbolic constants <STRONG>GL_SHORT</STRONG>,	<STRONG>GL_INT</STRONG>,	<STRONG>GL_FLOAT</STRONG>, or
+		   <STRONG>GL_DOUBLE</STRONG> are accepted. The initial value is
+		   <STRONG>GL_FLOAT</STRONG>.
+
+	  <EM>stride</EM>   Specifies the byte offset between consecutive array
+		   elements.  If <EM>stride</EM>	is 0, the array	elements are
+		   understood to be tightly packed. The	initial	value
+		   is 0.
+
+	  <EM>pointer</EM>  Specifies a pointer to the first coordinate of the
+		   first element in the	array.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglTexCoordPointer</STRONG> specifies the location and	data format of
+	  an array of texture coordinates to use when rendering.  <EM>size</EM>
+	  specifies the	number of coordinates per element, and must be
+	  1, 2,	3, or 4.  <EM>type</EM> specifies the data type of each texture
+	  coordinate and <EM>stride</EM>	specifies the byte stride from one
+	  array	element	to the next allowing vertexes and attributes
+	  to be	packed into a single array or stored in	separate
+	  arrays.  (Single-array storage may be	more efficient on some
+	  implementations; see
+	  <STRONG>fglInterleavedArrays</STRONG>.)  When a texture coordinate array is
+	  specified, <EM>size</EM>, <EM>type</EM>, <EM>stride</EM>, and <EM>pointer</EM> are saved
+	  client-side state.
+
+	  To enable and	disable	the texture coordinate array, call
+	  <STRONG>fglEnableClientState</STRONG> and <STRONG>fglDisableClientState</STRONG> with the
+	  argument <STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>. If enabled, the texture
+	  coordinate array is used when	<STRONG>fglDrawArrays</STRONG>, <STRONG>fglDrawElements</STRONG>
+	  or
+	  <STRONG>fglArrayElement</STRONG> is called.
+
+	  Use <STRONG>fglDrawArrays</STRONG> to construct a sequence of primitives (all
+	  of the same type) from prespecified vertex and vertex
+	  attribute arrays.  Use <STRONG>fglArrayElement</STRONG> to specify primitives
+	  by indexing vertexes and vertex attributes and
+	  <STRONG>fglDrawElements</STRONG> to construct a sequence of primitives	by
+	  indexing vertexes and	vertex attributes.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglTexCoordPointer</STRONG> is	available only if the GL version is
+	  1.1 or greater.
+
+	  The texture coordinate array is initially disabled and it
+	  won't	be accessed when
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglDrawElements</STRONG> or <STRONG>fglDrawArrays</STRONG> is called.
+
+	  Execution of <STRONG>fglTexCoordPointer</STRONG> is not allowed between the
+	  execution of <STRONG>fglBegin</STRONG>	and the	corresponding execution	of
+	  <STRONG>fglEnd</STRONG>, but an error may or may not be generated. If no
+	  error	is generated, the operation is undefined.
+
+	  <STRONG>fglTexCoordPointer</STRONG> is	typically implemented on the client
+	  side with no protocol.
+
+	  The texture coordinate array parameters are client-side
+	  state	and are	therefore not saved or restored	by
+	  <STRONG>fglPushAttrib</STRONG>	and <STRONG>fglPopAttrib</STRONG>.  Use <STRONG>fglPushClientAttrib</STRONG> and
+	  <STRONG>fglPopClientAttrib</STRONG> instead.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if <EM>size</EM>	is not 1, 2, 3,	or 4.
+
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>type</EM> is not an accepted
+	  value.
+
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if <EM>stride</EM> is negative.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> with argument <STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_TEXTURE_COORD_ARRAY_SIZE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_TEXTURE_COORD_ARRAY_TYPE</STRONG>
+	  <STRONG>fglGetPointerv</STRONG> with argument <STRONG>GL_TEXTURE_COORD_ARRAY_POINTER</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglDrawElements</STRONG>,
+	  <STRONG>fglEdgeFlagPointer</STRONG>, <STRONG>fglEnable</STRONG>, <STRONG>fglGetPointerv</STRONG>,
+	  <STRONG>fglIndexPointer</STRONG>, <STRONG>fglNormalPointer</STRONG>, <STRONG>fglPopClientAttrib</STRONG>,
+	  <STRONG>fglPushClientAttrib</STRONG>, <STRONG>fglTexCoord</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglVertex2d,</STRONG> <STRONG>fglVertex2f,</STRONG> <STRONG>fglVertex2i,</STRONG> <STRONG>fglVertex2s,</STRONG>
+	  <STRONG>fglVertex3d,</STRONG> <STRONG>fglVertex3f,</STRONG> <STRONG>fglVertex3i,</STRONG> <STRONG>fglVertex3s,</STRONG>
+	  <STRONG>fglVertex4d,</STRONG> <STRONG>fglVertex4f,</STRONG> <STRONG>fglVertex4i,</STRONG> <STRONG>fglVertex4s,</STRONG>
+	  <STRONG>fglVertex2dv,</STRONG>	<STRONG>fglVertex2fv,</STRONG> <STRONG>fglVertex2iv,</STRONG> <STRONG>fglVertex2sv,</STRONG>
+	  <STRONG>fglVertex3dv,</STRONG>	<STRONG>fglVertex3fv,</STRONG> <STRONG>fglVertex3iv,</STRONG> <STRONG>fglVertex3sv,</STRONG>
+	  <STRONG>fglVertex4dv,</STRONG>	<STRONG>fglVertex4fv,</STRONG> <STRONG>fglVertex4iv,</STRONG> <STRONG>fglVertex4sv</STRONG> -
+	  specify a vertex
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglVertex2d</STRONG>( REAL*8 <EM>x</EM>,
+				  REAL*8 <EM>y</EM> )
+	  SUBROUTINE <STRONG>fglVertex2f</STRONG>( REAL*4 <EM>x</EM>,
+				  REAL*4 <EM>y</EM> )
+	  SUBROUTINE <STRONG>fglVertex2i</STRONG>( INTEGER*4 <EM>x</EM>,
+				  INTEGER*4 <EM>y</EM> )
+	  SUBROUTINE <STRONG>fglVertex2s</STRONG>( INTEGER*2 <EM>x</EM>,
+				  INTEGER*2 <EM>y</EM> )
+	  SUBROUTINE <STRONG>fglVertex3d</STRONG>( REAL*8 <EM>x</EM>,
+				  REAL*8 <EM>y</EM>,
+				  REAL*8 <EM>z</EM> )
+	  SUBROUTINE <STRONG>fglVertex3f</STRONG>( REAL*4 <EM>x</EM>,
+				  REAL*4 <EM>y</EM>,
+				  REAL*4 <EM>z</EM> )
+	  SUBROUTINE <STRONG>fglVertex3i</STRONG>( INTEGER*4 <EM>x</EM>,
+				  INTEGER*4 <EM>y</EM>,
+				  INTEGER*4 <EM>z</EM> )
+	  SUBROUTINE <STRONG>fglVertex3s</STRONG>( INTEGER*2 <EM>x</EM>,
+				  INTEGER*2 <EM>y</EM>,
+				  INTEGER*2 <EM>z</EM> )
+	  SUBROUTINE <STRONG>fglVertex4d</STRONG>( REAL*8 <EM>x</EM>,
+				  REAL*8 <EM>y</EM>,
+				  REAL*8 <EM>z</EM>,
+				  REAL*8 <EM>w</EM> )
+	  SUBROUTINE <STRONG>fglVertex4f</STRONG>( REAL*4 <EM>x</EM>,
+				  REAL*4 <EM>y</EM>,
+				  REAL*4 <EM>z</EM>,
+				  REAL*4 <EM>w</EM> )
+	  SUBROUTINE <STRONG>fglVertex4i</STRONG>( INTEGER*4 <EM>x</EM>,
+				  INTEGER*4 <EM>y</EM>,
+				  INTEGER*4 <EM>z</EM>,
+				  INTEGER*4 <EM>w</EM> )
+	  SUBROUTINE <STRONG>fglVertex4s</STRONG>( INTEGER*2 <EM>x</EM>,
+				  INTEGER*2 <EM>y</EM>,
+				  INTEGER*2 <EM>z</EM>,
+				  INTEGER*2 <EM>w</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>x</EM>, <EM>y</EM>,	<EM>z</EM>, <EM>w</EM>
+		   Specify <EM>x</EM>, <EM>y</EM>, <EM>z</EM>, and	<EM>w</EM> coordinates of a vertex.
+		   Not all parameters are present in all forms of the
+		   command.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglVertex2dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex2fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex2iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex2sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex3dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex3fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex3iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex3sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex4dv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex4fv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex4iv</STRONG>( CHARACTER*8 <EM>v</EM> )
+	  SUBROUTINE <STRONG>fglVertex4sv</STRONG>( CHARACTER*8 <EM>v</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>v</EM>    Specifies a pointer to an array of two, three, or four
+	       elements.  The elements of a two-element	array are <EM>x</EM>
+	       and <EM>y</EM>; of a three-element array,	<EM>x</EM>, <EM>y</EM>, and <EM>z</EM>; and of a
+	       four-element array, <EM>x</EM>, <EM>y</EM>, <EM>z</EM>, and	<EM>w</EM>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglVertex</STRONG> commands are used within <STRONG>fglBegin</STRONG>/<STRONG>fglEnd</STRONG> pairs to
+	  specify point, line, and polygon vertices.  The current
+	  color, normal, and texture coordinates are associated	with
+	  the vertex when <STRONG>fglVertex</STRONG> is called.
+
+	  When only <EM>x</EM> and <EM>y</EM> are	specified, <EM>z</EM> defaults to 0 and <EM>w</EM>
+	  defaults to 1.  When <EM>x</EM>, <EM>y</EM>, and <EM>z</EM> are specified, <EM>w</EM> defaults
+	  to 1.
+
+     <STRONG>NOTES</STRONG>
+	  Invoking <STRONG>fglVertex</STRONG> outside of	a <STRONG>fglBegin</STRONG>/<STRONG>fglEnd</STRONG> pair results
+	  in undefined behavior.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglBegin</STRONG>, <STRONG>fglCallList</STRONG>, <STRONG>fglColor</STRONG>, <STRONG>fglEdgeFlag</STRONG>,	<STRONG>fglEvalCoord</STRONG>,
+	  <STRONG>fglIndex</STRONG>, <STRONG>fglMaterial</STRONG>,
+	  <STRONG>fglNormal</STRONG>, <STRONG>fglRect</STRONG>, <STRONG>fglTexCoord</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

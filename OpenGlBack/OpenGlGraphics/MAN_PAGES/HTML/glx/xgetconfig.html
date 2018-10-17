@@ -1,0 +1,163 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXGetConfig</STRONG> - return	information about GLX visuals
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  int <STRONG>glXGetConfig</STRONG>( Display *<EM>dpy</EM>,
+			    XVisualInfo	*<EM>vis</EM>,
+			    int	<EM>attrib</EM>,
+			    int	*<EM>value</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	  Specifies the	connection to the X server.
+
+	  <EM>vis</EM>	  Specifies the	visual to be queried.  It is a pointer
+		  to an	<STRONG>XVisualInfo</STRONG> structure, not a visual ID or a
+		  pointer to a <STRONG>Visual</STRONG>.
+
+	  <EM>attrib</EM>  Specifies the	visual attribute to be returned.
+
+	  <EM>value</EM>	  Returns the requested	value.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXGetConfig</STRONG> sets <EM>value</EM> to the <EM>attrib</EM>	value of windows or
+	  GLX pixmaps created with respect to <EM>vis</EM>.  <STRONG>glXGetConfig</STRONG>
+	  returns an error code	if it fails for	any reason.
+	  Otherwise, zero is returned.
+
+	  <EM>attrib</EM> is one	of the following:
+
+	  <STRONG>GLX_USE_GL</STRONG>		<STRONG>True</STRONG> if	OpenGL rendering is supported
+				by this	visual,	<STRONG>False</STRONG> otherwise.
+
+	  <STRONG>GLX_BUFFER_SIZE</STRONG>	Number of bits per color buffer.  For
+				RGBA visuals, <STRONG>GLX_BUFFER_SIZE</STRONG> is the
+				sum of <STRONG>GLX_RED_SIZE</STRONG>, <STRONG>GLX_GREEN_SIZE</STRONG>,
+				<STRONG>GLX_BLUE_SIZE</STRONG>, and <STRONG>GLX_ALPHA_SIZE</STRONG>.
+				For color index	visuals,
+				<STRONG>GLX_BUFFER_SIZE</STRONG>	is the size of the
+				color indexes.
+
+	  <STRONG>GLX_LEVEL</STRONG>		Frame buffer level of the visual.
+				Level zero is the default frame
+				buffer.	 Positive levels correspond to
+				frame buffers that overlay the default
+				buffer,	and negative levels correspond
+				to frame buffers that underlay the
+				default	buffer.
+
+	  <STRONG>GLX_RGBA</STRONG>		<STRONG>True</STRONG> if	color buffers store red,
+				green, blue, and alpha values.	<STRONG>False</STRONG>
+				if they	store color indexes.
+
+	  <STRONG>GLX_DOUBLEBUFFER</STRONG>	<STRONG>True</STRONG> if	color buffers exist in
+				front/back pairs that can be swapped,
+				<STRONG>False</STRONG> otherwise.
+
+	  <STRONG>GLX_STEREO</STRONG>		<STRONG>True</STRONG> if	color buffers exist in
+				left/right pairs, <STRONG>False</STRONG>	otherwise.
+
+	  <STRONG>GLX_AUX_BUFFERS</STRONG>	Number of auxiliary color buffers that
+				are available.	Zero indicates that no
+				auxiliary color	buffers	exist.
+
+	  <STRONG>GLX_RED_SIZE</STRONG>		Number of bits of red stored in	each
+				color buffer.  Undefined if <STRONG>GLX_RGBA</STRONG>
+				is <STRONG>False</STRONG>.
+
+	  <STRONG>GLX_GREEN_SIZE</STRONG>	Number of bits of green	stored in each
+				color buffer.  Undefined if <STRONG>GLX_RGBA</STRONG>
+				is <STRONG>False</STRONG>.
+
+	  <STRONG>GLX_BLUE_SIZE</STRONG>		Number of bits of blue stored in each
+				color buffer.  Undefined if <STRONG>GLX_RGBA</STRONG>
+				is <STRONG>False</STRONG>.
+
+	  <STRONG>GLX_ALPHA_SIZE</STRONG>	Number of bits of alpha	stored in each
+				color buffer.  Undefined if <STRONG>GLX_RGBA</STRONG>
+				is <STRONG>False</STRONG>.
+
+	  <STRONG>GLX_DEPTH_SIZE</STRONG>	Number of bits in the depth buffer.
+
+	  <STRONG>GLX_STENCIL_SIZE</STRONG>	Number of bits in the stencil buffer.
+
+	  <STRONG>GLX_ACCUM_RED_SIZE</STRONG>	Number of bits of red stored in	the
+				accumulation buffer.
+
+	  <STRONG>GLX_ACCUM_GREEN_SIZE</STRONG>	Number of bits of green	stored in the
+				accumulation buffer.
+
+	  <STRONG>GLX_ACCUM_BLUE_SIZE</STRONG>	Number of bits of blue stored in the
+				accumulation buffer.
+
+	  <STRONG>GLX_ACCUM_ALPHA_SIZE</STRONG>	Number of bits of alpha	stored in the
+				accumulation buffer.
+
+	  The X	protocol allows	a single visual	ID to be instantiated
+	  with different numbers of bits per pixel.  Windows or	GLX
+	  pixmaps that will be rendered	with OpenGL, however, must be
+	  instantiated with a color buffer depth of <STRONG>GLX_BUFFER_SIZE</STRONG>.
+
+	  Although a GLX implementation	can export many	visuals	that
+	  support GL rendering,	it must	support	at least one RGBA
+	  visual. This visual must have	at least one color buffer, a
+	  stencil buffer of at least 1 bit, a depth buffer of at least
+	  12 bits, and an accumulation buffer.	Alpha bitplanes	are
+	  optional in this visual.  However, its color buffer size
+	  must be as great as that of the deepest <STRONG>TrueColor</STRONG>,
+	  <STRONG>DirectColor</STRONG>, <STRONG>PseudoColor</STRONG>, or <STRONG>StaticColor</STRONG> visual supported on
+	  level	zero, and it must itself be made available on level
+	  zero.
+
+	  In addition, if the X	server exports a <STRONG>PseudoColor</STRONG> or
+	  <STRONG>StaticColor</STRONG> visual on	framebuffer level 0, a color index
+	  visual is also required on that level.  It must have at
+	  least	one color buffer, a stencil buffer of at least 1 bit,
+	  and a	depth buffer of	at least 12 bits.  This	visual must
+	  have as many color bitplanes as the deepest <STRONG>PseudoColor</STRONG> or
+	  <STRONG>StaticColor</STRONG> visual supported on level	0.
+
+	  Applications are best	written	to select the visual that most
+	  closely meets	their requirements.  Creating windows or GLX
+	  pixmaps with unnecessary buffers can result in reduced
+	  rendering performance	as well	as poor	resource allocation.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>XVisualInfo</STRONG> is defined in <EM>Xutil</EM>.<EM>h</EM>.  It is a structure	that
+	  includes <EM>visual</EM>, <EM>visualID</EM>, <EM>screen</EM>, and <EM>depth</EM> elements.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLX_NO_EXTENSION</STRONG> is returned if <EM>dpy</EM> does not support the GLX
+	  extension.
+
+	  <STRONG>GLX_BAD_SCREEN</STRONG> is returned if	the screen of <EM>vis</EM> does not
+	  correspond to	a screen.
+
+	  <STRONG>GLX_BAD_ATTRIBUTE</STRONG> is returned	if <EM>attrib</EM> is not a valid GLX
+	  attribute.
+
+	  <STRONG>GLX_BAD_VISUAL</STRONG> is returned if	<EM>vis</EM> doesn't support GLX	and an
+	  attribute other than <STRONG>GLX_USE_GL</STRONG> is requested.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXChooseVisual</STRONG>, <STRONG>glXCreateContext</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglFinish</STRONG> - block until all GL execution is complete
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglFinish</STRONG>(	)
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglFinish</STRONG> does not return until the effects of all
+	  previously called GL commands	are complete.  Such effects
+	  include all changes to GL state, all changes to connection
+	  state, and all changes to the	frame buffer contents.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglFinish</STRONG> requires a round trip to the server.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglFinish</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglFlush</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+
+This folder contains all the programs from Appendix A and a
+collection of other programs referenced in the text. For each there
+is a Windows executable.
+
+There is a separate folder, SCENE_GRAPH, containing the source code
+implementing the scene graph API from Chapter 9. It contains a makefile
+to build a library and an example C++ program which generates a
+scene graph.
+
+I also included a sample VC++ project folder which has the correct
+settings for using glut. You can just add files from the project
+tab and then build your own applications.
+
+A few notes:
+
+There are a few places where I replaced command line arguments
+that appear in the code in Appendix A with fixed values for the
+windows versions. These difference are all in main() and are
+fairly obvious.
+
+All the random numbers in the code here use the function rand()
+which is more universal.
+
+All the exit() calls are now exit(0) which is consistent
+with the VC++ libraries.
+
+I have also included Makefiles for unix, linix, and cygwin.
+
+_________________________________
+
+The programs:
+
+simple.c: A simple but complete OpenGL program.
+
+demo.c: A program illustrating many OpenGL features.
+
+gasket.c: A program that generates 5000 points on the Sierpinski
+gasket (Chapter 2).
+
+gasket2.c: A version of the gasket program using recursion (Chapter 2).
+
+gasket3d.c A three-dimensional point version of the gasket program (Chapter 2).
+
+tetra.c: A three-dimensional recursive version of the gasket program (Chapter 2).
+
+earth.c: Interactive program illustrating use of triangle strips and fans.
+(Chapter 2).
+
+square.c: A program that illustrates the use of the mouse with GLUT (Chapter 3).
+
+newpaint.c: The simple paint program that we developed in Chapter 3.
+
+single_double.c: A rotating-square program using both single and double
+buffering Chapter 3).
+
+pick.c: A picking program using selection mode (Chapter 3).
+
+line.c: Program illustrating use of XOR writing mode (Chapter 3).
+
+cube.c: The rotating-cube program from Chapter 4.
+
+cubev.c: A rotating-cube program using vertex arrays (Chapter 4).
+
+trackball.c: A rotating-cube program using a virtual trackball (Chapter 4).
+
+cubeview.c: The walk-through program from Chapter 5.
+
+shadow.c: Program illustrating projective shadows (Chapter 5).
+
+sphere.c: The program that generates approximations to a sphere
+by recursive subdivision generation from Chapter 6.
+
+bit.c: Program illustrating bitmaps (Chapter 7).
+
+cubetex.c: A rotating cube program with texture (Chapter 7).
+
+readpixels.c: A program that reads pixel values from the screen (Chapter 7).
+
+ppmdisplay.c: Program for reading and displaying a ppm file (Chapter 7).
+
+robot.c: Interactive program for three-part robot arm (Chapter 8).
+
+figure.c: Interactive program for control humanoid figure (Chapter 8).
+
+figuretr.c: Implementation of figure.c using static trees (Chapter 9).
+
+dynamic.c: Implementation of figure.c using dynamic trees (Chapter 9).
+
+curves.c: An interactive program that draws cubic Bezier curves
+from Chapter 10.
+
+teapot.c: Teapot display using recursive subdivision (Chapter 10).
+
+bteapot.c: Generates wire frame of Utah teapot from patch data (Chapter 10).
+
+object.c: Program for drawing various quadric objects and the teapot
+using GLU (Chapter 10).
+
+teatex.c: Rotating teapot with texture (Chapter 10).
+
+mandelbrot.c: Interactive program for generating the Mandelbrot set
+(Chapter 11).
+
+contour.c: Contour generation by marching squares (Chapter 12).

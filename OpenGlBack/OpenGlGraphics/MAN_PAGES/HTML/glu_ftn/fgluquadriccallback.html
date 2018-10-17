@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluQuadricCallback</STRONG> -	define a callback for a	quadrics
+	  object
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluQuadricCallback</STRONG>( CHARACTER*8 <EM>quad</EM>,
+					  INTEGER*4 <EM>which</EM>,
+					  CHARACTER*8 (<EM>CallBackFunc</EM>)( )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>quad</EM>		Specifies the quadrics object (created with
+			<STRONG>fgluNewQuadric</STRONG>).
+
+	  <EM>which</EM>		Specifies the callback being defined.  The
+			only valid value is <STRONG>GLU_ERROR</STRONG>.
+
+	  <EM>CallBackFunc</EM>	Specifies the function to be called.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluQuadricCallback</STRONG> is used to define	a new callback to be
+	  used by a quadrics object.  If the specified callback	is
+	  already defined, then	it is replaced.	If <EM>CallBackFunc</EM>	is
+	  NULL,	then any existing callback is erased.
+
+	  The one legal	callback is <STRONG>GLU_ERROR</STRONG>:
+
+	  <STRONG>GLU_ERROR</STRONG>	 The function is called	when an	error is
+			 encountered. Its single argument is of	type
+			 GLenum, and it	indicates the specific error
+			 that occurred.	 Character strings describing
+			 these errors can be retrieved with the
+			 <STRONG>fgluErrorString</STRONG> call.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluErrorString</STRONG>, <STRONG>fgluNewQuadric</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

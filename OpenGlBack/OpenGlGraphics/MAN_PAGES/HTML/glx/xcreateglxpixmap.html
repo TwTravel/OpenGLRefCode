@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXCreateGLXPixmap</STRONG> - create an off-screen GLX	rendering area
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  GLXPixmap <STRONG>glXCreateGLXPixmap</STRONG>(	Display	*<EM>dpy</EM>,
+					XVisualInfo *<EM>vis</EM>,
+					Pixmap <EM>pixmap</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	  Specifies the	connection to the X server.
+
+	  <EM>vis</EM>	  Specifies the	visual that defines the	structure of
+		  the rendering	area.  It is a pointer to an
+		  <STRONG>XVisualInfo</STRONG> structure, not a visual ID or a pointer
+		  to a <STRONG>Visual</STRONG>.
+
+	  <EM>pixmap</EM>  Specifies the	X pixmap that will be used as the
+		  front	left color buffer of the off-screen rendering
+		  area.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXCreateGLXPixmap</STRONG> creates an	off-screen rendering area and
+	  returns its XID.  Any	GLX rendering context that was created
+	  with respect to <EM>vis</EM> can be used to render into this off-
+	  screen area.	Use <STRONG>glXMakeCurrent</STRONG> to associate	the rendering
+	  area with a GLX rendering context.
+
+	  The X	pixmap identified by <EM>pixmap</EM> is used as the front left
+	  buffer of the	resulting off-screen rendering area.  All
+	  other	buffers	specified by <EM>vis</EM>, including color buffers
+	  other	than the front left buffer, are	created	without
+	  externally visible names.  GLX pixmaps with double-buffering
+	  are supported.  However, <STRONG>glXSwapBuffers</STRONG> is ignored by	these
+	  pixmaps.
+
+	  Some implementations may not support GLX pixmaps with	direct
+	  rendering contexts.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>XVisualInfo</STRONG> is defined in <EM>Xutil</EM>.<EM>h</EM>.  It is a structure	that
+	  includes <EM>visual</EM>, <EM>visualID</EM>, <EM>screen</EM>, and <EM>depth</EM> elements.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>BadMatch</STRONG> is generated	if the depth of	<EM>pixmap</EM> does not	match
+	  the depth value reported by core X11 for <EM>vis</EM>,	or if <EM>pixmap</EM>
+	  was not created with respect to the same screen as <EM>vis</EM>.
+
+	  <STRONG>BadValue</STRONG> is generated	if <EM>vis</EM> is not a	valid XVisualInfo
+	  pointer (for example,	if a particular	GLX implementation
+	  does not support this	visual).
+	  <STRONG>BadPixmap</STRONG> is generated if <EM>pixmap</EM> is not a valid pixmap.
+
+	  <STRONG>BadAlloc</STRONG> is generated	if the server cannot allocate the GLX
+	  pixmap.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXIsDirect</STRONG>, <STRONG>glXMakeCurrent</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

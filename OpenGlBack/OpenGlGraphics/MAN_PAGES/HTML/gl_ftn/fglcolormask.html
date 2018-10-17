@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglColorMask</STRONG> - enable	and disable writing of frame buffer
+	  color	components
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglColorMask</STRONG>( LOGICAL*1 <EM>red</EM>,
+				   LOGICAL*1 <EM>green</EM>,
+				   LOGICAL*1 <EM>blue</EM>,
+				   LOGICAL*1 <EM>alpha</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>red</EM>, <EM>green</EM>, <EM>blue</EM>, <EM>alpha</EM>
+				Specify	whether	red, green, blue, and
+				alpha can or cannot be written into
+				the frame buffer.  The initial values
+				are all	<STRONG>GL_TRUE</STRONG>, indicating that the
+				color components can be	written.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglColorMask</STRONG> specifies whether the individual	color
+	  components in	the frame buffer can or	cannot be written.  If
+	  <EM>red</EM> is <STRONG>GL_FALSE</STRONG>, for example,	no change is made to the red
+	  component of any pixel in any	of the color buffers,
+	  regardless of	the drawing operation attempted.
+
+	  Changes to individual	bits of	components cannot be
+	  controlled.  Rather, changes are either enabled or disabled
+	  for entire color components.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglColorMask</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_COLOR_WRITEMASK</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_RGBA_MODE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglColor</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDepthMask</STRONG>, <STRONG>fglIndex</STRONG>,
+	  <STRONG>fglIndexPointer</STRONG>, <STRONG>fglIndexMask</STRONG>, <STRONG>fglStencilMask</STRONG>
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

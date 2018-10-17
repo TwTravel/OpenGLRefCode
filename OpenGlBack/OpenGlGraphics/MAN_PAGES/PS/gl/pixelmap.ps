@@ -1,0 +1,1593 @@
+%!PS-Adobe-1.0
+%%Creator: splat:n8 (Nate Robins,,,,,,,<engr>)
+%%Title: stdin (ditroff)
+%%CreationDate: Tue Jul 22 19:14:43 1997
+%%EndComments
+% Start of psdit.pro -- prolog for ditroff translator
+% Copyright (c) 1985,1987 Adobe Systems Incorporated. All Rights Reserved. 
+% GOVERNMENT END USERS: See Notice file in TranScript library directory
+% -- probably /usr/lib/ps/Notice
+% $Revision: 1.2 $
+/$DITroff 140 dict def $DITroff begin
+/fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def
+/xi {0 72 11 mul translate 72 resolution div dup neg scale 0 0 moveto
+  /fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def F
+  /pagesave save def}def
+/PB{save /psv exch def currentpoint translate
+  resolution 72 div dup neg scale 0 0 moveto}def
+/PE{psv restore}def
+/m1 matrix def /m2 matrix def /m3 matrix def /oldmat matrix def
+/tan{dup sin exch cos div}bind def
+/point{resolution 72 div mul}bind def
+/dround	{transform round exch round exch itransform}bind def
+/xT{/devname exch def}def
+/xr{/mh exch def /my exch def /resolution exch def}def
+/xp{}def
+/xs{docsave restore end}def
+/xt{}def
+/xf{/fontname exch def /slotno exch def fontnames slotno get fontname eq not
+ {fonts slotno fontname findfont put fontnames slotno fontname put}if}def
+/xH{/fontheight exch def F}bind def
+/xS{/fontslant exch def F}bind def
+/s{/fontsize exch def /fontheight fontsize def F}bind def
+/f{/fontnum exch def F}bind def
+/F{fontheight 0 le {/fontheight fontsize def}if
+   fonts fontnum get fontsize point 0 0 fontheight point neg 0 0 m1 astore
+   fontslant 0 ne{1 0 fontslant tan 1 0 0 m2 astore m3 concatmatrix}if
+   makefont setfont .04 fontsize point mul 0 dround pop setlinewidth}bind def
+/X{exch currentpoint exch pop moveto show}bind def
+/N{3 1 roll moveto show}bind def
+/Y{exch currentpoint pop exch moveto show}bind def
+/S /show load def
+/ditpush{}def/ditpop{}def
+/AX{3 -1 roll currentpoint exch pop moveto 0 exch ashow}bind def
+/AN{4 2 roll moveto 0 exch ashow}bind def
+/AY{3 -1 roll currentpoint pop exch moveto 0 exch ashow}bind def
+/AS{0 exch ashow}bind def
+/MX{currentpoint exch pop moveto}bind def
+/MY{currentpoint pop exch moveto}bind def
+/MXY /moveto load def
+/cb{pop}def	% action on unknown char -- nothing for now
+/n{}def/w{}def
+/p{pop showpage pagesave restore /pagesave save def}def
+/abspoint{currentpoint exch pop add exch currentpoint pop add exch}def
+/dstroke{currentpoint stroke moveto}bind def
+/Dl{2 copy gsave rlineto stroke grestore rmoveto}bind def
+/arcellipse{oldmat currentmatrix pop
+ currentpoint translate 1 diamv diamh div scale /rad diamh 2 div def
+ rad 0 rad -180 180 arc oldmat setmatrix}def
+/Dc{gsave dup /diamv exch def /diamh exch def arcellipse dstroke 
+    grestore diamh 0 rmoveto}def
+/De{gsave /diamv exch def /diamh exch def arcellipse dstroke
+    grestore diamh 0 rmoveto}def
+/Da{currentpoint /by exch def /bx exch def /fy exch def /fx exch def
+   /cy exch def /cx exch def /rad cx cx mul cy cy mul add sqrt def
+   /ang1 cy neg cx neg atan def /ang2 fy fx atan def cx bx add cy by add
+   2 copy rad ang1 ang2 arcn stroke exch fx add exch fy add moveto}def
+/Barray 200 array def % 200 values in a wiggle
+/D~{mark}def
+/D~~{counttomark Barray exch 0 exch getinterval astore /Bcontrol exch def pop
+ /Blen Bcontrol length def Blen 4 ge Blen 2 mod 0 eq and
+ {Bcontrol 0 get Bcontrol 1 get abspoint /Ycont exch def /Xcont exch def
+  Bcontrol 0 2 copy get 2 mul put Bcontrol 1 2 copy get 2 mul put
+  Bcontrol Blen 2 sub 2 copy get 2 mul put
+  Bcontrol Blen 1 sub 2 copy get 2 mul put
+  /Ybi /Xbi currentpoint 3 1 roll def def 0 2 Blen 4 sub
+  {/i exch def
+   Bcontrol i get 3 div Bcontrol i 1 add get 3 div
+   Bcontrol i get 3 mul Bcontrol i 2 add get add 6 div
+   Bcontrol i 1 add get 3 mul Bcontrol i 3 add get add 6 div
+   /Xbi Xcont Bcontrol i 2 add get 2 div add def
+   /Ybi Ycont Bcontrol i 3 add get 2 div add def
+   /Xcont Xcont Bcontrol i 2 add get add def
+   /Ycont Ycont Bcontrol i 3 add get add def
+   Xbi currentpoint pop sub Ybi currentpoint exch pop sub rcurveto
+  }for dstroke}if}def
+end
+/ditstart{$DITroff begin
+ /nfonts 60 def			% NFONTS makedev/ditroff dependent!
+ /fonts[nfonts{0}repeat]def
+ /fontnames[nfonts{()}repeat]def
+/docsave save def
+}def
+
+% character outcalls
+/oc {/pswid exch def /cc exch def /name exch def
+   /ditwid pswid fontsize mul resolution mul 72000 div def
+   /ditsiz fontsize resolution mul 72 div def
+   ocprocs name known{ocprocs name get exec}{name cb}
+   ifelse}def
+/fractm [.65 0 0 .6 0 0] def
+/fraction
+ {/fden exch def /fnum exch def gsave /cf currentfont def
+  cf fractm makefont setfont 0 .3 dm 2 copy neg rmoveto
+  fnum show rmoveto currentfont cf setfont(\244)show setfont fden show 
+  grestore ditwid 0 rmoveto} def
+/oce {grestore ditwid 0 rmoveto}def
+/dm {ditsiz mul}def
+/ocprocs 50 dict def ocprocs begin
+(14){(1)(4)fraction}def
+(12){(1)(2)fraction}def
+(34){(3)(4)fraction}def
+(13){(1)(3)fraction}def
+(23){(2)(3)fraction}def
+(18){(1)(8)fraction}def
+(38){(3)(8)fraction}def
+(58){(5)(8)fraction}def
+(78){(7)(8)fraction}def
+(sr){gsave .05 dm .16 dm rmoveto(\326)show oce}def
+(is){gsave 0 .15 dm rmoveto(\362)show oce}def
+(->){gsave 0 .02 dm rmoveto(\256)show oce}def
+(<-){gsave 0 .02 dm rmoveto(\254)show oce}def
+(==){gsave 0 .05 dm rmoveto(\272)show oce}def
+end
+% DIThacks fonts for some special chars
+50 dict dup begin
+/FontType 3 def
+/FontName /DIThacks def
+/FontMatrix [.001 0.0 0.0 .001 0.0 0.0] def
+/FontBBox [-220 -280 900 900] def% a lie but ...
+/Encoding 256 array def
+0 1 255{Encoding exch /.notdef put}for
+Encoding
+ dup 8#040/space put %space
+ dup 8#110/rc put %right ceil
+ dup 8#111/lt put %left  top curl
+ dup 8#112/bv put %bold vert
+ dup 8#113/lk put %left  mid curl
+ dup 8#114/lb put %left  bot curl
+ dup 8#115/rt put %right top curl
+ dup 8#116/rk put %right mid curl
+ dup 8#117/rb put %right bot curl
+ dup 8#120/rf put %right floor
+ dup 8#121/lf put %left  floor
+ dup 8#122/lc put %left  ceil
+ dup 8#140/sq put %square
+ dup 8#141/bx put %box
+ dup 8#142/ci put %circle
+ dup 8#143/br put %box rule
+ dup 8#144/rn put %root extender
+ dup 8#145/vr put %vertical rule
+ dup 8#146/ob put %outline bullet
+ dup 8#147/bu put %bullet
+ dup 8#150/ru put %rule
+ dup 8#151/ul put %underline
+ pop
+/DITfd 100 dict def
+/BuildChar{0 begin
+ /cc exch def /fd exch def
+ /charname fd /Encoding get cc get def
+ /charwid fd /Metrics get charname get def
+ /charproc fd /CharProcs get charname get def
+ charwid 0 fd /FontBBox get aload pop setcachedevice
+ 40 setlinewidth
+ newpath 0 0 moveto gsave charproc grestore
+ end}def
+/BuildChar load 0 DITfd put
+%/UniqueID 5 def
+/CharProcs 50 dict def
+CharProcs begin
+/space{}def
+/.notdef{}def
+/ru{500 0 rls}def
+/rn{0 750 moveto 500 0 rls}def
+/vr{20 800 moveto 0 -770 rls}def
+/bv{20 800 moveto 0 -1000 rls}def
+/br{20 770 moveto 0 -1040 rls}def
+/ul{0 -250 moveto 500 0 rls}def
+/ob{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath stroke}def
+/bu{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath fill}def
+/sq{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath stroke}def
+/bx{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath fill}def
+/ci{355 333 rmoveto currentpoint newpath 333 0 360 arc
+    50 setlinewidth stroke}def
+
+/lt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 add exch s4 a4p stroke}def
+/lb{20 800 moveto 0 -550 rlineto currx -200 2cx s4 add exch s4 a4p stroke}def
+/rt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 sub exch s4 a4p stroke}def
+/rb{20 800 moveto 0 -500 rlineto currx -200 2cx s4 sub exch s4 a4p stroke}def
+/lk{20 800 moveto 20 300 -280 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/rk{20 800 moveto 20 300 320 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/lf{20 800 moveto 0 -1000 rlineto s4 0 rls}def
+/rf{20 800 moveto 0 -1000 rlineto s4 neg 0 rls}def
+/lc{20 -200 moveto 0 1000 rlineto s4 0 rls}def
+/rc{20 -200 moveto 0 1000 rlineto s4 neg 0 rls}def
+end
+
+/Metrics 50 dict def Metrics begin
+/.notdef 0 def
+/space 500 def
+/ru 500 def
+/br 0 def
+/lt 250 def
+/lb 250 def
+/rt 250 def
+/rb 250 def
+/lk 250 def
+/rk 250 def
+/rc 250 def
+/lc 250 def
+/rf 250 def
+/lf 250 def
+/bv 250 def
+/ob 350 def
+/bu 350 def
+/ci 750 def
+/bx 750 def
+/sq 750 def
+/rn 500 def
+/ul 500 def
+/vr 0 def
+end
+
+DITfd begin
+/s2 500 def /s4 250 def /s3 333 def
+/a4p{arcto pop pop pop pop}def
+/2cx{2 copy exch}def
+/rls{rlineto stroke}def
+/currx{currentpoint pop}def
+/dround{transform round exch round exch itransform} def
+end
+end
+/DIThacks exch definefont pop
+
+ditstart
+(psc)xT
+576 1 1 xr
+1(Times-Roman)xf 1 f
+2(Times-Italic)xf 2 f
+3(Times-Bold)xf 3 f
+4(Times-BoldItalic)xf 4 f
+5(Helvetica)xf 5 f
+6(Helvetica-Bold)xf 6 f
+7(Courier)xf 7 f
+8(Courier-Bold)xf 8 f
+9(Symbol)xf 9 f
+10(DIThacks)xf 10 f
+10 s
+1 f
+xi
+%%EndProlog
+
+%%Page: 1 1
+10 s 0 xH 0 xS 1 f
+10 f
+96(h)Y
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LP)X
+368(PI)X
+410(IX)X
+436(XE)X
+490(EL)X
+536(LM)X
+582(MA)X
+648(AP)X
+702(P)X
+748(\()X
+750(\()X
+786(\))X
+788(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3464(G)X
+3466(GL)X
+3520(LP)X
+3566(PI)X
+3608(IX)X
+3634(XE)X
+3688(EL)X
+3734(LM)X
+3780(MA)X
+3846(AP)X
+3900(P)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+266 864(N)N
+268(NA)X
+322(AM)X
+376(ME)X
+442(E)X
+3 f
+10 s
+554 960(glPixelMapfv,)N
+1052(glPixelMapuiv,)X
+1589(glPixelMapusv)X
+1 f
+9 f
+2115(-)X
+1 f
+2179(set)X
+2288(up)X
+2388(pixel)X
+2568(transfer)X
+2834(maps)X
+9 s
+266 1190(C)N
+268(C)X
+348(S)X
+350(SP)X
+392(PE)X
+434(EC)X
+480(CI)X
+530(IF)X
+556(FI)X
+598(IC)X
+624(CA)X
+674(AT)X
+728(TI)X
+774(IO)X
+800(ON)X
+854(N)X
+10 s
+554 1286(void)N
+3 f
+716(glPixelMapfv)X
+1 f
+1174(\()X
+1221(GLenum)X
+2 f
+1526(map)X
+1 f
+1664(,)X
+1207 1382(GLsizei)N
+2 f
+1481(mapsize)X
+1 f
+1739(,)X
+1207 1478(const)N
+1396(GL\257oat)X
+2 f
+1665(*values)X
+1 f
+1930(\))X
+554 1574(void)N
+3 f
+716(glPixelMapuiv)X
+1 f
+1213(\()X
+1260(GLenum)X
+2 f
+1565(map)X
+1 f
+1703(,)X
+1242 1670(GLsizei)N
+2 f
+1516(mapsize)X
+1 f
+1774(,)X
+1242 1766(const)N
+1431(GLuint)X
+2 f
+1682(*values)X
+1 f
+1947(\))X
+554 1862(void)N
+3 f
+716(glPixelMapusv)X
+1 f
+1222(\()X
+1269(GLenum)X
+2 f
+1574(map)X
+1 f
+1712(,)X
+1251 1958(GLsizei)N
+2 f
+1525(mapsize)X
+1 f
+1783(,)X
+1251 2054(const)N
+1440(GLushort)X
+2 f
+1767(*values)X
+1 f
+2032(\))X
+554 2246(delim)N
+756($$)X
+9 s
+266 2380(P)N
+268(PA)X
+310(AR)X
+364(RA)X
+414(AM)X
+468(ME)X
+534(ET)X
+580(TE)X
+626(ER)X
+672(RS)X
+722(S)X
+2 f
+10 s
+554 2476(map)N
+1 f
+852(Speci\256es)X
+1161(a)X
+1217(symbolic)X
+1530(map)X
+1688(name.)X
+1922(Must)X
+2106(be)X
+2202(one)X
+2338(of)X
+2425(the)X
+2543(following:)X
+3 f
+2916(GL_PIXEL_MAP_I_TO_I)X
+1 f
+3835(,)X
+3 f
+852 2572(GL_PIXEL_MAP_S_TO_S)N
+1 f
+1797(,)X
+3 f
+1837(GL_PIXEL_MAP_I_TO_R)X
+1 f
+2783(,)X
+3 f
+2823(GL_PIXEL_MAP_I_TO_G)X
+1 f
+3773(,)X
+3 f
+852 2668(GL_PIXEL_MAP_I_TO_B)N
+1 f
+1793(,)X
+3 f
+1833(GL_PIXEL_MAP_I_TO_A)X
+1 f
+2779(,)X
+3 f
+2819(GL_PIXEL_MAP_R_TO_R)X
+1 f
+3792(,)X
+3 f
+852 2764(GL_PIXEL_MAP_G_TO_G)N
+1 f
+1833(,)X
+3 f
+1873(GL_PIXEL_MAP_B_TO_B)X
+1 f
+2836(,)X
+2876(or)X
+3 f
+2963(GL_PIXEL_MAP_A_TO_A)X
+1 f
+3936(.)X
+2 f
+554 2898(mapsize)N
+1 f
+852(Speci\256es)X
+1161(the)X
+1279(size)X
+1424(of)X
+1511(the)X
+1629(map)X
+1787(being)X
+1985(de\256ned.)X
+2 f
+554 3032(values)N
+1 f
+852(Speci\256es)X
+1161(an)X
+1257(array)X
+1443(of)X
+2 f
+1530(mapsize)X
+1 f
+1808(values.)X
+9 s
+266 3166(D)N
+268(DE)X
+322(ES)X
+368(SC)X
+410(CR)X
+460(RI)X
+510(IP)X
+536(PT)X
+578(TI)X
+624(IO)X
+650(ON)X
+704(N)X
+3 f
+10 s
+554 3262(glPixelMap)N
+1 f
+965(sets)X
+1105(up)X
+1205(translation)X
+1563(tables,)X
+1790(or)X
+2 f
+1877(maps)X
+1 f
+2046(,)X
+2086(used)X
+2253(by)X
+3 f
+2353(glCopyPixels)X
+1 f
+2797(,)X
+3 f
+2837(glCopyTexImage1D)X
+1 f
+3522(,)X
+3 f
+554 3358(glCopyTexImage2D)N
+1 f
+1239(,)X
+3 f
+1279(glCopyTexSubImage1D)X
+1 f
+2096(,)X
+3 f
+2136(glCopyTexSubImage2D)X
+1 f
+2953(,)X
+3 f
+2993(glDrawPixels)X
+1 f
+3447(,)X
+3 f
+3487(glReadPixels)X
+1 f
+(,)S
+3 f
+554 3454(glTexImage1D)N
+1 f
+1057(,)X
+3 f
+1097(glTexImage2D)X
+1 f
+1600(,)X
+3 f
+1640(glTexSubImage1D)X
+1 f
+2275(,)X
+2315(and)X
+3 f
+2451(glTexSubImage2D)X
+1 f
+3086(.)X
+3146(Use)X
+3291(of)X
+3378(these)X
+3563(maps)X
+3752(is)X
+554 3550(described)N
+882(completely)X
+1258(in)X
+1340(the)X
+3 f
+1458(glPixelTransfer)X
+1 f
+2012 0.4531(reference)AX
+2333(page,)X
+2525(and)X
+2661(partly)X
+2868(in)X
+2950(the)X
+3068 0.4531(reference)AX
+3389(pages)X
+3592(for)X
+3706(the)X
+3824(pixel)X
+554 3646(and)N
+690(texture)X
+933(image)X
+1149(commands.)X
+1556(Only)X
+1736(the)X
+1854(speci\256cation)X
+2279(of)X
+2366(the)X
+2484(maps)X
+2673(is)X
+2746(described)X
+3074(in)X
+3156(this)X
+3291 0.4531(reference)AX
+3612(page.)X
+2 f
+554 3780(map)N
+1 f
+712(is)X
+785(a)X
+841(symbolic)X
+1154(map)X
+1312(name,)X
+1526(indicating)X
+1866(one)X
+2002(of)X
+2089(ten)X
+2207(maps)X
+2396(to)X
+2478(set.)X
+2 f
+2627(mapsize)X
+1 f
+2905(speci\256es)X
+3201(the)X
+3319(number)X
+3584(of)X
+3671(entries)X
+3905(in)X
+554 3876(the)N
+672(map,)X
+850(and)X
+2 f
+986(values)X
+1 f
+1211(is)X
+1284(a)X
+1340(pointer)X
+1587(to)X
+1669(an)X
+1765(array)X
+1951(of)X
+2 f
+2038(mapsize)X
+1 f
+2316(map)X
+2474(values.)X
+554 4010(The)N
+699(ten)X
+817(maps)X
+1006(are)X
+1125(as)X
+1212(follows:)X
+3 f
+554 4144(GL_PIXEL_MAP_I_TO_I)N
+1 f
+1754(Maps)X
+1952(color)X
+2137(indices)X
+2384(to)X
+2466(color)X
+2651(indices.)X
+3 f
+554 4278(GL_PIXEL_MAP_S_TO_S)N
+1 f
+1754(Maps)X
+1952(stencil)X
+2181(indices)X
+2428(to)X
+2510(stencil)X
+2739(indices.)X
+3 f
+554 4412(GL_PIXEL_MAP_I_TO_R)N
+1 f
+1754(Maps)X
+1952(color)X
+2137(indices)X
+2384(to)X
+2466(red)X
+2589(components.)X
+3 f
+554 4546(GL_PIXEL_MAP_I_TO_G)N
+1 f
+1754(Maps)X
+1952(color)X
+2137(indices)X
+2384(to)X
+2466(green)X
+2665(components.)X
+3 f
+554 4680(GL_PIXEL_MAP_I_TO_B)N
+1 f
+1754(Maps)X
+1952(color)X
+2137(indices)X
+2384(to)X
+2466(blue)X
+2624(components.)X
+3 f
+554 4814(GL_PIXEL_MAP_I_TO_A)N
+1 f
+1754(Maps)X
+1952(color)X
+2137(indices)X
+2384(to)X
+2466(alpha)X
+2660(components.)X
+3 f
+554 4948(GL_PIXEL_MAP_R_TO_R)N
+1 f
+1754(Maps)X
+1952(red)X
+2075(components)X
+2482(to)X
+2564(red)X
+2687(components.)X
+3 f
+554 5082(GL_PIXEL_MAP_G_TO_G)N
+1 f
+1754(Maps)X
+1952(green)X
+2151(components)X
+2558(to)X
+2640(green)X
+2839(components.)X
+3 f
+554 5216(GL_PIXEL_MAP_B_TO_B)N
+1 f
+1754(Maps)X
+1952(blue)X
+2110(components)X
+2517(to)X
+2599(blue)X
+2757(components.)X
+3 f
+554 5350(GL_PIXEL_MAP_A_TO_A)N
+1 f
+1754(Maps)X
+1952(alpha)X
+2146(components)X
+2553(to)X
+2635(alpha)X
+2829(components.)X
+554 5484(The)N
+699(entries)X
+933(in)X
+1015(a)X
+1071(map)X
+1229(can)X
+1361(be)X
+1457(speci\256ed)X
+1762(as)X
+1849(single-precision)X
+2381(\257oating-point)X
+2836(numbers,)X
+3152(unsigned)X
+3461(short)X
+3641(integers,)X
+3935(or)X
+554 5580(unsigned)N
+863(long)X
+1025(integers.)X
+1339(Maps)X
+1537(that)X
+1677(store)X
+1853(color)X
+2038(component)X
+2414(values)X
+2639(\(all)X
+2766(but)X
+3 f
+2888(GL_PIXEL_MAP_I_TO_I)X
+1 f
+3827(and)X
+3 f
+554 5676(GL_PIXEL_MAP_S_TO_S)N
+1 f
+1499(\))X
+1546(retain)X
+1749(their)X
+1916(values)X
+2141(in)X
+2223(\257oating-point)X
+2678(format,)X
+2932(with)X
+3094(unspeci\256ed)X
+3479(mantissa)X
+3779(and)X
+554 5772(exponent)N
+868(sizes.)X
+1084(Floating-point)X
+1561(values)X
+1786(speci\256ed)X
+2091(by)X
+3 f
+2191(glPixelMapfv)X
+1 f
+2669(are)X
+2788(converted)X
+3125(directly)X
+3390(to)X
+3472(the)X
+3590(internal)X
+266 6144(Page)N
+442(1)X
+3577(July)X
+3730(22,)X
+3850(1997)X
+
+2 p
+%%Page: 2 2
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LP)X
+368(PI)X
+410(IX)X
+436(XE)X
+490(EL)X
+536(LM)X
+582(MA)X
+648(AP)X
+702(P)X
+748(\()X
+750(\()X
+786(\))X
+788(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3464(G)X
+3466(GL)X
+3520(LP)X
+3566(PI)X
+3608(IX)X
+3634(XE)X
+3688(EL)X
+3734(LM)X
+3780(MA)X
+3846(AP)X
+3900(P)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+10 s
+554 864(\257oating-point)N
+1009(format)X
+1243(of)X
+1330(these)X
+1515(maps,)X
+1724(then)X
+1882(clamped)X
+2174(to)X
+2256(the)X
+2374(range)X
+2573([0,1].)X
+2787(Unsigned)X
+3114(integer)X
+3357(values)X
+3582(speci\256ed)X
+3887(by)X
+3 f
+554 960(glPixelMapusv)N
+1 f
+1080(and)X
+3 f
+1216(glPixelMapuiv)X
+1 f
+1733(are)X
+1852(converted)X
+2189(linearly)X
+2454(such)X
+2621(that)X
+2761(the)X
+2879(largest)X
+3113(representable)X
+3562(integer)X
+3805(maps)X
+554 1056(to)N
+636(1.0,)X
+776(and)X
+912(0)X
+972(maps)X
+1161(to)X
+1243(0.0.)X
+554 1190(Maps)N
+752(that)X
+892(store)X
+1068(indices,)X
+3 f
+1335(GL_PIXEL_MAP_I_TO_I)X
+1 f
+2274(and)X
+3 f
+2410(GL_PIXEL_MAP_S_TO_S)X
+1 f
+3355(,)X
+3395(retain)X
+3598(their)X
+3765(values)X
+554 1286(in)N
+636(\256xed-point)X
+1007(format,)X
+1261(with)X
+1423(an)X
+1519(unspeci\256ed)X
+1904(number)X
+2169(of)X
+2256(bits)X
+2391(to)X
+2473(the)X
+2591(right)X
+2762(of)X
+2849(the)X
+2967(binary)X
+3192(point.)X
+3416(Floating-point)X
+554 1382(values)N
+779(speci\256ed)X
+1084(by)X
+3 f
+1184(glPixelMapfv)X
+1 f
+1662(are)X
+1781(converted)X
+2118(directly)X
+2383(to)X
+2465(the)X
+2583(internal)X
+2848(\256xed-point)X
+3219(format)X
+3453(of)X
+3540(these)X
+3725(maps.)X
+554 1478(Unsigned)N
+881(integer)X
+1124(values)X
+1349(speci\256ed)X
+1654(by)X
+3 f
+1754(glPixelMapusv)X
+1 f
+2280(and)X
+3 f
+2416(glPixelMapuiv)X
+1 f
+2933(specify)X
+3185(integer)X
+3428(values,)X
+3673(with)X
+3835(all)X
+554 1574(0's)N
+672(to)X
+754(the)X
+872(right)X
+1043(of)X
+1130(the)X
+1248(binary)X
+1473(point.)X
+554 1708(The)N
+699(following)X
+1030(table)X
+1206(shows)X
+1426(the)X
+1544(initial)X
+1750(sizes)X
+1926(and)X
+2062(values)X
+2287(for)X
+2401(each)X
+2569(of)X
+2656(the)X
+2774(maps.)X
+3003(Maps)X
+3201(that)X
+3341(are)X
+3460(indexed)X
+3734(by)X
+554 1804(either)N
+757(color)X
+942(or)X
+1029(stencil)X
+1258(indices)X
+1505(must)X
+1680(have)X
+2 f
+1852(mapsize)X
+1 f
+2130(=)X
+2195($2)X
+2295(sup)X
+2426(n$)X
+2526(for)X
+2640(some)X
+2829($n$)X
+2969(or)X
+3056(the)X
+3174(results)X
+3403(are)X
+3522(unde\256ned.)X
+554 1900(The)N
+699(maximum)X
+1043(allowable)X
+1375(size)X
+1520(for)X
+1634(each)X
+1802(map)X
+1960(depends)X
+2243(on)X
+2343(the)X
+2461(implementation)X
+2983(and)X
+3119(can)X
+3251(be)X
+3347(determined)X
+3728(by)X
+3828(cal-)X
+554 1996(ling)N
+3 f
+698(glGet)X
+1 f
+905(with)X
+1067(argument)X
+3 f
+1390(GL_MAX_PIXEL_MAP_TABLE)X
+1 f
+2554(.)X
+2614(The)X
+2759(single)X
+2970(maximum)X
+3314(applies)X
+3561(to)X
+3643(all)X
+3743(maps;)X
+3954(it)X
+554 2092(is)N
+627(at)X
+705(least)X
+872(32.)X
+10 f
+727 2108(i)N
+756(iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii)X
+2 f
+1188 2204(map)N
+1875(lookup)X
+2113(index)X
+2422(lookup)X
+2660(value)X
+2962(initial)X
+3172(size)X
+3412(initial)X
+3622(value)X
+1 f
+10 f
+727 2212(i)N
+756(iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii)X
+727 2228(i)N
+756(iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii)X
+3 f
+798 2316(GL_PIXEL_MAP_I_TO_I)N
+1 f
+1900(color)X
+2085(index)X
+2447(color)X
+2632(index)X
+3107(1)X
+3584(0)X
+3 f
+785 2412(GL_PIXEL_MAP_S_TO_S)N
+1 f
+1868(stencil)X
+2097(index)X
+2415(stencil)X
+2644(index)X
+3107(1)X
+3584(0)X
+3 f
+784 2508(GL_PIXEL_MAP_I_TO_R)N
+1 f
+1890(color)X
+2075(index)X
+2602(R)X
+3107(1)X
+3584(0)X
+3 f
+782 2604(GL_PIXEL_MAP_I_TO_G)N
+1 f
+1890(color)X
+2075(index)X
+2599(G)X
+3107(1)X
+3584(0)X
+3 f
+787 2700(GL_PIXEL_MAP_I_TO_B)N
+1 f
+1900(color)X
+2085(index)X
+2602(B)X
+3107(1)X
+3584(0)X
+3 f
+784 2796(GL_PIXEL_MAP_I_TO_A)N
+1 f
+1900(color)X
+2085(index)X
+2599(A)X
+3107(1)X
+3584(0)X
+3 f
+771 2892(GL_PIXEL_MAP_R_TO_R)N
+1 f
+2055(R)X
+2602(R)X
+3107(1)X
+3584(0)X
+3 f
+767 2988(GL_PIXEL_MAP_G_TO_G)N
+1 f
+2052(G)X
+2599(G)X
+3107(1)X
+3584(0)X
+3 f
+776 3084(GL_PIXEL_MAP_B_TO_B)N
+1 f
+2055(B)X
+2602(B)X
+3107(1)X
+3584(0)X
+3 f
+771 3180(GL_PIXEL_MAP_A_TO_A)N
+1 f
+2052(A)X
+2599(A)X
+3107(1)X
+3584(0)X
+10 f
+727 3196(i)N
+756(iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii)X
+727(c)X
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+1808 3196(c)N
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+2355 3196(c)N
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+2902 3196(c)N
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+3352 3196(c)N
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+3836 3196(c)N
+3148(c)Y
+3068(c)Y
+2988(c)Y
+2908(c)Y
+2828(c)Y
+2748(c)Y
+2668(c)Y
+2588(c)Y
+2508(c)Y
+2428(c)Y
+2348(c)Y
+2268(c)Y
+2188(c)Y
+9 s
+1 f
+266 3330(E)N
+268(ER)X
+314(RR)X
+364(RO)X
+414(OR)X
+468(RS)X
+518(S)X
+3 f
+10 s
+554 3426(GL_INVALID_ENUM)N
+1 f
+1361(is)X
+1434(generated)X
+1767(if)X
+2 f
+1836(map)X
+1 f
+1994(is)X
+2067(not)X
+2189(an)X
+2285(accepted)X
+2587(value.)X
+3 f
+554 3560(GL_INVALID_VALUE)N
+1 f
+1396(is)X
+1469(generated)X
+1802(if)X
+2 f
+1871(mapsize)X
+1 f
+2149(is)X
+2222(less)X
+2362(than)X
+2520(one)X
+2656(or)X
+2743(larger)X
+2951(than)X
+3 f
+554 3656(GL_MAX_PIXEL_MAP_TABLE)N
+1 f
+1718(.)X
+3 f
+554 3790(GL_INVALID_VALUE)N
+1 f
+1396(is)X
+1469(generated)X
+1802(if)X
+2 f
+1871(map)X
+1 f
+2029(is)X
+3 f
+2102(GL_PIXEL_MAP_I_TO_I)X
+1 f
+3021(,)X
+3 f
+554 3886(GL_PIXEL_MAP_S_TO_S)N
+1 f
+1499(,)X
+3 f
+1539(GL_PIXEL_MAP_I_TO_R)X
+1 f
+2485(,)X
+3 f
+2525(GL_PIXEL_MAP_I_TO_G)X
+1 f
+3475(,)X
+3 f
+554 3982(GL_PIXEL_MAP_I_TO_B)N
+1 f
+1495(,)X
+1535(or)X
+3 f
+1622(GL_PIXEL_MAP_I_TO_A)X
+1 f
+2568(,)X
+2608(and)X
+2 f
+2744(mapsize)X
+1 f
+3022(is)X
+3095(not)X
+3217(a)X
+3273(power)X
+3494(of)X
+3581(two.)X
+3 f
+554 4116(GL_INVALID_OPERATION)N
+1 f
+1600(is)X
+1673(generated)X
+2006(if)X
+3 f
+2075(glPixelMap)X
+1 f
+2486(is)X
+2559(executed)X
+2865(between)X
+3153(the)X
+3271(execution)X
+3603(of)X
+3 f
+3690(glBegin)X
+1 f
+554 4212(and)N
+690(the)X
+808(corresponding)X
+1287(execution)X
+1619(of)X
+3 f
+1706(glEnd)X
+1 f
+1909(.)X
+9 s
+266 4346(A)N
+268(AS)X
+322(SS)X
+364(SO)X
+406(OC)X
+460(CI)X
+510(IA)X
+536(AT)X
+590(TE)X
+636(ED)X
+682(D)X
+766(G)X
+768(GE)X
+822(ET)X
+868(TS)X
+914(S)X
+3 f
+10 s
+554 4442(glGetPixelMap)N
+554 4538(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_I_TO_I_SIZE)X
+554 4634(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246 -0.1413(GL_PIXEL_MAP_S_TO_S_SIZE)AX
+554 4730(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_I_TO_R_SIZE)X
+554 4826(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_I_TO_G_SIZE)X
+554 4922(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_I_TO_B_SIZE)X
+554 5018(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_I_TO_A_SIZE)X
+554 5114(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_R_TO_R_SIZE)X
+554 5210(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_G_TO_G_SIZE)X
+554 5306(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_B_TO_B_SIZE)X
+554 5402(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_PIXEL_MAP_A_TO_A_SIZE)X
+554 5498(glGet)N
+1 f
+761(with)X
+923(argument)X
+3 f
+1246(GL_MAX_PIXEL_MAP_TABLE)X
+1 f
+9 s
+266 5632(S)N
+268(SE)X
+310(EE)X
+356(E)X
+432(A)X
+434(AL)X
+488(LS)X
+534(SO)X
+576(O)X
+3 f
+10 s
+554 5728(glCopyPixels)N
+1 f
+998(,)X
+3 f
+1038(glCopyTexImage1D)X
+1 f
+1723(,)X
+3 f
+1763(glCopyTexImage2D)X
+1 f
+2448(,)X
+3 f
+2488(glCopyTexSubImage1D)X
+1 f
+3305(,)X
+3 f
+554 5824(glCopyTexSubImage2D)N
+1 f
+1371(,)X
+3 f
+1411(glDrawPixels)X
+1 f
+1865(,)X
+3 f
+1905(glPixelStore)X
+1 f
+2319(,)X
+3 f
+2359(glPixelTransfer)X
+1 f
+2893(,)X
+3 f
+2933(glReadPixels)X
+1 f
+(,)S
+3 f
+3413(glTexImage1D)X
+1 f
+3916(,)X
+266 6144(July)N
+419(22,)X
+539(1997)X
+3794(Page)X
+3970(2)X
+
+3 p
+%%Page: 3 3
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(G)N
+268(GL)X
+322(LP)X
+368(PI)X
+410(IX)X
+436(XE)X
+490(EL)X
+536(LM)X
+582(MA)X
+648(AP)X
+702(P)X
+748(\()X
+750(\()X
+786(\))X
+788(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3464(G)X
+3466(GL)X
+3520(LP)X
+3566(PI)X
+3608(IX)X
+3634(XE)X
+3688(EL)X
+3734(LM)X
+3780(MA)X
+3846(AP)X
+3900(P)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+3 f
+10 s
+554 864(glTexImage2D)N
+1 f
+1057(,)X
+3 f
+1097(glTexSubImage1D)X
+1 f
+1732(,)X
+3 f
+1772(glTexSubImage2D)X
+1 f
+266 6144(Page)N
+442(3)X
+3577(July)X
+3730(22,)X
+3850(1997)X
+10 f
+0 6428(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+
+3 p
+%%Trailer
+xt
+
+xs

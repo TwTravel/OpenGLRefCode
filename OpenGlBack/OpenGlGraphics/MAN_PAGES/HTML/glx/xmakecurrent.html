@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXMakeCurrent</STRONG> - attach a GLX	context	to a window or a GLX
+	  pixmap
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  Bool <STRONG>glXMakeCurrent</STRONG>( Display *<EM>dpy</EM>,
+			       GLXDrawable <EM>drawable</EM>,
+			       GLXContext <EM>ctx</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	    Specifies the connection to	the X server.
+
+	  <EM>drawable</EM>  Specifies a	GLX drawable.  Must be either an X
+		    window ID or a GLX pixmap ID.
+
+	  <EM>ctx</EM>	    Specifies a	GLX rendering context that is to be
+		    attached to	<EM>drawable</EM>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXMakeCurrent</STRONG> does two things:  It makes <EM>ctx</EM>	the current
+	  GLX rendering	context	of the calling thread, replacing the
+	  previously current context if	there was one, and it attaches
+	  <EM>ctx</EM> to a GLX drawable, either	a window or a GLX pixmap.  As
+	  a result of these two	actions, subsequent GL rendering calls
+	  use rendering	context	<EM>ctx</EM> to modify GLX drawable <EM>drawable</EM>.
+	  Because <STRONG>glXMakeCurrent</STRONG> always	replaces the current rendering
+	  context with <EM>ctx</EM>, there can be only one current context per
+	  thread.
+
+	  Pending commands to the previous context, if any, are
+	  flushed before it is released.
+
+	  The first time <EM>ctx</EM> is	made current to	any thread, its
+	  viewport is set to the full size of <EM>drawable</EM>.	 Subsequent
+	  calls	by any thread to <STRONG>glXMakeCurrent</STRONG>	with <EM>ctx</EM> have no
+	  effect on its	viewport.
+
+	  To release the current context without assigning a new one,
+	  call <STRONG>glXMakeCurrent</STRONG> with <EM>drawable</EM> set	<STRONG>None</STRONG> and <EM>ctx</EM> set to
+	  <STRONG>NULL</STRONG>
+
+	  <STRONG>glXMakeCurrent</STRONG> returns <STRONG>True</STRONG> if it is successful, <STRONG>False</STRONG>
+	  otherwise.  If <STRONG>False</STRONG> is returned, the	previously current
+	  rendering context and	drawable (if any) remain unchanged.
+
+     <STRONG>NOTES</STRONG>
+	  A <EM>process</EM> is a single-execution environment, implemented in
+	  a single address space, consisting of	one or more threads.
+
+	  A <EM>thread</EM> is one of a set of subprocesses that	share a	single
+	  address space, but maintain separate program counters, stack
+	  spaces, and other related global data.  A <EM>thread</EM> that	is the
+	  only member of its subprocess	group is equivalent to a
+	  <EM>process</EM>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>BadMatch</STRONG> is generated	if <EM>drawable</EM> was	not created with the
+	  same X screen	and visual as <EM>ctx</EM>.  It is also generated if
+	  <EM>drawable</EM> is <STRONG>None</STRONG> and <EM>ctx</EM> is not <STRONG>NULL</STRONG>.
+
+	  <STRONG>BadAccess</STRONG> is generated if <EM>ctx</EM>	was current to another thread
+	  at the time <STRONG>glXMakeCurrent</STRONG> was called.
+
+	  <STRONG>GLXBadDrawable</STRONG> is generated if <EM>drawable</EM> is not a valid GLX
+	  drawable.
+
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> is not a valid GLX
+	  context.
+
+	  <STRONG>GLXBadContextState</STRONG> is	generated if <STRONG>glXMakeCurrent</STRONG> is
+	  executed between the execution of <STRONG>glBegin</STRONG> and	the
+	  corresponding	execution of <STRONG>glEnd</STRONG>.
+
+	  <STRONG>GLXBadContextState</STRONG> is	also generated if the rendering
+	  context current to the calling thread	has GL renderer	state
+	  <STRONG>GL_FEEDBACK</STRONG> or <STRONG>GL_SELECT</STRONG>.
+
+	  <STRONG>GLXBadCurrentWindow</STRONG> is generated if there are	pending	GL
+	  commands for the previous context and	the current drawable
+	  is a window that is no longer	valid.
+
+	  <STRONG>BadAlloc</STRONG> may be generated if the server has delayed
+	  allocation of	ancillary buffers until	<STRONG>glXMakeCurrent</STRONG> is
+	  called, only to find that it has insufficient	resources to
+	  complete the allocation.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXCreateGLXPixmap</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,2124 @@
+%!PS-Adobe-1.0
+%%Creator: splat:n8 (Nate Robins,,,,,,,<engr>)
+%%Title: stdin (ditroff)
+%%CreationDate: Wed Jul 23 07:58:36 1997
+%%EndComments
+% Start of psdit.pro -- prolog for ditroff translator
+% Copyright (c) 1985,1987 Adobe Systems Incorporated. All Rights Reserved. 
+% GOVERNMENT END USERS: See Notice file in TranScript library directory
+% -- probably /usr/lib/ps/Notice
+% $Revision: 1.2 $
+/$DITroff 140 dict def $DITroff begin
+/fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def
+/xi {0 72 11 mul translate 72 resolution div dup neg scale 0 0 moveto
+  /fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def F
+  /pagesave save def}def
+/PB{save /psv exch def currentpoint translate
+  resolution 72 div dup neg scale 0 0 moveto}def
+/PE{psv restore}def
+/m1 matrix def /m2 matrix def /m3 matrix def /oldmat matrix def
+/tan{dup sin exch cos div}bind def
+/point{resolution 72 div mul}bind def
+/dround	{transform round exch round exch itransform}bind def
+/xT{/devname exch def}def
+/xr{/mh exch def /my exch def /resolution exch def}def
+/xp{}def
+/xs{docsave restore end}def
+/xt{}def
+/xf{/fontname exch def /slotno exch def fontnames slotno get fontname eq not
+ {fonts slotno fontname findfont put fontnames slotno fontname put}if}def
+/xH{/fontheight exch def F}bind def
+/xS{/fontslant exch def F}bind def
+/s{/fontsize exch def /fontheight fontsize def F}bind def
+/f{/fontnum exch def F}bind def
+/F{fontheight 0 le {/fontheight fontsize def}if
+   fonts fontnum get fontsize point 0 0 fontheight point neg 0 0 m1 astore
+   fontslant 0 ne{1 0 fontslant tan 1 0 0 m2 astore m3 concatmatrix}if
+   makefont setfont .04 fontsize point mul 0 dround pop setlinewidth}bind def
+/X{exch currentpoint exch pop moveto show}bind def
+/N{3 1 roll moveto show}bind def
+/Y{exch currentpoint pop exch moveto show}bind def
+/S /show load def
+/ditpush{}def/ditpop{}def
+/AX{3 -1 roll currentpoint exch pop moveto 0 exch ashow}bind def
+/AN{4 2 roll moveto 0 exch ashow}bind def
+/AY{3 -1 roll currentpoint pop exch moveto 0 exch ashow}bind def
+/AS{0 exch ashow}bind def
+/MX{currentpoint exch pop moveto}bind def
+/MY{currentpoint pop exch moveto}bind def
+/MXY /moveto load def
+/cb{pop}def	% action on unknown char -- nothing for now
+/n{}def/w{}def
+/p{pop showpage pagesave restore /pagesave save def}def
+/abspoint{currentpoint exch pop add exch currentpoint pop add exch}def
+/dstroke{currentpoint stroke moveto}bind def
+/Dl{2 copy gsave rlineto stroke grestore rmoveto}bind def
+/arcellipse{oldmat currentmatrix pop
+ currentpoint translate 1 diamv diamh div scale /rad diamh 2 div def
+ rad 0 rad -180 180 arc oldmat setmatrix}def
+/Dc{gsave dup /diamv exch def /diamh exch def arcellipse dstroke 
+    grestore diamh 0 rmoveto}def
+/De{gsave /diamv exch def /diamh exch def arcellipse dstroke
+    grestore diamh 0 rmoveto}def
+/Da{currentpoint /by exch def /bx exch def /fy exch def /fx exch def
+   /cy exch def /cx exch def /rad cx cx mul cy cy mul add sqrt def
+   /ang1 cy neg cx neg atan def /ang2 fy fx atan def cx bx add cy by add
+   2 copy rad ang1 ang2 arcn stroke exch fx add exch fy add moveto}def
+/Barray 200 array def % 200 values in a wiggle
+/D~{mark}def
+/D~~{counttomark Barray exch 0 exch getinterval astore /Bcontrol exch def pop
+ /Blen Bcontrol length def Blen 4 ge Blen 2 mod 0 eq and
+ {Bcontrol 0 get Bcontrol 1 get abspoint /Ycont exch def /Xcont exch def
+  Bcontrol 0 2 copy get 2 mul put Bcontrol 1 2 copy get 2 mul put
+  Bcontrol Blen 2 sub 2 copy get 2 mul put
+  Bcontrol Blen 1 sub 2 copy get 2 mul put
+  /Ybi /Xbi currentpoint 3 1 roll def def 0 2 Blen 4 sub
+  {/i exch def
+   Bcontrol i get 3 div Bcontrol i 1 add get 3 div
+   Bcontrol i get 3 mul Bcontrol i 2 add get add 6 div
+   Bcontrol i 1 add get 3 mul Bcontrol i 3 add get add 6 div
+   /Xbi Xcont Bcontrol i 2 add get 2 div add def
+   /Ybi Ycont Bcontrol i 3 add get 2 div add def
+   /Xcont Xcont Bcontrol i 2 add get add def
+   /Ycont Ycont Bcontrol i 3 add get add def
+   Xbi currentpoint pop sub Ybi currentpoint exch pop sub rcurveto
+  }for dstroke}if}def
+end
+/ditstart{$DITroff begin
+ /nfonts 60 def			% NFONTS makedev/ditroff dependent!
+ /fonts[nfonts{0}repeat]def
+ /fontnames[nfonts{()}repeat]def
+/docsave save def
+}def
+
+% character outcalls
+/oc {/pswid exch def /cc exch def /name exch def
+   /ditwid pswid fontsize mul resolution mul 72000 div def
+   /ditsiz fontsize resolution mul 72 div def
+   ocprocs name known{ocprocs name get exec}{name cb}
+   ifelse}def
+/fractm [.65 0 0 .6 0 0] def
+/fraction
+ {/fden exch def /fnum exch def gsave /cf currentfont def
+  cf fractm makefont setfont 0 .3 dm 2 copy neg rmoveto
+  fnum show rmoveto currentfont cf setfont(\244)show setfont fden show 
+  grestore ditwid 0 rmoveto} def
+/oce {grestore ditwid 0 rmoveto}def
+/dm {ditsiz mul}def
+/ocprocs 50 dict def ocprocs begin
+(14){(1)(4)fraction}def
+(12){(1)(2)fraction}def
+(34){(3)(4)fraction}def
+(13){(1)(3)fraction}def
+(23){(2)(3)fraction}def
+(18){(1)(8)fraction}def
+(38){(3)(8)fraction}def
+(58){(5)(8)fraction}def
+(78){(7)(8)fraction}def
+(sr){gsave .05 dm .16 dm rmoveto(\326)show oce}def
+(is){gsave 0 .15 dm rmoveto(\362)show oce}def
+(->){gsave 0 .02 dm rmoveto(\256)show oce}def
+(<-){gsave 0 .02 dm rmoveto(\254)show oce}def
+(==){gsave 0 .05 dm rmoveto(\272)show oce}def
+end
+% DIThacks fonts for some special chars
+50 dict dup begin
+/FontType 3 def
+/FontName /DIThacks def
+/FontMatrix [.001 0.0 0.0 .001 0.0 0.0] def
+/FontBBox [-220 -280 900 900] def% a lie but ...
+/Encoding 256 array def
+0 1 255{Encoding exch /.notdef put}for
+Encoding
+ dup 8#040/space put %space
+ dup 8#110/rc put %right ceil
+ dup 8#111/lt put %left  top curl
+ dup 8#112/bv put %bold vert
+ dup 8#113/lk put %left  mid curl
+ dup 8#114/lb put %left  bot curl
+ dup 8#115/rt put %right top curl
+ dup 8#116/rk put %right mid curl
+ dup 8#117/rb put %right bot curl
+ dup 8#120/rf put %right floor
+ dup 8#121/lf put %left  floor
+ dup 8#122/lc put %left  ceil
+ dup 8#140/sq put %square
+ dup 8#141/bx put %box
+ dup 8#142/ci put %circle
+ dup 8#143/br put %box rule
+ dup 8#144/rn put %root extender
+ dup 8#145/vr put %vertical rule
+ dup 8#146/ob put %outline bullet
+ dup 8#147/bu put %bullet
+ dup 8#150/ru put %rule
+ dup 8#151/ul put %underline
+ pop
+/DITfd 100 dict def
+/BuildChar{0 begin
+ /cc exch def /fd exch def
+ /charname fd /Encoding get cc get def
+ /charwid fd /Metrics get charname get def
+ /charproc fd /CharProcs get charname get def
+ charwid 0 fd /FontBBox get aload pop setcachedevice
+ 40 setlinewidth
+ newpath 0 0 moveto gsave charproc grestore
+ end}def
+/BuildChar load 0 DITfd put
+%/UniqueID 5 def
+/CharProcs 50 dict def
+CharProcs begin
+/space{}def
+/.notdef{}def
+/ru{500 0 rls}def
+/rn{0 750 moveto 500 0 rls}def
+/vr{20 800 moveto 0 -770 rls}def
+/bv{20 800 moveto 0 -1000 rls}def
+/br{20 770 moveto 0 -1040 rls}def
+/ul{0 -250 moveto 500 0 rls}def
+/ob{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath stroke}def
+/bu{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath fill}def
+/sq{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath stroke}def
+/bx{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath fill}def
+/ci{355 333 rmoveto currentpoint newpath 333 0 360 arc
+    50 setlinewidth stroke}def
+
+/lt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 add exch s4 a4p stroke}def
+/lb{20 800 moveto 0 -550 rlineto currx -200 2cx s4 add exch s4 a4p stroke}def
+/rt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 sub exch s4 a4p stroke}def
+/rb{20 800 moveto 0 -500 rlineto currx -200 2cx s4 sub exch s4 a4p stroke}def
+/lk{20 800 moveto 20 300 -280 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/rk{20 800 moveto 20 300 320 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/lf{20 800 moveto 0 -1000 rlineto s4 0 rls}def
+/rf{20 800 moveto 0 -1000 rlineto s4 neg 0 rls}def
+/lc{20 -200 moveto 0 1000 rlineto s4 0 rls}def
+/rc{20 -200 moveto 0 1000 rlineto s4 neg 0 rls}def
+end
+
+/Metrics 50 dict def Metrics begin
+/.notdef 0 def
+/space 500 def
+/ru 500 def
+/br 0 def
+/lt 250 def
+/lb 250 def
+/rt 250 def
+/rb 250 def
+/lk 250 def
+/rk 250 def
+/rc 250 def
+/lc 250 def
+/rf 250 def
+/lf 250 def
+/bv 250 def
+/ob 350 def
+/bu 350 def
+/ci 750 def
+/bx 750 def
+/sq 750 def
+/rn 500 def
+/ul 500 def
+/vr 0 def
+end
+
+DITfd begin
+/s2 500 def /s4 250 def /s3 333 def
+/a4p{arcto pop pop pop pop}def
+/2cx{2 copy exch}def
+/rls{rlineto stroke}def
+/currx{currentpoint pop}def
+/dround{transform round exch round exch itransform} def
+end
+end
+/DIThacks exch definefont pop
+
+ditstart
+(psc)xT
+576 1 1 xr
+1(Times-Roman)xf 1 f
+2(Times-Italic)xf 2 f
+3(Times-Bold)xf 3 f
+4(Times-BoldItalic)xf 4 f
+5(Helvetica)xf 5 f
+6(Helvetica-Bold)xf 6 f
+7(Courier)xf 7 f
+8(Courier-Bold)xf 8 f
+9(Symbol)xf 9 f
+10(DIThacks)xf 10 f
+10 s
+1 f
+xi
+%%EndProlog
+
+%%Page: 1 1
+10 s 0 xH 0 xS 1 f
+10 f
+96(h)Y
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(g)N
+268(gl)X
+306(lu)X
+328(ut)X
+366(t)X
+392(\()X
+394(\()X
+424(3)X
+426(3G)X
+464(GL)X
+518(LU)X
+564(UT)X
+618(T)X
+668(\))X
+670(\))X
+1942(G)X
+1944(GL)X
+1998(LU)X
+2044(UT)X
+2098(T)X
+2174(\()X
+2176(\()X
+2206(3)X
+2208(3.)X
+2246(.5)X
+2266(5)X
+2308(\))X
+2310(\))X
+3582(g)X
+3584(gl)X
+3622(lu)X
+3644(ut)X
+3682(t)X
+3708(\()X
+3710(\()X
+3740(3)X
+3742(3G)X
+3780(GL)X
+3834(LU)X
+3880(UT)X
+3934(T)X
+3984(\))X
+3986(\))X
+266 864(N)N
+268(NA)X
+322(AM)X
+376(ME)X
+442(E)X
+10 s
+554 960(glut)N
+698(-)X
+745(an)X
+841(introduction)X
+1252(to)X
+1334(the)X
+1452(OpenGL)X
+1753(Utility)X
+1981(Toolkit)X
+9 s
+266 1094(S)N
+268(SY)X
+310(YN)X
+364(NO)X
+418(OP)X
+472(PS)X
+514(SI)X
+556(IS)X
+582(S)X
+10 s
+554 1190(#include)N
+860(<GL/glut.h>)X
+9 s
+266 1324(D)N
+268(DE)X
+322(ES)X
+368(SC)X
+410(CR)X
+460(RI)X
+510(IP)X
+536(PT)X
+578(TI)X
+624(IO)X
+650(ON)X
+704(N)X
+10 s
+554 1420(The)N
+706(OpenGL)X
+1014(Utility)X
+1249(Toolkit)X
+1511(\(GLUT\))X
+1806(is)X
+1886(a)X
+1950(programming)X
+2414(interface)X
+2724(with)X
+2894(ANSI)X
+3109(C)X
+3190(and)X
+3334(FORTRAN)X
+3735(bindings)X
+554 1516(for)N
+673(writing)X
+929(window)X
+1211(system)X
+1457(independent)X
+1873(OpenGL)X
+2178(programs.)X
+2525(The)X
+2674(toolkit)X
+2906(supports)X
+3201(the)X
+3323(following)X
+3658(functional-)X
+554 1612(ity:)N
+842 1746(Multiple)N
+1137(windows)X
+1446(for)X
+1560(OpenGL)X
+1861(rendering.)X
+842 1880(Callback)N
+1147(driven)X
+1372(event)X
+1566(processing.)X
+842 2014(Sophisticated)N
+1293(input)X
+1477(devices.)X
+842 2148(An)N
+960(``idle'')X
+1208(routine)X
+1455(and)X
+1591(timers.)X
+842 2282(A)N
+920(simple,)X
+1173(cascading)X
+1510(pop-up)X
+1757(menu)X
+1955(facility.)X
+842 2416(Utility)N
+1070(routines)X
+1348(to)X
+1430(generate)X
+1723(various)X
+1979(solid)X
+2154(and)X
+2290(wire)X
+2453(frame)X
+2661(objects.)X
+842 2550(Support)N
+1115(for)X
+1229(bitmap)X
+1471(and)X
+1607(stroke)X
+1823(fonts.)X
+842 2684(Miscellaneous)N
+1325(window)X
+1603(management)X
+2033(functions,)X
+2371(including)X
+2693(managing)X
+3029(overlays.)X
+554 2818(An)N
+682(ANSI)X
+899(C)X
+983(implementation)X
+1516(of)X
+1614(GLUT)X
+1859(for)X
+1984(the)X
+2113(X)X
+2202(Window)X
+2509(System)X
+2775(has)X
+2913(been)X
+3096(implemented)X
+3545(by)X
+3656(the)X
+3785(author.)X
+554 2914(Windows)N
+881(NT)X
+1008(and)X
+1144(OS/2)X
+1328(versions)X
+1615(of)X
+1702(GLUT)X
+1936(are)X
+2055(also)X
+2204(available.)X
+9 s
+266 3048(B)N
+268(BA)X
+318(AC)X
+372(CK)X
+422(KG)X
+476(GR)X
+530(RO)X
+580(OU)X
+634(UN)X
+688(ND)X
+742(D)X
+10 s
+554 3144(One)N
+718(of)X
+815(the)X
+943(major)X
+1160(accomplishments)X
+1746(in)X
+1838(the)X
+1966(speci\256cation)X
+2401(of)X
+2498(OpenGL)X
+2810(was)X
+2966(the)X
+3095(isolation)X
+3401(of)X
+3499(window)X
+3788(system)X
+554 3240(dependencies)N
+1007(from)X
+1183(OpenGL's)X
+1542(rendering)X
+1870(model.)X
+2110(The)X
+2255(result)X
+2453(is)X
+2526(that)X
+2666(OpenGL)X
+2967(is)X
+3040(window)X
+3318(system)X
+3560(independent.)X
+554 3432(Window)N
+851(system)X
+1094(operations)X
+1449(such)X
+1617(as)X
+1705(the)X
+1824(creation)X
+2104(of)X
+2192(a)X
+2249(rendering)X
+2579(window)X
+2859(and)X
+2997(the)X
+3117(handling)X
+3419(of)X
+3508(window)X
+3788(system)X
+554 3528(events)N
+790(are)X
+920(left)X
+1058(to)X
+1151(the)X
+1280(native)X
+1507(window)X
+1796(system)X
+2049(to)X
+2142(de\256ne.)X
+2389(Necessary)X
+2751(interactions)X
+3156(between)X
+3455(OpenGL)X
+3766(and)X
+3912(the)X
+554 3624(window)N
+842(system)X
+1094(such)X
+1271(as)X
+1368(creating)X
+1658(and)X
+1805(binding)X
+2080(an)X
+2187(OpenGL)X
+2499(context)X
+2766(to)X
+2859(a)X
+2926(window)X
+3215(are)X
+3345(described)X
+3684(separately)X
+554 3720(from)N
+750(the)X
+888(OpenGL)X
+1209(speci\256cation)X
+1654(in)X
+1756(a)X
+1832(window)X
+2130(system)X
+2392(dependent)X
+2762(speci\256cation.)X
+3227(For)X
+3377(example,)X
+3708(the)X
+3845(GLX)X
+554 3816(speci\256cation)N
+979(describes)X
+1298(the)X
+1416(standard)X
+1708(by)X
+1808(which)X
+2024(OpenGL)X
+2325(interacts)X
+2617(with)X
+2779(the)X
+2897(X)X
+2975(Window)X
+3271(System.)X
+554 4008(The)N
+704(predecessor)X
+1109(to)X
+1196(OpenGL)X
+1502(is)X
+1581(IRIS)X
+1758(GL.)X
+1911(Unlike)X
+2155(OpenGL,)X
+2482(IRIS)X
+2659(GL)X
+2792(does)X
+2965(specify)X
+3223(how)X
+3387(rendering)X
+3721(windows)X
+554 4104(are)N
+683(created)X
+946(and)X
+1092(manipulated.)X
+1538(IRIS)X
+1719(GL's)X
+1914(windowing)X
+2304(interface)X
+2615(is)X
+2697(reasonably)X
+3074(popular)X
+3348(largely)X
+3600(because)X
+3884(it)X
+3957(is)X
+554 4200(simple)N
+798(to)X
+891(use.)X
+1049(IRIS)X
+1231(GL)X
+1369(programmers)X
+1828(can)X
+1971(worry)X
+2194(about)X
+2403(graphics)X
+2706(programming)X
+3173(without)X
+3448(needing)X
+3733(to)X
+3826(be)X
+3934(an)X
+554 4296(expert)N
+778(in)X
+863(programming)X
+1322(the)X
+1443(native)X
+1662(window)X
+1943(system.)X
+2228(Experience)X
+2613(also)X
+2765(demonstrated)X
+3220(that)X
+3363(IRIS)X
+3537(GL's)X
+3725(window-)X
+554 4392(ing)N
+676(interface)X
+978(was)X
+1123(high-level)X
+1468(enough)X
+1724(that)X
+1864(it)X
+1928(could)X
+2126(be)X
+2222(retargeted)X
+2564(to)X
+2646(different)X
+2943(window)X
+3221(systems.)X
+3535(Silicon)X
+3782(Graph-)X
+554 4488(ics)N
+664(migrated)X
+970(from)X
+1147(NeWS)X
+1382(to)X
+1465(the)X
+1584(X)X
+1663(Window)X
+1960(System)X
+2216(without)X
+2480(any)X
+2616(major)X
+2823(changes)X
+3102(to)X
+3184(IRIS)X
+3355(GL's)X
+3540(basic)X
+3725(window-)X
+554 4584(ing)N
+676(interface.)X
+554 4776(Removing)N
+918(window)X
+1207(system)X
+1460(operations)X
+1825(from)X
+2012(OpenGL)X
+2324(is)X
+2408(a)X
+2475(sound)X
+2697(decision)X
+2995(because)X
+3282(it)X
+3358(allows)X
+3599(the)X
+3729(OpenGL)X
+554 4872(graphics)N
+856(system)X
+1108(to)X
+1200(be)X
+1306(retargeted)X
+1658(to)X
+1750(various)X
+2015(systems)X
+2297(including)X
+2628(powerful)X
+2947(but)X
+3078(expensive)X
+3428(graphics)X
+3729(worksta-)X
+554 4968(tions)N
+737(as)X
+832(well)X
+999(as)X
+1095(mass-production)X
+1658(graphics)X
+1959(systems)X
+2241(like)X
+2390(video)X
+2597(games,)X
+2851(set-top)X
+3098(boxes)X
+3314(for)X
+3437(interactive)X
+3805(televi-)X
+554 5064(sion,)N
+727(and)X
+863(PCs.)X
+554 5256(Unfortunately,)N
+1049(the)X
+1172(lack)X
+1331(of)X
+1423(a)X
+1484(window)X
+1767(system)X
+2014(interface)X
+2321(for)X
+2441(OpenGL)X
+2748(is)X
+2827(a)X
+2889(gap)X
+3031(in)X
+3119(OpenGL's)X
+3484(utility.)X
+3720(Learning)X
+554 5352(native)N
+778(window)X
+1064(system)X
+1314(APIs)X
+1502(such)X
+1677(as)X
+1772(the)X
+1898(X)X
+1984(Window)X
+2288(System's)X
+2608(Xlib)X
+2777(or)X
+2871(Motif)X
+3080(can)X
+3219(be)X
+3322(daunting.)X
+3649(Even)X
+3841(those)X
+554 5448(familiar)N
+829(with)X
+992(native)X
+1209(window)X
+1488(system)X
+1732(APIs)X
+1914(need)X
+2088(to)X
+2172(understand)X
+2546(the)X
+2666(interface)X
+2970(that)X
+3112(binds)X
+3307(OpenGL)X
+3610(to)X
+3694(the)X
+3814(native)X
+554 5544(window)N
+847(system.)X
+1124(And)X
+1297(when)X
+1506(an)X
+1617(OpenGL)X
+1933(program)X
+2240(is)X
+2328(written)X
+2590(using)X
+2798(the)X
+2930(native)X
+3160(window)X
+3452(system)X
+3708(interface,)X
+554 5640(despite)N
+803(the)X
+923(portability)X
+1278(of)X
+1367(the)X
+1487(program's)X
+1839(OpenGL)X
+2142(rendering)X
+2472(code,)X
+2666(the)X
+2786(program)X
+3080(itself)X
+3262(will)X
+3408(be)X
+3507(window)X
+3788(system)X
+554 5736(dependent.)N
+266 6144(Page)N
+442(1)X
+3577(July)X
+3730(23,)X
+3850(1997)X
+
+2 p
+%%Page: 2 2
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(g)N
+268(gl)X
+306(lu)X
+328(ut)X
+366(t)X
+392(\()X
+394(\()X
+424(3)X
+426(3G)X
+464(GL)X
+518(LU)X
+564(UT)X
+618(T)X
+668(\))X
+670(\))X
+1942(G)X
+1944(GL)X
+1998(LU)X
+2044(UT)X
+2098(T)X
+2174(\()X
+2176(\()X
+2206(3)X
+2208(3.)X
+2246(.5)X
+2266(5)X
+2308(\))X
+2310(\))X
+3582(g)X
+3584(gl)X
+3622(lu)X
+3644(ut)X
+3682(t)X
+3708(\()X
+3710(\()X
+3740(3)X
+3742(3G)X
+3780(GL)X
+3834(LU)X
+3880(UT)X
+3934(T)X
+3984(\))X
+3986(\))X
+10 s
+554 864(Testing)N
+819(and)X
+960(documenting)X
+1403(OpenGL's)X
+1767(functionality)X
+2201(lead)X
+2360(to)X
+2447(the)X
+2571(development)X
+3011(of)X
+3104(the)X
+3228(tk)X
+3316(and)X
+3458(aux)X
+3600(toolkits.)X
+3885(The)X
+554 960(aux)N
+703(toolkit)X
+944(is)X
+1030(used)X
+1210(in)X
+1305(the)X
+1436(examples)X
+1772(found)X
+1992(in)X
+2087(the)X
+2218(OpenGL)X
+2532(Programming)X
+3005(Guide.)X
+3253(Unfortunately,)X
+3755(aux)X
+3903(has)X
+554 1056(numerous)N
+891(limitations)X
+1253(and)X
+1390(its)X
+1486(utility)X
+1697(is)X
+1772(largely)X
+2017(limited)X
+2265(to)X
+2349(toy)X
+2473(programs.)X
+2818(The)X
+2965(tk)X
+3049(library)X
+3285(has)X
+3414(more)X
+3601(functionality)X
+554 1152(than)N
+715(aux)X
+854(but)X
+979(was)X
+1127(developed)X
+1480(in)X
+1565(an)X
+1664(ad)X
+1762(hoc)X
+1900(fashion)X
+2158(and)X
+2296(still)X
+2437(lacks)X
+2624(much)X
+2824(important)X
+3157(functionality)X
+3588(that)X
+3730(IRIS)X
+3903(GL)X
+554 1248(programmers)N
+1002(expect,)X
+1252(like)X
+1392(pop-up)X
+1639(menus)X
+1868(and)X
+2004(overlays.)X
+554 1440(GLUT)N
+795(is)X
+875(designed)X
+1187(to)X
+1276(\256ll)X
+1391(the)X
+1516(need)X
+1695(for)X
+1816(a)X
+1879(window)X
+2164(system)X
+2413(independent)X
+2833(programming)X
+3297(interface)X
+3607(for)X
+3729(OpenGL)X
+554 1536(programs.)N
+910(The)X
+1068(interface)X
+1383(is)X
+1469(designed)X
+1786(to)X
+1880(be)X
+1988(simple)X
+2233(yet)X
+2363(still)X
+2514(meet)X
+2702(the)X
+2832(needs)X
+3047(of)X
+3146(useful)X
+3374(OpenGL)X
+3687(programs.)X
+554 1632(Features)N
+853(from)X
+1036(the)X
+1161(IRIS)X
+1339(GL,)X
+1493(aux,)X
+1656(and)X
+1799(tk)X
+1888(interfaces)X
+2229(are)X
+2356(included)X
+2660(to)X
+2750(make)X
+2952(it)X
+3024(easy)X
+3195(for)X
+3317(programmers)X
+3773(used)X
+3948(to)X
+554 1728(these)N
+739(interfaces)X
+1072(to)X
+1154(develop)X
+1428(programs)X
+1751(for)X
+1865(GLUT.)X
+9 s
+266 1862(P)N
+268(PH)X
+310(HI)X
+364(IL)X
+390(LO)X
+436(OS)X
+490(SP)X
+532(PH)X
+574(HY)X
+628(Y)X
+10 s
+554 1958(GLUT)N
+797(simpli\256es)X
+1136(the)X
+1263(implementation)X
+1794(of)X
+1890(programs)X
+2222(using)X
+2424(OpenGL)X
+2734(rendering.)X
+3091(The)X
+3246(GLUT)X
+3490(application)X
+3876(pro-)X
+554 2054(gramming)N
+908(interface)X
+1215(\(API\))X
+1423(requires)X
+1707(very)X
+1875(few)X
+2021(routines)X
+2304(to)X
+2391(display)X
+2647(a)X
+2707(graphics)X
+3003(scene)X
+3206(rendered)X
+3512(using)X
+3709(OpenGL.)X
+554 2150(The)N
+699(GLUT)X
+933(API)X
+1083(\(like)X
+1251(the)X
+1370(OpenGL)X
+1672(API\))X
+1849(is)X
+1923(stateful.)X
+2200(Most)X
+2385(initial)X
+2592(GLUT)X
+2827(state)X
+2995(is)X
+3069(de\256ned)X
+3326(and)X
+3463(the)X
+3582(initial)X
+3789(state)X
+3957(is)X
+554 2246(reasonable)N
+918(for)X
+1032(simple)X
+1265(programs.)X
+554 2438(The)N
+700(GLUT)X
+935(routines)X
+1214(also)X
+1364(take)X
+1519(relatively)X
+1843(few)X
+1985(parameters.)X
+2379(No)X
+2498(pointers)X
+2777(are)X
+2897(returned.)X
+3206(The)X
+3352(only)X
+3516(pointers)X
+3796(passed)X
+554 2534(into)N
+707(GLUT)X
+950(are)X
+1078(pointers)X
+1365(to)X
+1456(character)X
+1781(strings)X
+2023(\(all)X
+2159(strings)X
+2401(passed)X
+2644(to)X
+2735(GLUT)X
+2978(are)X
+3106(copied,)X
+3368(not)X
+3498 0.4000(referenced\))AX
+3894(and)X
+554 2630(opaque)N
+806(font)X
+955(handles.)X
+554 2822(The)N
+704(GLUT)X
+943(API)X
+1098(is)X
+1177(\(as)X
+1297(much)X
+1501(as)X
+1594(reasonable\))X
+1991(window)X
+2275(system)X
+2523(independent.)X
+2961(For)X
+3098(this)X
+3239(reason,)X
+3495(GLUT)X
+3735(does)X
+3908(not)X
+554 2918(return)N
+774(any)X
+918(native)X
+1142(window)X
+1428(system)X
+1678(handles,)X
+1971(pointers,)X
+2277(or)X
+2372(other)X
+2564(data)X
+2725(structures.)X
+3084(More)X
+3285(subtle)X
+3503(window)X
+3788(system)X
+554 3014(dependencies)N
+1013(such)X
+1186(as)X
+1279(reliance)X
+1560(on)X
+1667(window)X
+1952(system)X
+2201(dependent)X
+2558(fonts)X
+2745(are)X
+2871(avoided)X
+3152(by)X
+3259(GLUT;)X
+3522(instead,)X
+3796(GLUT)X
+554 3110(supplies)N
+836(its)X
+931(own)X
+1089(\(limited\))X
+1389(set)X
+1498(of)X
+1585(fonts.)X
+554 3302(For)N
+687(programming)X
+1145(ease,)X
+1326(GLUT)X
+1562(provides)X
+1860(a)X
+1918(simple)X
+2153(menu)X
+2353(sub-API.)X
+2662(While)X
+2880(the)X
+3000(menuing)X
+3302(support)X
+3564(is)X
+3640(designed)X
+3948(to)X
+554 3398(be)N
+656(implemented)X
+1100(as)X
+1193(pop-up)X
+1446(menus,)X
+1701(GLUT)X
+1941(gives)X
+2136(window)X
+2420(system)X
+2668(leeway)X
+2922(to)X
+3010(support)X
+3275(the)X
+3398(menu)X
+3601(functionality)X
+554 3494(in)N
+636(another)X
+897(manner)X
+1158(\(pull-down)X
+1534(menus)X
+1763(for)X
+1877(example\).)X
+554 3686(Two)N
+724(of)X
+814(the)X
+935(most)X
+1113(important)X
+1447(pieces)X
+1671(of)X
+1762(GLUT)X
+2000(state)X
+2171(are)X
+2294(the)X
+2416(current)X
+2668(window)X
+2950(and)X
+3090(current)X
+3342(menu.)X
+3564(Most)X
+3752(window)X
+554 3782(and)N
+708(menu)X
+924(routines)X
+1220(affect)X
+1442(the)X
+1578(current)X
+1843(window)X
+2138(or)X
+2242(menu)X
+2457(respectively.)X
+2902(Most)X
+3103(callbacks)X
+3439(implicitly)X
+3786(set)X
+3912(the)X
+554 3878(current)N
+817(window)X
+1110(and)X
+1261(menu)X
+1474(to)X
+1571(the)X
+1705(appropriate)X
+2107(window)X
+2401(or)X
+2504(menu)X
+2718(responsible)X
+3119(for)X
+3249(the)X
+3383(callback.)X
+3707(GLUT)X
+3957(is)X
+554 3974(designed)N
+861(so)X
+954(that)X
+1096(a)X
+1154(program)X
+1448(with)X
+1612(only)X
+1776(a)X
+1834(single)X
+2047(window)X
+2327(and/or)X
+2554(menu)X
+2754(will)X
+2900(not)X
+3024(need)X
+3198(to)X
+3282(keep)X
+3456(track)X
+3638(of)X
+3726(any)X
+3863(win-)X
+554 4070(dow)N
+712(or)X
+799(menu)X
+997(identi\256ers.)X
+1377(This)X
+1539(greatly)X
+1782(simpli\256es)X
+2112(very)X
+2275(simple)X
+2508(GLUT)X
+2742(programs.)X
+554 4262(GLUT)N
+802(is)X
+889(designed)X
+1208(for)X
+1336(simple)X
+1583(to)X
+1679(moderately)X
+2074(complex)X
+2384(programs)X
+2721(focused)X
+3005(on)X
+3119(OpenGL)X
+3434(rendering.)X
+3796(GLUT)X
+554 4358(implements)N
+959(its)X
+1066(own)X
+1236(event)X
+1442(loop.)X
+1636(For)X
+1779(this)X
+1926(reason,)X
+2188(mixing)X
+2446(GLUT)X
+2692(with)X
+2866(other)X
+3063(APIs)X
+3255(that)X
+3407(demand)X
+3693(their)X
+3872(own)X
+554 4454(event)N
+748(handling)X
+1048(structure)X
+1349(may)X
+1507(be)X
+1603(dif\256cult.)X
+1896(The)X
+2041(advantage)X
+2387(of)X
+2474(a)X
+2530(builtin)X
+2758(event)X
+2952(dispatch)X
+3239(loop)X
+3401(is)X
+3474(simplicity.)X
+554 4646(GLUT)N
+788(contains)X
+1075(routines)X
+1353(for)X
+1467(rendering)X
+1795(fonts)X
+1975(and)X
+2111(geometric)X
+2453(objects,)X
+2721(however)X
+3019(GLUT)X
+3254(makes)X
+3480(no)X
+3581(claims)X
+3811(on)X
+3912(the)X
+554 4742(OpenGL)N
+871(display)X
+1138(list)X
+1271(name)X
+1481(space.)X
+1715(For)X
+1861(this)X
+2011(reason,)X
+2276(none)X
+2467(of)X
+2569(the)X
+2702(GLUT)X
+2951(rendering)X
+3294(routines)X
+3587(use)X
+3729(OpenGL)X
+554 4838(display)N
+811(lists.)X
+985(It)X
+1060(is)X
+1139(up)X
+1245(to)X
+1333(the)X
+1457(GLUT)X
+1697(programmer)X
+2120(to)X
+2208(compile)X
+2492(the)X
+2616(output)X
+2846(from)X
+3028(GLUT)X
+3268(rendering)X
+3602(routines)X
+3886(into)X
+554 4934(display)N
+805(lists)X
+953(if)X
+1022(this)X
+1157(is)X
+1230(desired.)X
+554 5126(GLUT)N
+788(routines)X
+1066(are)X
+1185(logically)X
+1485(organized)X
+1822(into)X
+1966(several)X
+2214(sub-APIs)X
+2532(according)X
+2869(to)X
+2951(their)X
+3118(functionality.)X
+3567(The)X
+3712(sub-APIs)X
+554 5222(are:)N
+554 5356(Initialization.)N
+842 5452(Command)N
+1195(line)X
+1335(processing,)X
+1718(window)X
+1996(system)X
+2238(initialization,)X
+2682(and)X
+2818(initial)X
+3024(window)X
+3302(creation)X
+3581(state)X
+3748(are)X
+3867(con-)X
+842 5548(trolled)N
+1071(by)X
+1171(these)X
+1356(routines.)X
+554 5682(Beginning)N
+907(Event)X
+1114(Processing.)X
+842 5778(This)N
+1006(routine)X
+1255(enters)X
+1469(GLUT's)X
+1763(event)X
+1959(processing)X
+2324(loop.)X
+2508(This)X
+2673(routine)X
+2923(never)X
+3125(returns,)X
+3391(and)X
+3530(it)X
+3597(continuously)X
+266 6144(July)N
+419(23,)X
+539(1997)X
+3794(Page)X
+3970(2)X
+
+3 p
+%%Page: 3 3
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(g)N
+268(gl)X
+306(lu)X
+328(ut)X
+366(t)X
+392(\()X
+394(\()X
+424(3)X
+426(3G)X
+464(GL)X
+518(LU)X
+564(UT)X
+618(T)X
+668(\))X
+670(\))X
+1942(G)X
+1944(GL)X
+1998(LU)X
+2044(UT)X
+2098(T)X
+2174(\()X
+2176(\()X
+2206(3)X
+2208(3.)X
+2246(.5)X
+2266(5)X
+2308(\))X
+2310(\))X
+3582(g)X
+3584(gl)X
+3622(lu)X
+3644(ut)X
+3682(t)X
+3708(\()X
+3710(\()X
+3740(3)X
+3742(3G)X
+3780(GL)X
+3834(LU)X
+3880(UT)X
+3934(T)X
+3984(\))X
+3986(\))X
+10 s
+842 864(calls)N
+1009(GLUT)X
+1243(callbacks)X
+1562(as)X
+1649(necessary.)X
+554 998(Window)N
+850(Management.)X
+842 1094(These)N
+1054(routines)X
+1332(create)X
+1545(and)X
+1681(control)X
+1928(windows.)X
+554 1228(Overlay)N
+833(Management.)X
+842 1324(These)N
+1054(routines)X
+1332(establish)X
+1632(and)X
+1768(manage)X
+2038(overlays)X
+2330(for)X
+2444(windows.)X
+554 1458(Menu)N
+761(Management.)X
+842 1554(These)N
+1054(routines)X
+1332(create)X
+1545(and)X
+1681(control)X
+1928(pop-up)X
+2175(menus.)X
+554 1688(Callback)N
+859(Registration.)X
+842 1784(These)N
+1054(routines)X
+1332(register)X
+1593(callbacks)X
+1912(to)X
+1994(be)X
+2090(called)X
+2302(by)X
+2402(the)X
+2520(GLUT)X
+2754(event)X
+2948(processing)X
+3311(loop.)X
+554 1918(Color)N
+756(Index)X
+959(Colormap)X
+1299(Management.)X
+842 2014(These)N
+1054(routines)X
+1332(allow)X
+1530(the)X
+1648(manipulation)X
+2090(of)X
+2177(color)X
+2362(index)X
+2560(colormaps)X
+2914(for)X
+3028(windows.)X
+554 2148(State)N
+734(Retrieval.)X
+842 2244(These)N
+1054(routines)X
+1332(allows)X
+1561(programs)X
+1884(to)X
+1966(retrieve)X
+2232(state)X
+2399(from)X
+2575(GLUT.)X
+554 2378(Font)N
+720(Rendering.)X
+842 2474(These)N
+1054(routines)X
+1332(allow)X
+1530(rendering)X
+1858(of)X
+1945(stroke)X
+2161(and)X
+2297(bitmap)X
+2539(fonts.)X
+554 2608(Geometric)N
+913(Shape)X
+1129(Rendering.)X
+842 2704(These)N
+1093(routines)X
+1410(allow)X
+1647(the)X
+1804(rendering)X
+2171(of)X
+2298(3D)X
+2456(geometric)X
+2837(objects)X
+3124(including)X
+3486(spheres,)X
+3807(cones,)X
+842 2800(icosahedrons,)N
+1301(and)X
+1437(teapots.)X
+9 s
+266 2934(C)N
+268(CO)X
+318(ON)X
+372(NV)X
+426(VE)X
+480(EN)X
+526(NT)X
+580(TI)X
+626(IO)X
+652(ON)X
+706(NS)X
+760(S)X
+10 s
+554 3030(GLUT)N
+790(window)X
+1070(and)X
+1208(screen)X
+1437(coordinates)X
+1830(are)X
+1952(expressed)X
+2292(in)X
+2377(pixels.)X
+2611(The)X
+2759(upper)X
+2965(left)X
+3095(hand)X
+3274(corner)X
+3503(of)X
+3593(the)X
+3714(screen)X
+3943(or)X
+554 3126(a)N
+615(window)X
+898(is)X
+976(\(0,0\).)X
+1175(X)X
+1258(coordinates)X
+1653(increase)X
+1942(in)X
+2029(a)X
+2090(rightward)X
+2427(direction;)X
+2759(Y)X
+2842(coordinates)X
+3237(increase)X
+3525(in)X
+3611(a)X
+3671(downward)X
+554 3222(direction.)N
+884(Note:)X
+1087(This)X
+1254(is)X
+1332(inconsistent)X
+1739(with)X
+1906(OpenGL's)X
+2271(coordinate)X
+2636(scheme)X
+2903(that)X
+3049(generally)X
+3374(considers)X
+3703(the)X
+3827(lower)X
+554 3318(left)N
+681(hand)X
+857(coordinate)X
+1216(of)X
+1303(a)X
+1359(window)X
+1637(to)X
+1719(be)X
+1815(at)X
+1893(\(0,0\))X
+2067(but)X
+2189(is)X
+2262(consistent)X
+2602(with)X
+2764(most)X
+2939(popular)X
+3204(window)X
+3482(systems.)X
+554 3510(Integer)N
+810(identi\256ers)X
+1158(in)X
+1248(GLUT)X
+1490(begin)X
+1696(with)X
+1866(one,)X
+2030(not)X
+2160(zero.)X
+2347(So)X
+2459(window)X
+2745(identi\256ers,)X
+3113(menu)X
+3319(identi\256ers,)X
+3687(and)X
+3832(menu)X
+554 3606(item)N
+716(indexes)X
+981(are)X
+1100(based)X
+1303(from)X
+1479(one,)X
+1635(not)X
+1757(zero.)X
+554 3798(In)N
+644(GLUT's)X
+939(ANSI)X
+1149(C)X
+1225(binding,)X
+1513(for)X
+1631(most)X
+1810(routines,)X
+2112(basic)X
+2301(types)X
+2494(\(int,)X
+2649(char*\))X
+2879(are)X
+3002(used)X
+3173(as)X
+3264(parameters.)X
+3661(In)X
+3752(routines)X
+554 3894(where)N
+771(the)X
+889(parameters)X
+1262(are)X
+1381(directly)X
+1646(passed)X
+1880(to)X
+1962(OpenGL)X
+2263(routines,)X
+2561(OpenGL)X
+2862(types)X
+3051(\(GL\257oat\))X
+3374(are)X
+3493(used.)X
+554 4086(The)N
+699(header)X
+934(\256les)X
+1087(for)X
+1201(GLUT)X
+1435(should)X
+1668(be)X
+1764(included)X
+2060(in)X
+2142(GLUT)X
+2376(programs)X
+2699(with)X
+2861(the)X
+2979(following)X
+3310(include)X
+3566(directive:)X
+554 4220(#include)N
+850(<GL/glut.h>)X
+554 4354(Because)N
+842(a)X
+898(very)X
+1061(large)X
+1242(window)X
+1520(system)X
+1762(software)X
+2060(vendor)X
+2304(\(who)X
+2490(will)X
+2635(remain)X
+2879(nameless\))X
+3221(has)X
+3349(an)X
+3446(apparent)X
+3744(inability)X
+554 4450(to)N
+637(appreciate)X
+989(that)X
+1130(OpenGL's)X
+1490(API)X
+1640(is)X
+1714(independent)X
+2127(of)X
+2215(their)X
+2383(window)X
+2662(system)X
+2905(API,)X
+3075(portable)X
+3359(ANSI)X
+3567(C)X
+3641(GLUT)X
+3876(pro-)X
+554 4546(grams)N
+772(should)X
+1007(not)X
+1131(directly)X
+1398(include)X
+1656(<GL/gl.h>)X
+2019(or)X
+2108(<GL/glu.h>.)X
+2531(Instead,)X
+2805(ANSI)X
+3014(C)X
+3089(GLUT)X
+3325(programs)X
+3650(should)X
+3885(rely)X
+554 4642(on)N
+654(<GL/glut.h>)X
+1077(to)X
+1159(include)X
+1415(the)X
+1533(necessary)X
+1866(OpenGL)X
+2167(and)X
+2303(GLU)X
+2488(related)X
+2727(header)X
+2962(\256les.)X
+554 4834(The)N
+702(ANSI)X
+912(C)X
+988(GLUT)X
+1225(library)X
+1462(archive)X
+1722(is)X
+1798(typically)X
+2101(named)X
+2338(libglut.a)X
+2625(on)X
+2728(Unix)X
+2911(systems.)X
+3207(GLUT)X
+3445(programs)X
+3772(need)X
+3948(to)X
+554 4930(link)N
+708(with)X
+880(the)X
+1008(system's)X
+1318(OpenGL)X
+1629(and)X
+1775(GLUT)X
+2019(libraries)X
+2312(\(and)X
+2484(any)X
+2629(libraries)X
+2921(these)X
+3115(libraries)X
+3407(potentially)X
+3778(depend)X
+554 5026(on\).)N
+707(A)X
+791(set)X
+906(of)X
+999(window)X
+1283(system)X
+1531(dependent)X
+1887(libraries)X
+2176(may)X
+2340(also)X
+2495(be)X
+2597(necessary)X
+2936(for)X
+3056(linking)X
+3308(GLUT)X
+3549(programs.)X
+3899(For)X
+554 5122(example,)N
+870(programs)X
+1197(using)X
+1394(the)X
+1516(X11)X
+1678(GLUT)X
+1916(implementation)X
+2441(typically)X
+2744(need)X
+2919(to)X
+3004(link)X
+3151(with)X
+3316(Xlib,)X
+3501(the)X
+3622(X)X
+3703(extension)X
+554 5218(library,)N
+814(possibly)X
+1106(the)X
+1230(X)X
+1314(Input)X
+1509(extension)X
+1842(library,)X
+2103(the)X
+2228(X)X
+2313(miscellaneous)X
+2794(utilities)X
+3060(library,)X
+3321(and)X
+3464(the)X
+3589(math)X
+3776(library.)X
+554 5314(An)N
+672(example)X
+964(X11/Unix)X
+1304(compile)X
+1582(line)X
+1722(would)X
+1942(look)X
+2104(like:)X
+554 5448(cc)N
+646(-o)X
+733(foo)X
+860(foo.c)X
+1043(-lglut)X
+1236(-lGLU)X
+1470(-lGL)X
+1646(-lXmu)X
+1875(-lXi)X
+2024(-lXext)X
+2249(-lX11)X
+2456(-lm)X
+9 s
+266 5582(S)N
+268(SE)X
+310(EE)X
+356(E)X
+432(A)X
+434(AL)X
+488(LS)X
+534(SO)X
+576(O)X
+10 s
+554 5678(glutAddMenuEntry,)N
+1227(glutAddSubMenu,)X
+1847(glutAttachMenu,)X
+2419(glutBitmapCharacter,)X
+3138(glutBitmapWidth,)X
+3744(glutBut-)X
+554 5774(tonBoxFunc,)N
+1027(glutChangeToMenuEntry,)X
+1928(glutChangeToSubMenu,)X
+2775(glutCopyColormap,)X
+3469(glutCreateMenu,)X
+266 6144(Page)N
+442(3)X
+3577(July)X
+3730(23,)X
+3850(1997)X
+
+4 p
+%%Page: 4 4
+10 s 0 xH 0 xS 1 f
+10 f
+0 96(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(g)N
+268(gl)X
+306(lu)X
+328(ut)X
+366(t)X
+392(\()X
+394(\()X
+424(3)X
+426(3G)X
+464(GL)X
+518(LU)X
+564(UT)X
+618(T)X
+668(\))X
+670(\))X
+1942(G)X
+1944(GL)X
+1998(LU)X
+2044(UT)X
+2098(T)X
+2174(\()X
+2176(\()X
+2206(3)X
+2208(3.)X
+2246(.5)X
+2266(5)X
+2308(\))X
+2310(\))X
+3582(g)X
+3584(gl)X
+3622(lu)X
+3644(ut)X
+3682(t)X
+3708(\()X
+3710(\()X
+3740(3)X
+3742(3G)X
+3780(GL)X
+3834(LU)X
+3880(UT)X
+3934(T)X
+3984(\))X
+3986(\))X
+10 s
+554 864(glutCreateSubWindow,)N
+1342(glutCreateWindow,)X
+2007(glutDestroyMenu,)X
+2627(glutDestroyWindow,)X
+3336(glutDeviceGet,)X
+3859(glut-)X
+554 960(DialsFunc,)N
+990(glutDisplayFunc,)X
+1630(glutEntryFunc,)X
+2198(glutEstablishOverlay,)X
+2980(glutExtensionSupported,)X
+3859(glut-)X
+554 1056(FullScreen,)N
+952(glutGet,)X
+1244(glutGetColor,)X
+1718(glutGetModi\256ers,)X
+2321(glutIdleFunc,)X
+2782(glutInit,)X
+3069(glutInitDisplayMode,)X
+3792(glutIn-)X
+554 1152(itWindowPosition,)N
+1202(glutKeyboardFunc,)X
+1870(glutLayerGet,)X
+2364(glutMainLoop,)X
+2892(glutMenuStatusFunc,)X
+3624(glutMotion-)X
+554 1248(Func,)N
+787(glutMouseFunc,)X
+1362(glutOverlayDisplayFunc,)X
+2228(glutPopWindow,)X
+2826(glutPositionWindow,)X
+3561(glutPostOver-)X
+554 1344(layRedisplay,)N
+1052(glutPostRedisplay,)X
+1713(glutRemoveMenuItem,)X
+2517(glutRemoveOverlay,)X
+3246(glutReshapeFunc,)X
+3881(glu-)X
+554 1440(tReshapeWindow,)N
+1213(glutSetColor,)X
+1710(glutSetCursor,)X
+2243(glutSetMenu,)X
+2745(glutSetWindow,)X
+3337(glutSetWindowTitle,)X
+554 1536(glutShowOverlay,)N
+1175(glutShowWindow,)X
+1813(glutSolidCone,)X
+2330(glutSolidCube,)X
+2847(glutSolidDodecahedron,)X
+3664(glutSolidI-)X
+554 1632(cosahedron,)N
+961(glutSolidOctahedron,)X
+1670(glutSolidSphere,)X
+2227(glutSolidTeapot,)X
+2784(glutSolidTetrahedron,)X
+3511(glutSolidTorus,)X
+554 1728(glutSpaceballButtonFunc,)N
+1523(glutSpaceballMotionFunc,)X
+2510(glutSpaceballRotateFunc,)X
+3470(glutSpecialFunc,)X
+554 1824(glutStrokeCharacter,)N
+1271(glutStrokeWidth,)X
+1875(glutSwapBuffers,)X
+2489(glutTabletButtonFunc,)X
+3266(glutTabletMotionFunc,)X
+554 1920(glutTimerFunc,)N
+1074(glutUseLayer,)X
+1551(glutVisibilityFunc,)X
+9 s
+266 2054(R)N
+268(RE)X
+318(EF)X
+364(FE)X
+406(ER)X
+452(RE)X
+502(EN)X
+548(NC)X
+602(CE)X
+652(ES)X
+698(S)X
+10 s
+554 2150(Mark)N
+755(Kilgard,)X
+2 f
+1047(Programming)X
+1523(OpenGL)X
+1827(for)X
+1948(the)X
+2074(X)X
+2151(Window)X
+2441(System)X
+1 f
+2664(,)X
+2712(Addison-Wesley,)X
+3299(ISBN)X
+3509(0-201-48359-9,)X
+554 2246(1996.)N
+554 2438(Mark)N
+760(Kilgard,)X
+2 f
+1058(The)X
+1211(OpenGL)X
+1520(Utility)X
+1757(Toolkit)X
+2016(\(GLUT\))X
+2307(Programming)X
+2789(Interface)X
+3112(API)X
+3270(Version)X
+3552(3)X
+1 f
+3625(\(the)X
+3783(of\256cial)X
+554 2534(GLUT)N
+788(speci\256cation\).)X
+9 s
+266 2668(A)N
+268(AU)X
+322(UT)X
+376(TH)X
+422(HO)X
+476(OR)X
+530(R)X
+10 s
+554 2764(Mark)N
+748(J.)X
+819(Kilgard)X
+1084(\(mjk@sgi.com\))X
+266 6144(July)N
+419(23,)X
+539(1997)X
+3794(Page)X
+3970(4)X
+10 f
+0 6428(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+
+4 p
+%%Trailer
+xt
+
+xs

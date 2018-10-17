@@ -1,0 +1,22 @@
+10 0.00008
+20
+block         5.8 -11.0 0.0
+plate_base    0.0 15.0 0.0
+plate_sarm0   0.0 15.0 0.0
+plate_sarm1   0.0 15.0 0.0
+plate_sarm2   0.0 15.0 0.0
+plate_sarm3   0.0 15.0 0.0
+plate_sarm4   0.0 15.0 0.0
+plate_sarm5   0.0 15.0 0.0
+plate_sarm6   0.0 15.0 0.0
+plate_sarm7   0.0 15.0 0.0
+plate_larm0   0.0 15.0 0.0
+plate_larm1   0.0 15.0 0.0
+plate_larm2   0.0 15.0 0.0
+plate_larm3   0.0 15.0 0.0
+plate_larm4   0.0 15.0 0.0
+plate_larm5   0.0 15.0 0.0
+plate_larm6   0.0 15.0 0.0
+plate_larm7   0.0 15.0 0.0
+plate_vstaple 0.0  0.0 0.0
+can           7.3 -5.5 0.0

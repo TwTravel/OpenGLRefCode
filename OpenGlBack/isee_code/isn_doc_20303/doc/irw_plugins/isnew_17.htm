@@ -1,0 +1,210 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_16.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_18.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>如何创建一个新的图像读写插件</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+对于想开发ISeeExplorer图像读写插件的成员或网友来说，如何从头开始制作一个新插件
+可能是比较关心的一个问题。本节将详细描述插件制作的各个步骤及相关的注意事项（
+注：本节内容以VC++6.0为默认编译器）。<br>
+<br><br><br><br>
+<strong>*、准备工作</strong><br>
+<br>
+在开始制作插件之前，需要确定你已经下载到了ISeeExplorer的新版代码包，并已将它解
+压到了一个适当的目录中。判断是否是新版代码包可以从它的版本号上看出来：如果你下
+载的代码包版本号是00816或者是01231，则说明是老版本的代码包，其它的版本号则说明
+是新版。ISeeExplorer新版代码可以从ISee组网站首页下载，也可以从ISee组CVS下载。<br>
+<br>
+得到新版ISeeExplorer代码包之后，应将它解压到一个适当的目录中（如果是采用CVS下载
+到的源码包则可以省掉这一步，WinCvs可以自动展开包目录），并检查其中是否含有irw子
+目录，这个子目录就是用于存放ISeeExplorer图像读写插件代码的，如果你在解压后没有
+发现irw子目录，或是你下载的代码包无法打开，可向<a href="mailto:yzfree@sina.com">yzfree@sina.com</a>
+去信寻求协助。<br>
+<br><br><br><br>
+<strong>1、创建插件模块</strong><br>
+<br>
+启动VC编译器，如果启动完毕后编译器自动调入了你上一次关闭VC时编辑的项目，请用
+File 菜单的 Close Workspace 命令关闭这个项目，以确保编译器当前内容为空。<br>
+<br>
+选择 File 菜单中的 New... 命令，打开 New 对话框，选择其中标题为 Projects 的卡片，
+然后选择项目类型为 Win32 Dynamic-Link Library （因为ISeeExplorer图像读写插件是以
+DLL的形式实现的，所以选择此项）。<br>
+<br>
+然后请点击 Location 编辑框右侧的 ... 按钮，将插件项目路径指定到上面提到过的 irw 
+子目录。比如，如果你将ISeeExplorer新版代码解压到了 d:\home\iseeexplorer 目录下，
+那么你就应该将插件项目的路径指定为 d:\home\iseeexplorer\irw 。<br>
+<br>
+然后就是为你的插件模块起一个名字（输入到 Project name 编辑框中），ISeeExplorer
+图像读写插件的命名有一定的规律，为了便于协作请尽量遵守：<br>
+<br>
+<hr width=652 align=center>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)、要以该插件支持的图像格式的简短描述串作为插件模块名，或是将插件支持<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的图像格式的后缀字符串作为插件模块名。比如JPEG插件就是以jpeg作为插<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件模块名的（描述串命名），BMP插件的插件模块名就是bmp（后缀串命名）。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)、插件模块名必须是由小写的英文字符组成，不能含有汉字、数字、符号、及<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大写英文字符。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)、插件模块名的字符长度最大不能超过 5 个英文字符。<br>
+<hr width=652 align=center>
+<br>
+再下来就是请确保 Create new workspace 复选钮和下面的 Platfroms 框中的 Win32 复选钮
+均被选中（前面的方框或圆环中有勾或黑点）。一般情况下这都是编译器设定的缺省值，你只
+需核对一下就行了。<br>
+<br>
+然后请点击 New 对话框下面的 OK 按钮，进入VC的创建向导：一个标题为 "Win32 Dynamic
+-Link Library - Step 1 of 1" 的对话框。请选中其中的 An empty DLL project 复选钮。
+然后点击对话框下部的 Finish 按钮，结束插件模块的创建过程。<br>
+<br><br><br><br>
+<strong>2、导入初始代码并设置项目编译参数</strong><br>
+<br>
+为了便于插件开发者制作新插件，并减少在初始阶段出错的可能，我们提供了一个标准的插件
+代码包，里面包含了插件的通用框架代码（也就是每个插件都会有的一些代码），请点击下面
+的链接下载这个标准插件代码包：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="xxx.zip" title="6KB">标准插件代码包</a> 6KB<br>
+<br>
+然后将其解压到你新创建的插件项目目录中。这个插件代码包中包含了两个文件，即：xxx.c 
+和 xxx.h 文件，其中 xxx.c 中是插件的框架代码，xxx.h 中则是插件接口的声明。<br>
+<br>
+现在，我们需要更改这两个文件的名字，也就是将文件名中的 xxx 改为你新创建的插件项目
+名称，比如，你新创建的插件项目名称是 gif ，那么你只需将这两个文件的文件名改为 gif.c 
+和 gif.h （用 gif 替换 xxx）就行了。<br>
+<br>
+然后我们需要将这两个与你的插件项目同名的文件加入到你的项目中。方法是（请先确认你的新
+插件项目现在处于打开状态）点选 Project 菜单中 Add To Project 子菜单，然后点击其中
+的 Files... 命令，在文件对话框中选定这两个文件，然后单击 确定 按钮，这两个文件就被
+加入到你的新插件项目中了。到此我们就完成了初始代码的导入工作，下面我们将进行项目编译
+参数的设定。<br>
+<br>
+点击 Project 菜单中的 Settings... 命令打开项目编译参数设置对话框（下面简称该对话框为
+“对话框”）。设置工作将分三个步骤进行：<br>
+<br>
+&nbsp;&nbsp;<font color="#44aa44">(1)、选中对话框左侧 Settings For 下拉列表中的 All Configurations。</font><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后点选对话框右侧标题为 General 的卡片。在标题为 Microsoft Foundation Classes 的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下拉列表中选中 Not Using MFC 。 也就是不使用微软 MFC 类库，这主要是出于移植方面的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考虑。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在请将卡片切换到 C/C++，并选中标题为 Category 的下拉列表中的 Code Generation 一<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项，在下面显示出来的四个下拉列表中，将标题为 Struct member alignment 的列表内容设<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定为 1 Byte。它的作用主要是防止文件I/O在按结构读写文件内容时， 读写指针发生错误的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;偏移。不过这样的设置也存在一些副作用， 其中之一就是会使某些内存操作的工作效率有略<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微降低。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们再选中标题为 Category 的下拉列表中的 Precompiled Headers 一项，然后选中下<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面四个复选钮中的 Not using precompiled headers 复选钮。也就是说我们不使用VC提供的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预编译功能，因为它需要 StdAfx 文件，而我们的插件项目中没有这个文件。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来我们再选中标题为 Category 的下拉列表中的 Preprocessor 一项， 然后在一个标题<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为 Additional include directories 的编辑框中输入下面的文本：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..\..\include<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设定这个包含文件路径的主要作用是我们需要引用一些在外部定义的结构、类型等等。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们再将对话框卡片切换到 Link，并选中标题为 Category 的下拉列表中的 Input 一<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项， 然后在标题为 Object/library modules 的编辑框中加入 iseeio.lib，（该编辑框中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列出的文件都是插件项目将要用到的库文件，文件与文件之间用空格符分隔）。iseeio.lib<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文件是ISeeIO系统的目标库文件，因为ISeeExplorer图像读写插件要用到ISeeIO系统，所以<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在此加入该文件。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再接下来我们需要在一个标题为 Additional library path 的编辑框中输入下面的文本：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..\..\lib<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些插件将要用到的系统库文件都是放在这个目录中的，所以需要此设置。<br><br>
+<br>
+&nbsp;&nbsp;<font color="#44aa44">(2)、选中对话框左侧 Settings For 下拉列表中的 Win32 Debug。</font><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后点选对话框右侧标题为 C/C++ 的卡片，并选中标题为 Category 的下拉列表中的 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code Generation 一项，在下面显示出来的四个下拉列表中，将标题为 Use run-time library <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的下拉列表的内容设定为 Debug Multithreaded DLL。因为ISeeExplorer图像读写插件必须<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持多线程调用，所以如此设置。<br><br>
+<br>
+&nbsp;&nbsp;<font color="#44aa44">(3)、选中对话框左侧 Settings For 下拉列表中的 Win32 Release。</font><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后点选对话框右侧标题为 C/C++ 的卡片，并选中标题为 Category 的下拉列表中的 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code Generation 一项，在下面显示出来的四个下拉列表中，将标题为 Use run-time library <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的下拉列表的内容设定为 Multithreaded DLL。<br>
+<br>
+在以上这些设置都做完以后，请点击对话框下部的 OK 按钮关闭对话框。至此，插件
+项目的编译器设置工作基本就做完了。<br>
+<br><br><br><br>
+<strong>3、修正插件初始代码</strong><br>
+<br>
+现在我们来修正刚刚加入到新插件项目中的两个初始代码文件，也就是上面提到过的那两个标准
+插件框架代码文件。虽然它们的文件名与你的插件项目名相同，但现在它们的内容还不能直接被
+用于你的项目。因为里面的代码是针对所有插件的，所以必须先经过适当的修正才能使用。<br>
+<br>
+修正的方法很简单，首先请打开 新插件项目名.h 和 新插件项目名.c 文件，然后按 Ctrl+H 键
+打开文本替换对话框（菜单 Edit | Replace...），在 Find What 编辑框中输入 xxx （注意小
+写），然后在 Replace with 编辑框中输入你的新插件项目名（也要小写），然后再选中下面的
+ Match case （区分大小写）复选框，然后再按对话框右侧的 Replace All 按钮，这时VC就会将
+代码中所有的 xxx 字符替换为你的项目名（小写）。接下来我们再在替换对话框的 Find What 
+编辑框中输入 XXX （是大写的），在 Replace with 编辑框中输入新插件项目名（大写），然后
+按替换对话框右侧的 Replace All 按钮，将代码中所有的 XXX 字符替换为大写的插件项目名。
+初始代码的修正工作到此就结束了。新插件项目名.h 和 新插件项目名.c 文件的处理方法是完全
+相同的，你可以在处理完一个文件之后以相同的方法处理另一个文件。<br>
+<br><br><br>
+如果你做完了上面给出的三个步骤，现在你就可以试着编译一下你的新插件项目。如果设置和
+修正工作没有出差错的话，编译将顺利通过。在此之后，你就可以向这两个插件框架文件中添加
+对应的代码了。<br>
+<br>
+有关初始代码的含义及插件编制方法请参阅相关章节。
+<br><br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 017-20225</font></td>
+<td align="right"><a href="isnew_16.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_18.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: matlight - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\Release/matlight.res" /d "NDEBUG" "C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\matlight.rc"" 
+Creating temporary file "c:\windows\TEMP\RSPB240.TMP" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp".\Release/Matlight.pch" /Yu"stdafx.h" /Fo".\Release/" /Fd".\Release/" /FD /c 
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\matlight.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\MainFrm.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\matlightDoc.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\matlightView.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\LightPage.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\MaterialPage.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\Editor.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\MatEditor.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\LightEditor.cpp"
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\ShineEdit.cpp"
+]
+Creating command line "cl.exe @c:\windows\TEMP\RSPB240.TMP" 
+Creating temporary file "c:\windows\TEMP\RSPB241.TMP" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp".\Release/Matlight.pch" /Yc"stdafx.h" /Fo".\Release/" /Fd".\Release/" /FD /c 
+"C:\SDKS\SuperBible\BOOK\CHAPT9\MATLIGHT\StdAfx.cpp"
+]
+Creating command line "cl.exe @c:\windows\TEMP\RSPB241.TMP" 
+Creating temporary file "c:\windows\TEMP\RSPB242.TMP" with contents
+[
+opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:no /pdb:".\Release/Matlight.pdb" /machine:I386 /out:".\Release/Matlight.exe" 
+.\Release\matlight.obj
+.\Release\StdAfx.obj
+.\Release\MainFrm.obj
+.\Release\matlightDoc.obj
+.\Release\matlightView.obj
+.\Release\LightPage.obj
+.\Release\MaterialPage.obj
+.\Release\Editor.obj
+.\Release\MatEditor.obj
+.\Release\LightEditor.obj
+.\Release\ShineEdit.obj
+.\Release\matlight.res
+]
+Creating command line "link.exe @c:\windows\TEMP\RSPB242.TMP"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+matlight.cpp
+MainFrm.cpp
+matlightDoc.cpp
+matlightView.cpp
+LightPage.cpp
+MaterialPage.cpp
+Editor.cpp
+MatEditor.cpp
+LightEditor.cpp
+ShineEdit.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Matlight.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

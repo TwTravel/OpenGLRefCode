@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXQueryExtension</STRONG> - indicate whether the GLX extension is
+	  supported
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  Bool <STRONG>glXQueryExtension</STRONG>( Display *<EM>dpy</EM>,
+				  int *<EM>errorBase</EM>,
+				  int *<EM>eventBase</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	     Specifies the connection to the X server.
+
+	  <EM>errorBase</EM>  Returns the base error code of the	GLX server
+		     extension.
+
+	  <EM>eventBase</EM>  Returns the base event code of the	GLX server
+		     extension.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXQueryExtension</STRONG> returns <STRONG>True</STRONG> if the	X server of connection
+	  <EM>dpy</EM> supports the GLX extension, <STRONG>False</STRONG>	otherwise.  If <STRONG>True</STRONG> is
+	  returned, then <EM>errorBase</EM> and <EM>eventBase</EM> return	the error base
+	  and event base of the	GLX extension.	Otherwise, <EM>errorBase</EM>
+	  and <EM>eventBase</EM>	are unchanged.
+
+	  <EM>errorBase</EM> and	<EM>eventBase</EM> do not return	values if they are
+	  specified as <STRONG>NULL</STRONG>.
+
+     <STRONG>NOTES</STRONG>
+	  <EM>eventBase</EM> is included	for future extensions.	GLX does not
+	  currently define any events.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXQueryVersion</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

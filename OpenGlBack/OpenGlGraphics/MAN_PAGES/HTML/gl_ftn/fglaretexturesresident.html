@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglAreTexturesResident</STRONG> - determine if	textures are loaded in
+	  texture memory
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  LOGICAL*1 <STRONG>fglAreTexturesResident</STRONG>( INTEGER*4 <EM>n</EM>,
+					    CHARACTER*8	<EM>textures</EM>,
+					    CHARACTER*8	<EM>residences</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>n</EM>	      Specifies	the number of textures to be queried.
+
+	  <EM>textures</EM>    Specifies	an array containing the	names of the
+		      textures to be queried.
+
+	  <EM>residences</EM>  Specifies	an array in which the texture
+		      residence	status is returned.  The residence
+		      status of	a texture named	by an element of
+		      <EM>textures</EM> is returned in the corresponding
+		      element of <EM>residences</EM>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  GL establishes a ``working set'' of textures that are
+	  resident in texture memory.  These textures can be bound to
+	  a texture target much	more efficiently than textures that
+	  are not resident.
+
+	  <STRONG>fglAreTexturesResident</STRONG> queries the texture residence status
+	  of the <EM>n</EM> textures named by the elements of <EM>textures</EM>.	If all
+	  the named textures are resident, <STRONG>fglAreTexturesResident</STRONG>
+	  returns <STRONG>GL_TRUE</STRONG>, and the contents of <EM>residences</EM> are
+	  undisturbed.	If not all the named textures are resident,
+	  <STRONG>fglAreTexturesResident</STRONG> returns <STRONG>GL_FALSE</STRONG>, and detailed	status
+	  is returned in the <EM>n</EM> elements	of <EM>residences</EM>.	If an element
+	  of <EM>residences</EM>	is <STRONG>GL_TRUE</STRONG>, then the texture named by the
+	  corresponding	element	of <EM>textures</EM> is resident.
+
+	  The residence	status of a single bound texture may also be
+	  queried by calling <STRONG>fglGetTexParameter</STRONG>	with the <EM>target</EM>
+	  argument set to the target to	which the texture is bound,
+	  and the <EM>p</EM>_<EM>name</EM> argument set to <STRONG>GL_TEXTURE_RESIDENT</STRONG>.  This is
+	  the only way that the	residence status of a default texture
+	  can be queried.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglAreTexturesResident</STRONG> is available only if the GL version
+	  is 1.1 or greater.
+
+	  <STRONG>fglAreTexturesResident</STRONG> returns the residency status of the
+	  textures at the time of invocation. It does not guarantee
+	  that the textures will remain	resident at any	other time.
+
+	  If textures reside in	virtual	memory (there is no texture
+	  memory), they	are considered always resident.
+
+	  Some implementations may not load a texture until the	first
+	  use of that texture.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if <EM>n</EM> is	negative.
+
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if any element in <EM>textures</EM> is
+	  0 or does not	name a texture.	In that	case, the function
+	  returns <STRONG>GL_FALSE</STRONG> and the contents of <EM>residences</EM> is
+	  indeterminate.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglAreTexturesResident</STRONG>
+	  is executed between the execution of <STRONG>fglBegin</STRONG>	and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGetTexParameter</STRONG> with parameter name <STRONG>GL_TEXTURE_RESIDENT</STRONG>
+	  retrieves the	residence status of a currently	bound texture.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglBindTexture</STRONG>, <STRONG>fglGetTexParameter</STRONG>, <STRONG>fglPrioritizeTextures</STRONG>,
+	  <STRONG>fglTexImage1D</STRONG>, <STRONG>fglTexImage2D</STRONG>,	<STRONG>fglTexParameter</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

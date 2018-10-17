@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluGetNurbsProperty</STRONG> - get a NURBS property
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluGetNurbsProperty</STRONG>( CHARACTER*8 <EM>nurb</EM>,
+					   INTEGER*4 <EM>property</EM>,
+					   CHARACTER*8 <EM>data</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>nurb</EM>	    Specifies the NURBS	object (created	with
+		    <STRONG>fgluNewNurbsRenderer</STRONG>).
+
+	  <EM>property</EM>  Specifies the property whose value is to be
+		    fetched. Valid values are <STRONG>GLU_CULLING</STRONG>,
+		    <STRONG>GLU_SAMPLING_TOLERANCE</STRONG>, <STRONG>GLU_DISPLAY_MODE</STRONG>,
+		    <STRONG>GLU_AUTO_LOAD_MATRIX</STRONG>, <STRONG>GLU_PARAMETRIC_TOLERANCE</STRONG>,
+		    <STRONG>GLU_SAMPLING_METHOD</STRONG>, <STRONG>GLU_U_STEP</STRONG>, and <STRONG>GLU_V_STEP</STRONG>.
+
+	  <EM>data</EM>	    Specifies a	pointer	to the location	into which the
+		    value of the named property	is written.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluGetNurbsProperty</STRONG> retrieves properties stored in a	NURBS
+	  object. These	properties affect the way that NURBS curves
+	  and surfaces are rendered. See the <STRONG>fgluNurbsProperty</STRONG>
+	  reference page for information about what the	properties are
+	  and what they	do.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluNewNurbsRenderer</STRONG>,	<STRONG>fgluNurbsProperty</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

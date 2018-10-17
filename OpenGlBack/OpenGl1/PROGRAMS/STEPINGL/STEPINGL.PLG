@@ -1,0 +1,32 @@
+--------------------Configuration: StepinGl - Win32 Debug--------------------
+Begining build with project "E:\PrgGL\StepinGl\StepinGl.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/StepinGl.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x804 /fo"Debug/StepinGl.res" /d "_DEBUG" /d "_AFXDLL" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/StepinGl.bsc" "
+			"COFF Linker for 80x86" with flags "opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/StepinGl.pdb" /debug /machine:I386 /out:"Debug/StepinGl.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\TEMP\RSP5336.TMP" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/StepinGl.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\PrgGL\StepinGl\StepinGlView.cpp"
+>
+Creating command line "cl.exe @C:\TEMP\RSP5336.TMP" 
+Creating temp file "C:\TEMP\RSP5340.TMP" with contents <opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/StepinGl.pdb" /debug /machine:I386 /out:"Debug/StepinGl.exe" /pdbtype:sept 
+.\Debug\MainFrm.obj
+.\Debug\StdAfx.obj
+.\Debug\StepinGl.obj
+.\Debug\StepinGlDoc.obj
+.\Debug\StepinGlView.obj
+.\Debug\StepinGl.res>
+Creating command line "link.exe @C:\TEMP\RSP5340.TMP" 
+Compiling...
+StepinGlView.cpp
+Linking...
+
+
+
+StepinGl.exe - 0 error(s), 0 warning(s)

@@ -1,0 +1,42 @@
+#include "testdllres.h"
+
+
+IDI_APPICON ICON "isee.ICO"
+
+IDM_MENU MENU 
+{
+ POPUP "文件"
+ {
+  MENUITEM "打开", CM_OPEN
+  MENUITEM SEPARATOR
+  MENUITEM "退出", CM_QUIT
+ }
+
+ POPUP "图像属性处理"
+ {
+  MENUITEM "重定义尺寸", CM_RESIZE
+  MENUITEM "旋转", CM_ROTATE
+  MENUITEM "分割", CM_SPLIT
+  MENUITEM "拼接", CM_SPLICE, GRAYED
+  MENUITEM "灰度转换", CM_GREYSCALE
+  MENUITEM "真彩，高彩，256色转换", CM_REFINECOLOR, GRAYED
+ }
+
+ POPUP "图像质量处理", GRAYED
+ {
+  MENUITEM "噪声", 301
+ }
+
+ POPUP "图像静态效果处理"
+ {
+  MENUITEM "噪声", CM_PERLINNOISE
+  MENUITEM "拼图游戏", CM_GAME_PINTU
+ }
+
+ POPUP "图像动态效果处理", GRAYED
+ {
+  MENUITEM "&Item", CM_POPUPITEM1
+ }
+
+}
+

@@ -1,0 +1,36 @@
+--------------------Configuration: Utility - Win32 Debug--------------------
+Begining build with project "E:\PrgGL\Utility\Utility.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Utility.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x804 /fo"Debug/Utility.res" /d "_DEBUG" /d "_AFXDLL" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/Utility.bsc" "
+			"COFF Linker for 80x86" with flags "opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Utility.pdb" /debug /machine:I386 /out:"Debug/Utility.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\TEMP\RSP51D1.TMP" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Utility.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\PrgGL\Utility\Dib.cpp"
+"E:\PrgGL\Utility\UtilityView.cpp"
+>
+Creating command line "cl.exe @C:\TEMP\RSP51D1.TMP" 
+Creating temp file "C:\TEMP\RSP51D2.TMP" with contents <opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Utility.pdb" /debug /machine:I386 /out:"Debug/Utility.exe" /pdbtype:sept 
+.\Debug\Dib.obj
+.\Debug\MainFrm.obj
+.\Debug\StdAfx.obj
+.\Debug\Utility.obj
+.\Debug\UtilityDoc.obj
+.\Debug\UtilityView.obj
+.\Debug\Utility.res>
+Creating command line "link.exe @C:\TEMP\RSP51D2.TMP" 
+Compiling...
+Dib.cpp
+UtilityView.cpp
+Generating Code...
+Linking...
+
+
+
+Utility.exe - 0 error(s), 0 warning(s)

@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglRectd,</STRONG> <STRONG>fglRectf,</STRONG> <STRONG>fglRecti,</STRONG>	<STRONG>fglRects,</STRONG> <STRONG>fglRectdv,</STRONG>
+	  <STRONG>fglRectfv,</STRONG> <STRONG>fglRectiv,</STRONG>	<STRONG>fglRectsv</STRONG> - draw a rectangle
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglRectd</STRONG>( REAL*8 <EM>x1</EM>,
+			       REAL*8 <EM>y1</EM>,
+			       REAL*8 <EM>x2</EM>,
+			       REAL*8 <EM>y2</EM> )
+	  SUBROUTINE <STRONG>fglRectf</STRONG>( REAL*4 <EM>x1</EM>,
+			       REAL*4 <EM>y1</EM>,
+			       REAL*4 <EM>x2</EM>,
+			       REAL*4 <EM>y2</EM> )
+	  SUBROUTINE <STRONG>fglRecti</STRONG>( INTEGER*4 <EM>x1</EM>,
+			       INTEGER*4 <EM>y1</EM>,
+			       INTEGER*4 <EM>x2</EM>,
+			       INTEGER*4 <EM>y2</EM> )
+	  SUBROUTINE <STRONG>fglRects</STRONG>( INTEGER*2 <EM>x1</EM>,
+			       INTEGER*2 <EM>y1</EM>,
+			       INTEGER*2 <EM>x2</EM>,
+			       INTEGER*2 <EM>y2</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>x1</EM>, <EM>y1</EM> Specify one vertex of a rectangle.
+
+	  <EM>x2</EM>, <EM>y2</EM> Specify the opposite vertex of	the rectangle.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglRectdv</STRONG>(	CHARACTER*8 <EM>v1</EM>,
+				CHARACTER*8 <EM>v2</EM> )
+	  SUBROUTINE <STRONG>fglRectfv</STRONG>(	CHARACTER*8 <EM>v1</EM>,
+				CHARACTER*8 <EM>v2</EM> )
+	  SUBROUTINE <STRONG>fglRectiv</STRONG>(	CHARACTER*8 <EM>v1</EM>,
+				CHARACTER*8 <EM>v2</EM> )
+	  SUBROUTINE <STRONG>fglRectsv</STRONG>(	CHARACTER*8 <EM>v1</EM>,
+				CHARACTER*8 <EM>v2</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>v1</EM>   Specifies a pointer to one vertex of a rectangle.
+
+	  <EM>v2</EM>   Specifies a pointer to the opposite vertex of the
+	       rectangle.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglRect</STRONG> supports efficient specification of rectangles as
+	  two corner points.  Each rectangle command takes four
+	  arguments, organized either as two consecutive pairs of
+	  (<EM>x</EM>,<EM>y</EM>)	coordinates, or	as two pointers	to arrays, each
+	  containing an	(<EM>x</EM>,<EM>y</EM>) pair.  The resulting rectangle is
+	  defined in the <EM>z</EM>=0 plane.
+
+	  <STRONG>fglRect</STRONG>(<EM>x1</EM>, <EM>y1</EM>, <EM>x2</EM>, <EM>y2</EM>) is exactly equivalent	to the
+	  following sequence:  glBegin(<STRONG>GL_POLYGON</STRONG>); glVertex2(<EM>x1</EM>, <EM>y1</EM>);
+	  glVertex2(<EM>x2</EM>,	<EM>y1</EM>); glVertex2(<EM>x2</EM>, <EM>y2</EM>);	glVertex2(<EM>x1</EM>, <EM>y2</EM>);
+	  glEnd(); Note	that if	the second vertex is above and to the
+	  right	of the first vertex, the rectangle is constructed with
+	  a counterclockwise winding.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglRect</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglBegin</STRONG>, <STRONG>fglVertex</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglLoadIdentity</STRONG> - replace the	current	matrix with the
+	  identity matrix
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglLoadIdentity</STRONG>( )
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglLoadIdentity</STRONG> replaces the current matrix with the
+	  identity matrix.  It is semantically equivalent to calling
+	  <STRONG>fglLoadMatrix</STRONG>	with the identity matrix
+
+
+			       ( 1   0	 0   0	)
+			       |		|
+			       | 0   1	 0   0	|
+			       | 0   0	 1   0	|
+			       |		|
+			       ( 0   0	 0   1	)
+
+	  but in some cases it is more efficient.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglLoadIdentity</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MATRIX_MODE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MODELVIEW_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_PROJECTION_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_TEXTURE_MATRIX</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglLoadMatrix</STRONG>, <STRONG>fglMatrixMode</STRONG>,	<STRONG>fglMultMatrix</STRONG>, <STRONG>fglPushMatrix</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

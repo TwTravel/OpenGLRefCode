@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> - test whether a	capability is enabled
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  LOGICAL*1 <STRONG>fglIsEnabled</STRONG>( INTEGER*4 <EM>cap</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>cap</EM>  Specifies a symbolic constant indicating	a GL
+	       capability.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> returns <STRONG>GL_TRUE</STRONG> if <EM>cap</EM> is an enabled capability
+	  and returns <STRONG>GL_FALSE</STRONG> otherwise.  Initially all capabilities
+	  except <STRONG>GL_DITHER</STRONG> are disabled; <STRONG>GL_DITHER</STRONG> is initially
+	  enabled.
+
+	  The following	capabilities are accepted for <EM>cap</EM>:
+
+	  <STRONG>Constant</STRONG>		     <STRONG>See</STRONG>
+	  __________________________________________________________________
+
+	  <STRONG>GL_ALPHA_TEST</STRONG>		     <STRONG>fglAlphaFunc</STRONG>
+	  <STRONG>GL_AUTO_NORMAL</STRONG>	     <STRONG>fglEvalCoord</STRONG>
+	  <STRONG>GL_BLEND</STRONG>		     <STRONG>fglBlendFunc</STRONG>, <STRONG>fglLogicOp</STRONG>
+	  <STRONG>GL_CLIP_PLANE</STRONG><EM>i</EM>	     <STRONG>fglClipPlane</STRONG>
+	  <STRONG>GL_COLOR_ARRAY</STRONG>	     <STRONG>fglColorPointer</STRONG>
+	  <STRONG>GL_COLOR_LOGIC_OP</STRONG>	     <STRONG>fglLogicOp</STRONG>
+	  <STRONG>GL_COLOR_MATERIAL</STRONG>	     <STRONG>fglColorMaterial</STRONG>
+	  <STRONG>GL_CULL_FACE</STRONG>		     <STRONG>fglCullFace</STRONG>
+	  <STRONG>GL_DEPTH_TEST</STRONG>		     <STRONG>fglDepthFunc</STRONG>, <STRONG>fglDepthRange</STRONG>
+	  <STRONG>GL_DITHER</STRONG>		     <STRONG>fglEnable</STRONG>
+	  <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>	     <STRONG>fglEdgeFlagPointer</STRONG>
+	  <STRONG>GL_FOG</STRONG>		     <STRONG>fglFog</STRONG>
+	  <STRONG>GL_INDEX_ARRAY</STRONG>	     <STRONG>fglIndexPointer</STRONG>
+	  <STRONG>GL_INDEX_LOGIC_OP</STRONG>	     <STRONG>fglLogicOp</STRONG>
+	  <STRONG>GL_LIGHT</STRONG><EM>i</EM>		     <STRONG>fglLightModel</STRONG>, <STRONG>fglLight</STRONG>
+	  <STRONG>GL_LIGHTING</STRONG>		     <STRONG>fglMaterial</STRONG>, <STRONG>fglLightModel</STRONG>, <STRONG>fglLight</STRONG>
+	  <STRONG>GL_LINE_SMOOTH</STRONG>	     <STRONG>fglLineWidth</STRONG>
+	  <STRONG>GL_LINE_STIPPLE</STRONG>	     <STRONG>fglLineStipple</STRONG>
+	  <STRONG>GL_MAP1_COLOR_4</STRONG>	     <STRONG>fglMap1</STRONG>, <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_MAP2_TEXTURE_COORD_2</STRONG>    <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_MAP2_TEXTURE_COORD_3</STRONG>    <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_MAP2_TEXTURE_COORD_4</STRONG>    <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_MAP2_VERTEX_3</STRONG>	     <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_MAP2_VERTEX_4</STRONG>	     <STRONG>fglMap2</STRONG>
+	  <STRONG>GL_NORMAL_ARRAY</STRONG>	     <STRONG>fglNormalPointer</STRONG>
+	  <STRONG>GL_NORMALIZE</STRONG>		     <STRONG>fglNormal</STRONG>
+	  <STRONG>GL_POINT_SMOOTH</STRONG>	     <STRONG>fglPointSize</STRONG>
+
+
+	  <STRONG>GL_POLYGON_SMOOTH</STRONG>	     <STRONG>fglPolygonMode</STRONG>
+	  <STRONG>GL_POLYGON_OFFSET_FILL</STRONG>     <STRONG>fglPolygonOffset</STRONG>
+	  <STRONG>GL_POLYGON_OFFSET_LINE</STRONG>     <STRONG>fglPolygonOffset</STRONG>
+	  <STRONG>GL_POLYGON_OFFSET_POINT</STRONG>    <STRONG>fglPolygonOffset</STRONG>
+	  <STRONG>GL_POLYGON_STIPPLE</STRONG>	     <STRONG>fglPolygonStipple</STRONG>
+	  <STRONG>GL_SCISSOR_TEST</STRONG>	     <STRONG>fglScissor</STRONG>
+	  <STRONG>GL_STENCIL_TEST</STRONG>	     <STRONG>fglStencilFunc</STRONG>, <STRONG>fglStencilOp</STRONG>
+	  <STRONG>GL_TEXTURE_1D</STRONG>		     <STRONG>fglTexImage1D</STRONG>
+	  <STRONG>GL_TEXTURE_2D</STRONG>		     <STRONG>fglTexImage2D</STRONG>
+	  <STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>     <STRONG>fglTexCoordPointer</STRONG>
+	  <STRONG>GL_TEXTURE_GEN_Q</STRONG>	     <STRONG>fglTexGen</STRONG>
+	  <STRONG>GL_TEXTURE_GEN_R</STRONG>	     <STRONG>fglTexGen</STRONG>
+	  <STRONG>GL_TEXTURE_GEN_S</STRONG>	     <STRONG>fglTexGen</STRONG>
+	  <STRONG>GL_TEXTURE_GEN_T</STRONG>	     <STRONG>fglTexGen</STRONG>
+	  <STRONG>GL_VERTEX_ARRAY</STRONG>	     <STRONG>fglVertexPointer</STRONG>
+
+     <STRONG>NOTES</STRONG>
+	  If an	error is generated, <STRONG>fglIsEnabled</STRONG> returns 0.
+
+	  <STRONG>GL_COLOR_LOGIC_OP</STRONG>, <STRONG>GL_COLOR_ARRAY</STRONG>, <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>,
+	  <STRONG>GL_INDEX_ARRAY</STRONG>, <STRONG>GL_INDEX_LOGIC_OP</STRONG>, <STRONG>GL_NORMAL_ARRAY</STRONG>,
+	  <STRONG>GL_POLYGON_OFFSET_FILL</STRONG>, <STRONG>GL_POLYGON_OFFSET_LINE</STRONG>,
+	  <STRONG>GL_POLYGON_OFFSET_POINT</STRONG>, <STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>, and
+	  <STRONG>GL_VERTEX_ARRAY</STRONG> are only available if	the GL version is 1.1
+	  or greater
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>cap</EM> is not an	accepted
+	  value.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglIsEnabled</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglEnable</STRONG>, <STRONG>fglEnableClientState</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

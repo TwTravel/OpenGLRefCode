@@ -1,0 +1,21 @@
+ BezierÇúÏßµÄHornerËã·¨
+
+float hornbez(degree,coeff,t)
+  int degree;
+  float coff[];
+  float t;
+{
+  int i,n;
+  float fact,t1,aux; 
+  t1=1.0-t;fact=1.0;n=1;
+  aux=coeff[0]*t1;
+
+  for(i=1;i<degree;i++)
+  {
+   face=fact*t;
+   n=n*(degree-i+1)/i;
+   aux=(aux+fact*n*coeff[i])*t1;
+  }
+   aux=aux+fact*t*codff[degree];
+   return aux;
+}

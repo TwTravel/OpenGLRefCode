@@ -1,0 +1,36 @@
+--------------------Configuration: Animation - Win32 Debug--------------------
+Begining build with project "E:\PrgGL\Animation\Animation.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Animation.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x804 /fo"Debug/Animation.res" /d "_DEBUG" /d "_AFXDLL" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/Animation.bsc" "
+			"COFF Linker for 80x86" with flags "opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Animation.pdb" /debug /machine:I386 /out:"Debug/Animation.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\TEMP\RSP82A3.TMP" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Debug/Animation.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\PrgGL\Animation\Animation.cpp"
+"E:\PrgGL\Animation\AnimationView.cpp"
+>
+Creating command line "cl.exe @C:\TEMP\RSP82A3.TMP" 
+Creating temp file "C:\TEMP\RSP82A4.TMP" with contents <opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Animation.pdb" /debug /machine:I386 /out:"Debug/Animation.exe" /pdbtype:sept 
+.\Debug\Animation.obj
+.\Debug\AnimationDoc.obj
+.\Debug\AnimationView.obj
+.\Debug\MainFrm.obj
+.\Debug\StdAfx.obj
+.\Debug\Animation.res>
+Creating command line "link.exe @C:\TEMP\RSP82A4.TMP" 
+Compiling...
+AnimationView.cpp
+Generating Code...
+Skipping... (no relevant changes detected)
+Animation.cpp
+Linking...
+
+
+
+Animation.exe - 0 error(s), 0 warning(s)

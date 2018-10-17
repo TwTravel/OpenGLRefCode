@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglRenderMode</STRONG>	- set rasterization mode
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  INTEGER*4 <STRONG>fglRenderMode</STRONG>( INTEGER*4 <EM>mode</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mode</EM>	Specifies the rasterization mode.  Three values	are
+		accepted:  <STRONG>GL_RENDER</STRONG>, <STRONG>GL_SELECT</STRONG>, and <STRONG>GL_FEEDBACK</STRONG>.  The
+		initial	value is <STRONG>GL_RENDER</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglRenderMode</STRONG>	sets the rasterization mode.  It takes one
+	  argument, <EM>mode</EM>, which	can assume one of three	predefined
+	  values:
+
+	  <STRONG>GL_RENDER</STRONG>	  Render mode. Primitives are rasterized,
+			  producing pixel fragments, which are written
+			  into the frame buffer.  This is the normal
+			  mode and also	the default mode.
+
+	  <STRONG>GL_SELECT</STRONG>	  Selection mode.  No pixel fragments are
+			  produced, and	no change to the frame buffer
+			  contents is made.  Instead, a	record of the
+			  names	of primitives that would have been
+			  drawn	if the render mode had been <STRONG>GL_RENDER</STRONG>
+			  is returned in a select buffer, which	must
+			  be created (see <STRONG>fglSelectBuffer</STRONG>) before
+			  selection mode is entered.
+
+	  <STRONG>GL_FEEDBACK</STRONG>	  Feedback mode.  No pixel fragments are
+			  produced, and	no change to the frame buffer
+			  contents is made.  Instead, the coordinates
+			  and attributes of vertices that would	have
+			  been drawn if	the render mode	had been
+			  <STRONG>GL_RENDER</STRONG> is returned	in a feedback buffer,
+			  which	must be	created	(see
+			  <STRONG>fglFeedbackBuffer</STRONG>) before feedback mode is
+			  entered.
+
+	  The return value of <STRONG>fglRenderMode</STRONG> is determined by the
+	  render mode at the time <STRONG>fglRenderMode</STRONG>	is called, rather than
+	  by <EM>mode</EM>.  The	values returned	for the	three render modes are
+	  as follows:
+
+	  <STRONG>GL_RENDER</STRONG>	  0.
+
+	  <STRONG>GL_SELECT</STRONG>	  The number of	hit records transferred	to the
+			  select buffer.
+
+	  <STRONG>GL_FEEDBACK</STRONG>	  The number of	values (not vertices)
+			  transferred to the feedback buffer.
+
+	  See the <STRONG>fglSelectBuffer</STRONG> and <STRONG>fglFeedbackBuffer</STRONG>	reference
+	  pages	for more details concerning selection and feedback
+	  operation.
+
+     <STRONG>NOTES</STRONG>
+	  If an	error is generated, <STRONG>fglRenderMode</STRONG> returns 0 regardless
+	  of the current render	mode.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>mode</EM> is not one of the three
+	  accepted values.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglSelectBuffer</STRONG> is
+	  called while the render mode is <STRONG>GL_SELECT</STRONG>, or	if
+	  <STRONG>fglRenderMode</STRONG>	is called with argument	<STRONG>GL_SELECT</STRONG> before
+	  <STRONG>fglSelectBuffer</STRONG> is called at least once.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglFeedbackBuffer</STRONG> is
+	  called while the render mode is <STRONG>GL_FEEDBACK</STRONG>, or if
+	  <STRONG>fglRenderMode</STRONG>	is called with argument	<STRONG>GL_FEEDBACK</STRONG> before
+	  <STRONG>fglFeedbackBuffer</STRONG> is called at least once.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglRenderMode</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_RENDER_MODE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglFeedbackBuffer</STRONG>, <STRONG>fglInitNames</STRONG>, <STRONG>fglLoadName</STRONG>,
+	  <STRONG>fglPassThrough</STRONG>, <STRONG>fglPushName</STRONG>, <STRONG>fglSelectBuffer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

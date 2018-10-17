@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXSwapBuffers</STRONG> - exchange front and back buffers
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXSwapBuffers</STRONG>( Display *<EM>dpy</EM>,
+			       GLXDrawable <EM>drawable</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	    Specifies the connection to	the X server.
+
+	  <EM>drawable</EM>  Specifies the drawable whose buffers are to	be
+		    swapped.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXSwapBuffers</STRONG> promotes the contents of the back buffer of
+	  <EM>drawable</EM> to become the contents of the front buffer of
+	  <EM>drawable</EM>.  The contents of the back buffer then become
+	  undefined.  The update typically takes place during the
+	  vertical retrace of the monitor, rather than immediately
+	  after	<STRONG>glXSwapBuffers</STRONG> is called.
+
+	  <STRONG>glXSwapBuffers</STRONG> performs an implicit <STRONG>glFlush</STRONG> before it
+	  returns.  Subsequent OpenGL commands may be issued
+	  immediately after calling <STRONG>glXSwapBuffers</STRONG>, but	are not
+	  executed until the buffer exchange is	completed.
+
+	  If <EM>drawable</EM> was not created with respect to a	double-
+	  buffered visual, <STRONG>glXSwapBuffers</STRONG> has no effect, and no	error
+	  is generated.
+
+     <STRONG>NOTES</STRONG>
+	  The contents of the back buffer become undefined after a
+	  swap.	Note that this applies to pbuffers as well as windows.
+
+	  All GLX rendering contexts share the same notion of which
+	  are front buffers and	which are back buffers.	 One
+	  consequence is that when multiple clients are	rendering to
+	  the same double-buffered window, all of them should finish
+	  rendering before one of them issues the command to swap
+	  buffers.  The	clients	are responsible	for implementing this
+	  synchronization.  Typically this is accomplished by
+	  executing <STRONG>glFinish</STRONG> and then using a semaphore	in shared
+	  memory to rendezvous before swapping.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadDrawable</STRONG> is generated if <EM>drawable</EM> is not a valid GLX
+	  drawable.
+
+	  <STRONG>GLXBadCurrentWindow</STRONG> is generated if <EM>dpy</EM> and <EM>drawable</EM> are
+	  respectively the display and drawable	associated with	the
+	  current context of the calling thread, and <EM>drawable</EM>
+	  identifies a window that is no longer	valid.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glFlush</STRONG>, <STRONG>glXBindSwapBarrierSGIX</STRONG>, <STRONG>glXJoinSwapGroupSGIX</STRONG>,
+	  <STRONG>glXSwapIntervalSGI</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

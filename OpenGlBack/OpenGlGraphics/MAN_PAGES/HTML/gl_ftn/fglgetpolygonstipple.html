@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglGetPolygonStipple</STRONG> - return	the polygon stipple pattern
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglGetPolygonStipple</STRONG>( CHARACTER*256 <EM>mask</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mask</EM>	Returns	the stipple pattern. The initial value is all
+		1's.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglGetPolygonStipple</STRONG> returns to <EM>mask</EM> a 32x32 polygon stipple
+	  pattern.  The	pattern	is packed into memory as if
+	  <STRONG>fglReadPixels</STRONG>	with both <EM>height</EM> and <EM>width</EM> of 32, <EM>type</EM> of
+	  <STRONG>GL_BITMAP</STRONG>, and <EM>format</EM>	of <STRONG>GL_COLOR_INDEX</STRONG> were called, and the
+	  stipple pattern were stored in an internal 32x32 color index
+	  buffer.  Unlike <STRONG>fglReadPixels</STRONG>, however, pixel	transfer
+	  operations (shift, offset, pixel map)	are not	applied	to the
+	  returned stipple image.
+
+     <STRONG>NOTES</STRONG>
+	  If an	error is generated, no change is made to the contents
+	  of <EM>mask</EM>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglGetPolygonStipple</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglPixelStore</STRONG>, <STRONG>fglPixelTransfer</STRONG>, <STRONG>fglPolygonStipple</STRONG>,
+	  <STRONG>fglReadPixels</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglGetTexGendv,</STRONG> <STRONG>fglGetTexGenfv,</STRONG> <STRONG>fglGetTexGeniv</STRONG> - return
+	  texture coordinate generation	parameters
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglGetTexGendv</STRONG>( INTEGER*4 <EM>coord</EM>,
+				     INTEGER*4 <EM>pname</EM>,
+				     CHARACTER*8 <EM>params</EM>	)
+	  SUBROUTINE <STRONG>fglGetTexGenfv</STRONG>( INTEGER*4 <EM>coord</EM>,
+				     INTEGER*4 <EM>pname</EM>,
+				     CHARACTER*8 <EM>params</EM>	)
+	  SUBROUTINE <STRONG>fglGetTexGeniv</STRONG>( INTEGER*4 <EM>coord</EM>,
+				     INTEGER*4 <EM>pname</EM>,
+				     CHARACTER*8 <EM>params</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>coord</EM>	  Specifies a texture coordinate.  Must	be <STRONG>GL_S</STRONG>, <STRONG>GL_T</STRONG>,
+		  <STRONG>GL_R</STRONG>,	or <STRONG>GL_Q</STRONG>.
+
+	  <EM>pname</EM>	  Specifies the	symbolic name of the value(s) to be
+		  returned.  Must be either <STRONG>GL_TEXTURE_GEN_MODE</STRONG>	or the
+		  name of one of the texture generation	plane
+		  equations:  <STRONG>GL_OBJECT_PLANE</STRONG> or <STRONG>GL_EYE_PLANE</STRONG>.
+
+	  <EM>params</EM>  Returns the requested	data.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglGetTexGen</STRONG> returns in <EM>params</EM> selected parameters of	a
+	  texture coordinate generation	function that was specified
+	  using	<STRONG>fglTexGen</STRONG>.  <EM>coord</EM> names	one of the (<EM>s</EM>, <EM>t</EM>, <EM>r</EM>, <EM>q</EM>)
+	  texture coordinates, using the symbolic constant <STRONG>GL_S</STRONG>, <STRONG>GL_T</STRONG>,
+	  <STRONG>GL_R</STRONG>,	or <STRONG>GL_Q</STRONG>.
+
+	  <EM>pname</EM>	specifies one of three symbolic	names:
+
+	  <STRONG>GL_TEXTURE_GEN_MODE</STRONG>	      <EM>params</EM> returns the single-valued
+				      texture generation function, a
+				      symbolic constant. The initial
+				      value is <STRONG>GL_EYE_LINEAR</STRONG>.
+
+	  <STRONG>GL_OBJECT_PLANE</STRONG>	      <EM>params</EM> returns the four plane
+				      equation coefficients that
+				      specify object linear-coordinate
+				      generation.  Integer values,
+				      when requested, are mapped
+				      directly from the	internal
+				      floating-point representation.
+
+	  <STRONG>GL_EYE_PLANE</STRONG>		      <EM>params</EM> returns the four plane
+				      equation coefficients that
+				      specify eye linear-coordinate
+				      generation.  Integer values,
+				      when requested, are mapped
+				      directly from the	internal
+				      floating-point representation.
+				      The returned values are those
+				      maintained in eye	coordinates.
+				      They are not equal to the	values
+				      specified	using <STRONG>fglTexGen</STRONG>,
+				      unless the modelview matrix was
+				      identity when <STRONG>fglTexGen</STRONG> was
+				      called.
+
+     <STRONG>NOTES</STRONG>
+	  If an	error is generated, no change is made to the contents
+	  of <EM>params</EM>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>coord</EM>	or <EM>pname</EM> is not	an
+	  accepted value.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglGetTexGen</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglTexGen</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

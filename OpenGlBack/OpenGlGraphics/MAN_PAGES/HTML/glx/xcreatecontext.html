@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXCreateContext</STRONG> - create a new GLX rendering	context
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  GLXContext <STRONG>glXCreateContext</STRONG>( Display *<EM>dpy</EM>,
+				       XVisualInfo *<EM>vis</EM>,
+				       GLXContext <EM>shareList</EM>,
+				       Bool <EM>direct</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	     Specifies the connection to the X server.
+
+	  <EM>vis</EM>	     Specifies the visual that defines the frame
+		     buffer resources available	to the rendering
+		     context.  It is a pointer to an <STRONG>XVisualInfo</STRONG>
+		     structure,	not a visual ID	or a pointer to	a
+		     <STRONG>Visual</STRONG>.
+
+	  <EM>shareList</EM>  Specifies the context with	which to share display
+		     lists.  <STRONG>NULL</STRONG> indicates that no sharing is to take
+		     place.
+
+	  <EM>direct</EM>     Specifies whether rendering is to be done with a
+		     direct connection to the graphics system if
+		     possible (<STRONG>True</STRONG>) or	through	the X server (<STRONG>False</STRONG>).
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXCreateContext</STRONG> creates a GLX rendering context and returns
+	  its handle.  This context can	be used	to render into both
+	  windows and GLX pixmaps.  If <STRONG>glXCreateContext</STRONG>	fails to
+	  create a rendering context, <STRONG>NULL</STRONG> is returned.
+
+	  If <EM>direct</EM> is <STRONG>True</STRONG>, then a direct rendering context is
+	  created if the implementation	supports direct	rendering, if
+	  the connection is to an X server that	is local, and if a
+	  direct rendering context is available. (An implementation
+	  may return an	indirect context when <EM>direct</EM> is	<STRONG>True</STRONG>).	If
+	  <EM>direct</EM> is <STRONG>False</STRONG>, then	a rendering context that renders
+	  through the X	server is always created.  Direct rendering
+	  provides a performance advantage in some implementations.
+	  However, direct rendering contexts cannot be shared outside
+	  a single process, and	they may be unable to render to	GLX
+	  pixmaps.
+
+	  If <EM>shareList</EM> is not <STRONG>NULL</STRONG>, then all display-list indexes and
+	  definitions are shared by context <EM>shareList</EM> and by the newly
+	  created context.  An arbitrary number	of contexts can	share
+	  a single display-list	space.	However, all rendering
+	  contexts that	share a	single display-list space must
+	  themselves exist in the same address space.  Two rendering
+	  contexts share an address space if both are nondirect	using
+	  the same server, or if both are direct and owned by a	single
+	  process.  Note that in the nondirect case, it	is not
+	  necessary for	the calling threads to share an	address	space,
+	  only for their related rendering contexts to share an
+	  address space.
+
+	  If the GL version is 1.1 or greater, then all	texture
+	  objects except object	0, are shared by any contexts that
+	  share	display	lists.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>XVisualInfo</STRONG> is defined in <EM>Xutil</EM>.<EM>h</EM>.  It is a structure	that
+	  includes <EM>visual</EM>, <EM>visualID</EM>, <EM>screen</EM>, and <EM>depth</EM> elements.
+
+	  A <EM>process</EM> is a single	execution environment, implemented in
+	  a single address space, consisting of	one or more threads.
+
+	  A <EM>thread</EM> is one of a set of subprocesses that	share a	single
+	  address space, but maintain separate program counters, stack
+	  spaces, and other related global data.  A <EM>thread</EM> that	is the
+	  only member of its subprocess	group is equivalent to a
+	  <EM>process</EM>.
+
+	  It may not be	possible to render to a	GLX pixmap with	a
+	  direct rendering context.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>NULL</STRONG> is returned if execution	fails on the client side.
+
+	  <STRONG>BadMatch</STRONG> is generated	if the context to be created would not
+	  share	the address space or the screen	of the context
+	  specified by <EM>shareList</EM>.
+
+	  <STRONG>BadValue</STRONG> is generated	if <EM>vis</EM> is not a	valid visual (for
+	  example, if a	particular GLX implementation does not support
+	  it).
+
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>shareList</EM> is not a GLX context
+	  and is not <STRONG>NULL</STRONG>.
+
+	  <STRONG>BadAlloc</STRONG> is generated	if the server does not have enough
+	  resources to allocate	the new	context.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXDestroyContext</STRONG>, <STRONG>glXGetConfig</STRONG>, <STRONG>glXIsDirect</STRONG>,	<STRONG>glXMakeCurrent</STRONG>
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

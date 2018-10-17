@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TankCulled - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "E:\TEMP\RSP297.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Release/TankCulled.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"H:\Book\Samples\Chapt19\TankCulled\Scene.c"
+]
+Creating command line "cl.exe @E:\TEMP\RSP297.tmp" 
+Creating temporary file "E:\TEMP\RSP298.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib winmm.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/TankCulled.pdb" /machine:I386 /out:"Release/TankCulled.exe" 
+.\Release\Scene.obj
+.\Release\Tank.obj
+.\Release\Resource.res
+]
+Creating command line "link.exe @E:\TEMP\RSP298.tmp"
+<h3>Output Window</h3>
+Compiling...
+Scene.c
+H:\Book\Samples\Chapt19\TankCulled\Scene.c(652) : warning C4244: '+=' : conversion from 'double ' to 'float ', possible loss of data
+H:\Book\Samples\Chapt19\TankCulled\Scene.c(653) : warning C4244: '-=' : conversion from 'double ' to 'float ', possible loss of data
+Linking...
+
+
+
+<h3>Results</h3>
+TankCulled.exe - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglIndexMask</STRONG> - control the writing of	individual bits	in the
+	  color	index buffers
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglIndexMask</STRONG>( INTEGER*4 <EM>mask</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mask</EM>	Specifies a bit	mask to	enable and disable the writing
+		of individual bits in the color	index buffers.
+		Initially, the mask is all 1's.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglIndexMask</STRONG> controls	the writing of individual bits in the
+	  color	index buffers.	The least significant n	bits of	<EM>mask</EM>,
+	  where	n is the number	of bits	in a color index buffer,
+	  specify a mask.  Where a 1 (one) appears in the mask,	it's
+	  possible to write to the corresponding bit in	the color
+	  index	buffer (or buffers). Where a 0 (zero) appears, the
+	  corresponding	bit is write-protected.
+
+	  This mask is used only in color index	mode, and it affects
+	  only the buffers currently selected for writing (see
+	  <STRONG>fglDrawBuffer</STRONG>).  Initially, all bits are enabled for
+	  writing.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglIndexMask</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_INDEX_WRITEMASK</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglColorMask</STRONG>,	<STRONG>fglDepthMask</STRONG>, <STRONG>fglDrawBuffer</STRONG>, <STRONG>fglIndex</STRONG>,
+	  <STRONG>fglIndexPointer</STRONG>, <STRONG>fglStencilMask</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

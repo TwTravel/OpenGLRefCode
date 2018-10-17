@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglPushName,</STRONG> <STRONG>fglPopName</STRONG> - push and pop the name stack
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglPushName</STRONG>( INTEGER*4 <EM>name</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>name</EM>	Specifies a name that will be pushed onto the name
+		stack.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglPopName</STRONG>( )
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  The name stack is used during	selection mode to allow	sets
+	  of rendering commands	to be uniquely identified.  It
+	  consists of an ordered set of	unsigned integers and is
+	  initially empty.
+
+	  <STRONG>fglPushName</STRONG> causes <EM>name</EM> to be	pushed onto the	name stack.
+	  <STRONG>fglPopName</STRONG> pops one name off the top of the stack.
+
+	  The maximum name stack depth is implementation-dependent;
+	  call <STRONG>GL_MAX_NAME_STACK_DEPTH</STRONG> to find out the value for a
+	  particular implementation. It	is an error to push a name
+	  onto a full stack, or	to pop a name off an empty stack.  It
+	  is also an error to manipulate the name stack	between	the
+	  execution of <STRONG>fglBegin</STRONG>	and the	corresponding execution	of
+	  <STRONG>fglEnd</STRONG>.  In any of these cases, the error flag is set	and no
+	  other	change is made to GL state.
+
+	  The name stack is always empty while the render mode is not
+	  <STRONG>GL_SELECT</STRONG>.  Calls to <STRONG>fglPushName</STRONG> or <STRONG>fglPopName</STRONG> while the
+	  render mode is not <STRONG>GL_SELECT</STRONG> are ignored.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_STACK_OVERFLOW</STRONG> is generated if <STRONG>fglPushName</STRONG>	is called
+	  while	the name stack is full.
+
+	  <STRONG>GL_STACK_UNDERFLOW</STRONG> is	generated if <STRONG>fglPopName</STRONG>	is called
+	  while	the name stack is empty.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglPushName</STRONG> or
+	  <STRONG>fglPopName</STRONG> is	executed between a call	to <STRONG>fglBegin</STRONG> and	the
+	  corresponding	call to	<STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_NAME_STACK_DEPTH</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAX_NAME_STACK_DEPTH</STRONG>
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglInitNames</STRONG>,	<STRONG>fglLoadName</STRONG>, <STRONG>fglRenderMode</STRONG>, <STRONG>fglSelectBuffer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

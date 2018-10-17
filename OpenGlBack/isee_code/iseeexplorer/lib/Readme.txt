@@ -1,0 +1,1 @@
+此目录将存放ISeeExplorer中的各种库文件！如：iseeio.lib、iseeirw.lib、ce.lib等等。

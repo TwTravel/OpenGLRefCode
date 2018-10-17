@@ -1,0 +1,767 @@
+%!PS-Adobe-1.0
+%%Creator: splat:n8 (Nate Robins,,,,,,,<engr>)
+%%Title: stdin (ditroff)
+%%CreationDate: Tue Jul 22 19:17:02 1997
+%%EndComments
+% Start of psdit.pro -- prolog for ditroff translator
+% Copyright (c) 1985,1987 Adobe Systems Incorporated. All Rights Reserved. 
+% GOVERNMENT END USERS: See Notice file in TranScript library directory
+% -- probably /usr/lib/ps/Notice
+% $Revision: 1.2 $
+/$DITroff 140 dict def $DITroff begin
+/fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def
+/xi {0 72 11 mul translate 72 resolution div dup neg scale 0 0 moveto
+  /fontnum 1 def /fontsize 10 def /fontheight 10 def /fontslant 0 def F
+  /pagesave save def}def
+/PB{save /psv exch def currentpoint translate
+  resolution 72 div dup neg scale 0 0 moveto}def
+/PE{psv restore}def
+/m1 matrix def /m2 matrix def /m3 matrix def /oldmat matrix def
+/tan{dup sin exch cos div}bind def
+/point{resolution 72 div mul}bind def
+/dround	{transform round exch round exch itransform}bind def
+/xT{/devname exch def}def
+/xr{/mh exch def /my exch def /resolution exch def}def
+/xp{}def
+/xs{docsave restore end}def
+/xt{}def
+/xf{/fontname exch def /slotno exch def fontnames slotno get fontname eq not
+ {fonts slotno fontname findfont put fontnames slotno fontname put}if}def
+/xH{/fontheight exch def F}bind def
+/xS{/fontslant exch def F}bind def
+/s{/fontsize exch def /fontheight fontsize def F}bind def
+/f{/fontnum exch def F}bind def
+/F{fontheight 0 le {/fontheight fontsize def}if
+   fonts fontnum get fontsize point 0 0 fontheight point neg 0 0 m1 astore
+   fontslant 0 ne{1 0 fontslant tan 1 0 0 m2 astore m3 concatmatrix}if
+   makefont setfont .04 fontsize point mul 0 dround pop setlinewidth}bind def
+/X{exch currentpoint exch pop moveto show}bind def
+/N{3 1 roll moveto show}bind def
+/Y{exch currentpoint pop exch moveto show}bind def
+/S /show load def
+/ditpush{}def/ditpop{}def
+/AX{3 -1 roll currentpoint exch pop moveto 0 exch ashow}bind def
+/AN{4 2 roll moveto 0 exch ashow}bind def
+/AY{3 -1 roll currentpoint pop exch moveto 0 exch ashow}bind def
+/AS{0 exch ashow}bind def
+/MX{currentpoint exch pop moveto}bind def
+/MY{currentpoint pop exch moveto}bind def
+/MXY /moveto load def
+/cb{pop}def	% action on unknown char -- nothing for now
+/n{}def/w{}def
+/p{pop showpage pagesave restore /pagesave save def}def
+/abspoint{currentpoint exch pop add exch currentpoint pop add exch}def
+/dstroke{currentpoint stroke moveto}bind def
+/Dl{2 copy gsave rlineto stroke grestore rmoveto}bind def
+/arcellipse{oldmat currentmatrix pop
+ currentpoint translate 1 diamv diamh div scale /rad diamh 2 div def
+ rad 0 rad -180 180 arc oldmat setmatrix}def
+/Dc{gsave dup /diamv exch def /diamh exch def arcellipse dstroke 
+    grestore diamh 0 rmoveto}def
+/De{gsave /diamv exch def /diamh exch def arcellipse dstroke
+    grestore diamh 0 rmoveto}def
+/Da{currentpoint /by exch def /bx exch def /fy exch def /fx exch def
+   /cy exch def /cx exch def /rad cx cx mul cy cy mul add sqrt def
+   /ang1 cy neg cx neg atan def /ang2 fy fx atan def cx bx add cy by add
+   2 copy rad ang1 ang2 arcn stroke exch fx add exch fy add moveto}def
+/Barray 200 array def % 200 values in a wiggle
+/D~{mark}def
+/D~~{counttomark Barray exch 0 exch getinterval astore /Bcontrol exch def pop
+ /Blen Bcontrol length def Blen 4 ge Blen 2 mod 0 eq and
+ {Bcontrol 0 get Bcontrol 1 get abspoint /Ycont exch def /Xcont exch def
+  Bcontrol 0 2 copy get 2 mul put Bcontrol 1 2 copy get 2 mul put
+  Bcontrol Blen 2 sub 2 copy get 2 mul put
+  Bcontrol Blen 1 sub 2 copy get 2 mul put
+  /Ybi /Xbi currentpoint 3 1 roll def def 0 2 Blen 4 sub
+  {/i exch def
+   Bcontrol i get 3 div Bcontrol i 1 add get 3 div
+   Bcontrol i get 3 mul Bcontrol i 2 add get add 6 div
+   Bcontrol i 1 add get 3 mul Bcontrol i 3 add get add 6 div
+   /Xbi Xcont Bcontrol i 2 add get 2 div add def
+   /Ybi Ycont Bcontrol i 3 add get 2 div add def
+   /Xcont Xcont Bcontrol i 2 add get add def
+   /Ycont Ycont Bcontrol i 3 add get add def
+   Xbi currentpoint pop sub Ybi currentpoint exch pop sub rcurveto
+  }for dstroke}if}def
+end
+/ditstart{$DITroff begin
+ /nfonts 60 def			% NFONTS makedev/ditroff dependent!
+ /fonts[nfonts{0}repeat]def
+ /fontnames[nfonts{()}repeat]def
+/docsave save def
+}def
+
+% character outcalls
+/oc {/pswid exch def /cc exch def /name exch def
+   /ditwid pswid fontsize mul resolution mul 72000 div def
+   /ditsiz fontsize resolution mul 72 div def
+   ocprocs name known{ocprocs name get exec}{name cb}
+   ifelse}def
+/fractm [.65 0 0 .6 0 0] def
+/fraction
+ {/fden exch def /fnum exch def gsave /cf currentfont def
+  cf fractm makefont setfont 0 .3 dm 2 copy neg rmoveto
+  fnum show rmoveto currentfont cf setfont(\244)show setfont fden show 
+  grestore ditwid 0 rmoveto} def
+/oce {grestore ditwid 0 rmoveto}def
+/dm {ditsiz mul}def
+/ocprocs 50 dict def ocprocs begin
+(14){(1)(4)fraction}def
+(12){(1)(2)fraction}def
+(34){(3)(4)fraction}def
+(13){(1)(3)fraction}def
+(23){(2)(3)fraction}def
+(18){(1)(8)fraction}def
+(38){(3)(8)fraction}def
+(58){(5)(8)fraction}def
+(78){(7)(8)fraction}def
+(sr){gsave .05 dm .16 dm rmoveto(\326)show oce}def
+(is){gsave 0 .15 dm rmoveto(\362)show oce}def
+(->){gsave 0 .02 dm rmoveto(\256)show oce}def
+(<-){gsave 0 .02 dm rmoveto(\254)show oce}def
+(==){gsave 0 .05 dm rmoveto(\272)show oce}def
+end
+% DIThacks fonts for some special chars
+50 dict dup begin
+/FontType 3 def
+/FontName /DIThacks def
+/FontMatrix [.001 0.0 0.0 .001 0.0 0.0] def
+/FontBBox [-220 -280 900 900] def% a lie but ...
+/Encoding 256 array def
+0 1 255{Encoding exch /.notdef put}for
+Encoding
+ dup 8#040/space put %space
+ dup 8#110/rc put %right ceil
+ dup 8#111/lt put %left  top curl
+ dup 8#112/bv put %bold vert
+ dup 8#113/lk put %left  mid curl
+ dup 8#114/lb put %left  bot curl
+ dup 8#115/rt put %right top curl
+ dup 8#116/rk put %right mid curl
+ dup 8#117/rb put %right bot curl
+ dup 8#120/rf put %right floor
+ dup 8#121/lf put %left  floor
+ dup 8#122/lc put %left  ceil
+ dup 8#140/sq put %square
+ dup 8#141/bx put %box
+ dup 8#142/ci put %circle
+ dup 8#143/br put %box rule
+ dup 8#144/rn put %root extender
+ dup 8#145/vr put %vertical rule
+ dup 8#146/ob put %outline bullet
+ dup 8#147/bu put %bullet
+ dup 8#150/ru put %rule
+ dup 8#151/ul put %underline
+ pop
+/DITfd 100 dict def
+/BuildChar{0 begin
+ /cc exch def /fd exch def
+ /charname fd /Encoding get cc get def
+ /charwid fd /Metrics get charname get def
+ /charproc fd /CharProcs get charname get def
+ charwid 0 fd /FontBBox get aload pop setcachedevice
+ 40 setlinewidth
+ newpath 0 0 moveto gsave charproc grestore
+ end}def
+/BuildChar load 0 DITfd put
+%/UniqueID 5 def
+/CharProcs 50 dict def
+CharProcs begin
+/space{}def
+/.notdef{}def
+/ru{500 0 rls}def
+/rn{0 750 moveto 500 0 rls}def
+/vr{20 800 moveto 0 -770 rls}def
+/bv{20 800 moveto 0 -1000 rls}def
+/br{20 770 moveto 0 -1040 rls}def
+/ul{0 -250 moveto 500 0 rls}def
+/ob{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath stroke}def
+/bu{200 250 rmoveto currentpoint newpath 200 0 360 arc closepath fill}def
+/sq{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath stroke}def
+/bx{80 0 rmoveto currentpoint dround newpath moveto
+    640 0 rlineto 0 640 rlineto -640 0 rlineto closepath fill}def
+/ci{355 333 rmoveto currentpoint newpath 333 0 360 arc
+    50 setlinewidth stroke}def
+
+/lt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 add exch s4 a4p stroke}def
+/lb{20 800 moveto 0 -550 rlineto currx -200 2cx s4 add exch s4 a4p stroke}def
+/rt{20 -200 moveto 0 550 rlineto currx 800 2cx s4 sub exch s4 a4p stroke}def
+/rb{20 800 moveto 0 -500 rlineto currx -200 2cx s4 sub exch s4 a4p stroke}def
+/lk{20 800 moveto 20 300 -280 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/rk{20 800 moveto 20 300 320 300 s4 arcto pop pop 1000 sub
+    currentpoint stroke moveto
+    20 300 4 2 roll s4 a4p 20 -200 lineto stroke}def
+/lf{20 800 moveto 0 -1000 rlineto s4 0 rls}def
+/rf{20 800 moveto 0 -1000 rlineto s4 neg 0 rls}def
+/lc{20 -200 moveto 0 1000 rlineto s4 0 rls}def
+/rc{20 -200 moveto 0 1000 rlineto s4 neg 0 rls}def
+end
+
+/Metrics 50 dict def Metrics begin
+/.notdef 0 def
+/space 500 def
+/ru 500 def
+/br 0 def
+/lt 250 def
+/lb 250 def
+/rt 250 def
+/rb 250 def
+/lk 250 def
+/rk 250 def
+/rc 250 def
+/lc 250 def
+/rf 250 def
+/lf 250 def
+/bv 250 def
+/ob 350 def
+/bu 350 def
+/ci 750 def
+/bx 750 def
+/sq 750 def
+/rn 500 def
+/ul 500 def
+/vr 0 def
+end
+
+DITfd begin
+/s2 500 def /s4 250 def /s3 333 def
+/a4p{arcto pop pop pop pop}def
+/2cx{2 copy exch}def
+/rls{rlineto stroke}def
+/currx{currentpoint pop}def
+/dround{transform round exch round exch itransform} def
+end
+end
+/DIThacks exch definefont pop
+
+ditstart
+(psc)xT
+576 1 1 xr
+1(Times-Roman)xf 1 f
+2(Times-Italic)xf 2 f
+3(Times-Bold)xf 3 f
+4(Times-BoldItalic)xf 4 f
+5(Helvetica)xf 5 f
+6(Helvetica-Bold)xf 6 f
+7(Courier)xf 7 f
+8(Courier-Bold)xf 8 f
+9(Symbol)xf 9 f
+10(DIThacks)xf 10 f
+10 s
+1 f
+xi
+%%EndProlog
+
+%%Page: 1 1
+10 s 0 xH 0 xS 1 f
+10 f
+96(h)Y
+24(hhh)X
+4176(h)X
+4200(hhh)X
+9 s
+1 f
+266 480(F)N
+268(FG)X
+310(GL)X
+364(LA)X
+410(AR)X
+464(RR)X
+514(RA)X
+564(AY)X
+618(YE)X
+672(EL)X
+718(LE)X
+764(EM)X
+810(ME)X
+876(EN)X
+922(NT)X
+976(T)X
+1026(\()X
+1028(\()X
+1064(\))X
+1066(\))X
+1885(U)X
+1887(UN)X
+1941(NI)X
+1995(IX)X
+2021(X)X
+2093(S)X
+2095(Sy)X
+2137(ys)X
+2175(st)X
+2205(te)X
+2227(em)X
+2261(m)X
+2337(V)X
+2339(V)X
+3186(F)X
+3188(FG)X
+3230(GL)X
+3284(LA)X
+3330(AR)X
+3384(RR)X
+3434(RA)X
+3484(AY)X
+3538(YE)X
+3592(EL)X
+3638(LE)X
+3684(EM)X
+3730(ME)X
+3796(EN)X
+3842(NT)X
+3896(T)X
+3946(\()X
+3948(\()X
+3984(\))X
+3986(\))X
+266 864(N)N
+268(NA)X
+322(AM)X
+376(ME)X
+442(E)X
+3 f
+10 s
+554 960(fglArrayElement)N
+1 f
+9 f
+1158(-)X
+1 f
+1222(render)X
+1448(a)X
+1504(vertex)X
+1725(using)X
+1918(the)X
+2036(speci\256ed)X
+2341(vertex)X
+2562(array)X
+2748(element)X
+9 s
+266 1190(F)N
+268(FO)X
+310(OR)X
+364(RT)X
+414(TR)X
+460(RA)X
+510(AN)X
+564(N)X
+648(S)X
+650(SP)X
+692(PE)X
+734(EC)X
+780(CI)X
+830(IF)X
+856(FI)X
+898(IC)X
+924(CA)X
+974(AT)X
+1028(TI)X
+1074(IO)X
+1100(ON)X
+1154(N)X
+10 s
+554 1286(SUBROUTINE)N
+3 f
+1081(fglArrayElement)X
+1 f
+1665(\()X
+1712(INTEGER*4)X
+2 f
+2155(i)X
+1 f
+2197(\))X
+554 1478(delim)N
+756($$)X
+9 s
+266 1612(P)N
+268(PA)X
+310(AR)X
+364(RA)X
+414(AM)X
+468(ME)X
+534(ET)X
+580(TE)X
+626(ER)X
+672(RS)X
+722(S)X
+2 f
+10 s
+554 1708(i)N
+1 f
+616(Speci\256es)X
+925(an)X
+1021(index)X
+1219(into)X
+1363(the)X
+1481(enabled)X
+1751(vertex)X
+1972(data)X
+2126(arrays.)X
+9 s
+266 1842(D)N
+268(DE)X
+322(ES)X
+368(SC)X
+410(CR)X
+460(RI)X
+510(IP)X
+536(PT)X
+578(TI)X
+624(IO)X
+650(ON)X
+704(N)X
+3 f
+10 s
+554 1938(fglArrayElement)N
+1 f
+1159(commands)X
+1527(are)X
+1647(used)X
+1815(within)X
+3 f
+2040(fglBegin)X
+1 f
+2324(/)X
+3 f
+2346(fglEnd)X
+1 f
+2597(pairs)X
+2774(to)X
+2857(specify)X
+3110(vertex)X
+3333(and)X
+3471(attribute)X
+3760(data)X
+3916(for)X
+554 2034(point,)N
+777(line,)X
+956(and)X
+1111(polygon)X
+1412(primitives.)X
+1795(If)X
+3 f
+1888(GL_VERTEX_ARRAY)X
+1 f
+2744(is)X
+2835(enabled)X
+3123(when)X
+3 f
+3335(fglArrayElement)X
+1 f
+3957(is)X
+554 2130(called,)N
+788(a)X
+846(single)X
+1059(vertex)X
+1282(is)X
+1357(drawn,)X
+1601(using)X
+1797(vertex)X
+2021(and)X
+2160(attribute)X
+2450(data)X
+2607(taken)X
+2804(from)X
+2983(location)X
+2 f
+3264(i)X
+1 f
+3309(of)X
+3399(the)X
+3520(enabled)X
+3793(arrays.)X
+554 2226(If)N
+3 f
+646(GL_VERTEX_ARRAY)X
+1 f
+1502(is)X
+1593(not)X
+1733(enabled,)X
+2041(no)X
+2159(drawing)X
+2460(occurs)X
+2708(but)X
+2847(the)X
+2982(attributes)X
+3317(corresponding)X
+3813(to)X
+3912(the)X
+554 2322(enabled)N
+824(arrays)X
+1041(are)X
+1160(modi\256ed.)X
+554 2456(Use)N
+3 f
+708(fglArrayElement)X
+1 f
+1321(to)X
+1412(construct)X
+1735(primitives)X
+2088(by)X
+2197(indexing)X
+2506(vertex)X
+2736(data,)X
+2919(rather)X
+3137(than)X
+3305(by)X
+3415(streaming)X
+3761(through)X
+554 2552(arrays)N
+776(of)X
+868(data)X
+1027(in)X
+1114(\256rst-to-last)X
+1490(order.)X
+1705(Because)X
+1998(each)X
+2171(call)X
+2312(speci\256es)X
+2613(only)X
+2780(a)X
+2841(single)X
+3057(vertex,)X
+3303(it)X
+3372(is)X
+3450(possible)X
+3737(to)X
+3823(expli-)X
+554 2648(citly)N
+716(specify)X
+968(per-primitive)X
+1411(attributes)X
+1729(such)X
+1896(as)X
+1983(a)X
+2039(single)X
+2250(normal)X
+2497(per)X
+2620(individual)X
+2964(triangle.)X
+554 2782(Changes)N
+852(made)X
+1048(to)X
+1132(array)X
+1320(data)X
+1476(between)X
+1766(the)X
+1886(execution)X
+2220(of)X
+3 f
+2309(fglBegin)X
+1 f
+2615(and)X
+2753(the)X
+2873(corresponding)X
+3355(execution)X
+3690(of)X
+3 f
+3780(fglEnd)X
+1 f
+554 2878(may)N
+730(affect)X
+952(calls)X
+1137(to)X
+3 f
+1237(fglArrayElement)X
+1 f
+1859(that)X
+2017(are)X
+2154(made)X
+2366(within)X
+2608(the)X
+2744(same)X
+3 f
+2947(fglBegin)X
+1 f
+3231(/)X
+3 f
+3253(fglEnd)X
+1 f
+3521(period)X
+3764(in)X
+3863(non-)X
+554 2974(sequential)N
+899(ways.)X
+1124(That)X
+1291(is,)X
+1384(a)X
+1440(call)X
+1576(to)X
+3 f
+554 3070(fglArrayElement)N
+1 f
+1158(that)X
+1298(precedes)X
+1600(a)X
+1656(change)X
+1904(to)X
+1987(array)X
+2174(data)X
+2329(may)X
+2488(access)X
+2715(the)X
+2834(changed)X
+3123(data,)X
+3298(and)X
+3435(a)X
+3492(call)X
+3629(that)X
+3770(follows)X
+554 3166(a)N
+610(change)X
+858(to)X
+940(array)X
+1126(data)X
+1280(may)X
+1438(access)X
+1664(original)X
+1933(data.)X
+9 s
+266 3300(N)N
+268(NO)X
+322(OT)X
+376(TE)X
+422(ES)X
+468(S)X
+3 f
+10 s
+554 3396(fglArrayElement)N
+1 f
+1158(is)X
+1231(available)X
+1541(only)X
+1703(if)X
+1772(the)X
+1890(GL)X
+2017(version)X
+2273(is)X
+2346(1.1)X
+2466(or)X
+2553(greater.)X
+3 f
+554 3530(fglArrayElement)N
+1 f
+1162(is)X
+1239(included)X
+1539(in)X
+1625(display)X
+1880(lists.)X
+2052(If)X
+3 f
+2130(fglArrayElement)X
+1 f
+2738(is)X
+2815(entered)X
+3076(into)X
+3224(a)X
+3284(display)X
+3539(list,)X
+3681(the)X
+3804(neces-)X
+554 3626(sary)N
+711(array)X
+900(data)X
+1057(\(determined)X
+1468(by)X
+1571(the)X
+1692(array)X
+1881(pointers)X
+2162(and)X
+2301(enables\))X
+2592(is)X
+2668(also)X
+2820(entered)X
+3080(into)X
+3227(the)X
+3348(display)X
+3602(list.)X
+3742(Because)X
+554 3722(the)N
+688(array)X
+890(pointers)X
+1184(and)X
+1336(enables)X
+1613(are)X
+1748(client-side)X
+2118(state,)X
+2321(their)X
+2504(values)X
+2746(affect)X
+2967(display)X
+3235(lists)X
+3400(when)X
+3611(the)X
+3746(lists)X
+3911(are)X
+554 3818(created,)N
+827(not)X
+949(when)X
+1143(the)X
+1261(lists)X
+1409(are)X
+1528(executed.)X
+9 s
+266 3952(S)N
+268(SE)X
+310(EE)X
+356(E)X
+432(A)X
+434(AL)X
+488(LS)X
+534(SO)X
+576(O)X
+3 f
+10 s
+554 4048(fglColorPointer)N
+1 f
+1093(,)X
+3 f
+1133(fglDrawArrays)X
+1 f
+1655(,)X
+3 f
+1695(fglEdgeFlagPointer)X
+1 f
+2362(,)X
+3 f
+2402(fglGetPointerv)X
+1 f
+2910(,)X
+3 f
+554 4144(fglIndexPointer)N
+1 f
+1092(,)X
+3 f
+1132(fglInterleavedArrays)X
+1 f
+1854(,)X
+3 f
+1894(fglNormalPointer)X
+1 f
+2500(,)X
+3 f
+2540(fglTexCoordPointer)X
+1 f
+3230(,)X
+3 f
+3270(fglVertexPointer)X
+1 f
+266 6144(Page)N
+442(1)X
+3577(July)X
+3730(22,)X
+3850(1997)X
+10 f
+0 6428(h)N
+24(hhh)X
+4176(h)X
+4200(hhh)X
+
+1 p
+%%Trailer
+xt
+
+xs

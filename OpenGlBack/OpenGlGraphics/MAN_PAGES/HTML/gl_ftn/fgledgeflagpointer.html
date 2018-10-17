@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglEdgeFlagPointer</STRONG> - define an array of edge flags
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglEdgeFlagPointer</STRONG>( INTEGER*4 <EM>stride</EM>,
+					 CHARACTER*8 <EM>pointer</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>stride</EM>   Specifies the byte offset between consecutive edge
+		   flags.  If <EM>stride</EM> is	0 (the initial value), the
+		   edge	flags are understood to	be tightly packed in
+		   the array.
+
+	  <EM>pointer</EM>  Specifies a pointer to the first edge flag in the
+		   array.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglEdgeFlagPointer</STRONG> specifies the location and	data format of
+	  an array of boolean edge flags to use	when rendering.	<EM>stride</EM>
+	  specifies the	byte stride from one edge flag to the next
+	  allowing vertexes and	attributes to be packed	into a single
+	  array	or stored in separate arrays.  (Single-array storage
+	  may be more efficient	on some	implementations; see
+	  <STRONG>fglInterleavedArrays</STRONG>.)
+
+	  When an edge flag array is specified,	<EM>stride</EM> and <EM>pointer</EM> are
+	  saved	as client-side state.
+
+	  To enable and	disable	the edge flag array, call
+	  <STRONG>fglEnableClientState</STRONG> and
+	  <STRONG>fglDisableClientState</STRONG>	with the argument <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>.
+	  If enabled, the edge flag array is used when <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglDrawElements</STRONG>, or <STRONG>fglArrayElement</STRONG> is called.
+
+	  Use <STRONG>fglDrawArrays</STRONG> to construct a sequence of primitives (all
+	  of the same type) from prespecified vertex and vertex
+	  attribute arrays.  Use <STRONG>fglArrayElement</STRONG> to specify primitives
+	  by indexing vertexes and vertex attributes and
+	  <STRONG>fglDrawElements</STRONG> to construct a sequence of primitives	by
+	  indexing vertexes and	vertex attributes.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglEdgeFlagPointer</STRONG> is	available only if the GL version is
+	  1.1 or greater.
+
+	  The edge flag	array is initially disabled and	it won't be
+	  accessed when
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglDrawElements</STRONG> or <STRONG>fglDrawArrays</STRONG> is called.
+
+	  Execution of <STRONG>fglEdgeFlagPointer</STRONG> is not allowed between the
+	  execution of <STRONG>fglBegin</STRONG>	and the	corresponding execution	of
+	  <STRONG>fglEnd</STRONG>, but an error may or may not be generated. If no
+	  error	is generated, the operation is undefined.
+
+	  <STRONG>fglEdgeFlagPointer</STRONG> is	typically implemented on the client
+	  side.
+
+	  Edge flag array parameters are client-side state and are
+	  therefore not	saved or restored by <STRONG>fglPushAttrib</STRONG> and
+	  <STRONG>fglPopAttrib</STRONG>.	 Use <STRONG>fglPushClientAttrib</STRONG> and
+	  <STRONG>fglPopClientAttrib</STRONG> instead.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>stride</EM> is negative.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> with argument <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_EDGE_FLAG_ARRAY_STRIDE</STRONG>
+	  <STRONG>fglGetPointerv</STRONG> with argument <STRONG>GL_EDGE_FLAG_ARRAY_POINTER</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglDrawElements</STRONG>, <STRONG>fglEnable</STRONG>, <STRONG>fglGetPointerv</STRONG>, <STRONG>fglIndexPointer</STRONG>,
+	  <STRONG>fglNormalPointer</STRONG>, <STRONG>fglPopClientAttrib</STRONG>,
+	  <STRONG>fglPushClientAttrib</STRONG>, <STRONG>fglTexCoordPointer</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

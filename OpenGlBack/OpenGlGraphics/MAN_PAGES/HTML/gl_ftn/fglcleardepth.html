@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglClearDepth</STRONG>	- specify the clear value for the depth	buffer
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglClearDepth</STRONG>( REAL*4 <EM>depth</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>depth</EM>	 Specifies the depth value used	when the depth buffer
+		 is cleared. The initial value is 1.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglClearDepth</STRONG>	specifies the depth value used by <STRONG>fglClear</STRONG> to
+	  clear	the depth buffer.  Values specified by <STRONG>fglClearDepth</STRONG>
+	  are clamped to the range [0,1].
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglClearDepth</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_DEPTH_CLEAR_VALUE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglClear</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

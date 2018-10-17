@@ -1,0 +1,12 @@
+CFLAGS = -I/usr/include/GL -Wall
+LIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXt -lX11 -lXi -lm
+CC = gcc
+
+all: fountain3d
+
+texture.o: texture.c
+	$(CC) $(CFLAGS) -c texture.c
+
+fountain3d: fountain3d.o texture.o
+	$(CC) $(CFLAGS) fountain3d.o texture.o -o fountain3d $(LIBS)
+

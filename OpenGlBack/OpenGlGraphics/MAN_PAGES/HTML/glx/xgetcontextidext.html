@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXGetContextIDEXT</STRONG> - get the XID for a context.
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  GLXContextID <STRONG>glXGetContextIDEXT</STRONG>( const GLXContext <EM>ctx</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>ctx</EM>  Specifies a GLX rendering context.
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXGetContextIDEXT</STRONG> returns the XID associated	with a
+	  GLXContext.
+
+	  No round trip	is forced to the server; unlike	most X calls
+	  that return a	value, <STRONG>glXGetContextIDEXT</STRONG> does not flush any
+	  pending events.
+
+	  <STRONG>glXGetContextIDEXT</STRONG> is	part of	the <STRONG>EXT_import_context</STRONG>
+	  extension, not part of the core GLX command set. If
+	  <STRONG>GLX_EXT_import_context</STRONG> is included in	the string returned by
+	  <STRONG>glXQueryExtensionsString</STRONG>, when called	with argument
+	  <STRONG>GLX_EXTENSIONS</STRONG>, extension <STRONG>EXT_import_context</STRONG> is supported.
+
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> does not refer to a	valid
+	  context.
+
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXQueryVersion</STRONG>, <STRONG>glXQueryExtensionsString</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXGetClientString</STRONG> - return a	string describing the client
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  const	char * <STRONG>glXGetClientString</STRONG>( Display *<EM>dpy</EM>,
+					   int <EM>name</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	Specifies the connection to the	X server.
+
+	  <EM>name</EM>	Specifies which	string is returned.  One of
+		<STRONG>GLX_VENDOR</STRONG>, <STRONG>GLX_VERSION</STRONG>, or <STRONG>GLX_EXTENSIONS</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXGetClientString</STRONG> returns a string describing some aspect
+	  of the client	library. The possible values for <EM>name</EM> are
+	  <STRONG>GLX_VENDOR</STRONG>, <STRONG>GLX_VERSION</STRONG>, and <STRONG>GLX_EXTENSIONS</STRONG>. If <EM>name</EM> is not
+	  set to one of	these values, <STRONG>glXGetClientString</STRONG> returns <STRONG>NULL</STRONG>.
+	  The format and contents of the vendor	string is
+	  implementation dependent.
+
+	  The extensions string	is null-terminated and contains	a
+	  space-separated list of  extension names. (The extension
+	  names	never contain spaces.) If there	are no extensions to
+	  GLX, then the	empty string is	returned.
+
+	  The version string is	laid out as follows:
+
+	  &lt;major_version.minor_version&gt;&lt;space&gt;&lt;vendor-specific info&gt;
+
+	  Both the major and minor portions of the version number are
+	  of arbitrary length.	The vendor-specific information	is
+	  optional.  However, if it is present,	the format and
+	  contents are implementation specific.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>glXGetClientString</STRONG> is	available only if the GLX version is
+	  1.1 or greater.
+
+	  If the GLX version is	1.1 or 1.0, the	GL version must	be
+	  1.0.	If the GLX version is 1.2, then	the GL version must be
+	  1.1.
+
+	  <STRONG>glXGetClientString</STRONG> only returns information about GLX
+	  extensions supported by the client. Call <STRONG>glGetString</STRONG> to get
+	  a list of GL extensions supported by the server.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXQueryVersion</STRONG>, <STRONG>glXQueryExtensionsString</STRONG>,
+	  <STRONG>glXQueryServerString</STRONG>
+</PRE>
+</BODY>
+</HTML>

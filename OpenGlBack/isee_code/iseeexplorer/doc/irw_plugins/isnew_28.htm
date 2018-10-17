@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_27.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="index.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>插件测试软件使用说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+本章将描述如何使用ISee组提供的ISeeExplorer图象读写插件测试软件。<br>
+<br>
+当我们制作了一个图象读写插件之后，最希望做的事情大概就是想测试一下这个插件是否可以读写
+图象了，这时，我们就可以使用ISee组提供的图象读写插件测试软件来达到这一目的。这个软件可
+以很方便的测试插件的所有性能，包括读、写速度，接口功能等等。现在我们就来取得这个测试软
+件。<br>
+<br>
+插件测试软件是随ISeeExplorer源代码包一起配发的，如果你下载的ISeeExplorer源码包版本是20220
+或是更高，那么测试软件已经在包中了。如果你手中的源码包是01231版或是更早，你就需要到
+<a href="http://isee.126.com">ISee网站</a>下载最新的源码包。或者是使用WinCvs来checkout
+最新版代码。<br>
+<br>
+下面将按步骤说明测试软件的使用方法：<br>
+<br>
+<br>
+<em>1、编译测试软件</em><br>
+<br>
+现在请先将ISeeExplorer源码解包（用WinCVs下载的用户可省去这一步），打开其中的test目录。
+启动 VC++ 编译器，装入 test 项目，编译。如果没有意外的话，编译完成后你就得到了一个可
+执行的插件测试软件。现在请不要关闭 VC++ 编译器，我们直接进入下一步。<br>
+<br>
+<br>
+<em>2、测试软件使用说明</em><br>
+<br>
+首先，你需要将你要调试的插件文件（即 DLL文件）拷贝到源码的 bin 目录中，注意，这个插件文
+件必须是测试版的（即DEBUG 版），否则无法调试。然后在 VC++ 中运行测试软件，现在你应该能
+看到一个类似下图的应用程序：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="isnew_28_01.png"><br>
+<br>
+现在我们点击‘工具’菜单中的‘设置当前插件’一项，如果你的插件接口设计无误的话，菜单中
+应该能显示出插件的名字，选中你的插件（插件名称前打勾，这一步骤在以后每次运行测试软件时
+都有做一次）。然后我们再点击‘图象文件路径...’一项，这一步主要是告诉测试软件测试用图象
+文件都放在哪了，比如我们要测试 BMP插件，那么我们事先就要搜集一些 BMP图片，以供测试（这
+一步只需做一次，测试软件可以记住这个路径）。<br>
+<br>
+现在我们就可以点击工具栏中的‘播放’按钮（左边第一个）来逐个的显示图象了，在默认情况下，
+每幅图象的显示间隔为 1秒钟，这个间隔时间可以从‘工具’菜单中的‘顺显速度调节’项中修改。
+如果在显示过程中你发现了某幅图象显示不正确，可以通过按空格键来暂停顺显。同时，你也可以
+不采用自动顺显方式，而是通过按翻页键来手动显示图象（由自动切至手动可直接通过翻页键完成）
+。<br>
+<br>
+<br>
+<em>3、调试方法</em><br>
+<br>
+如果在显示图象的过程中，你发现某幅图象显示不正确（也就是说插件在读写这幅图象时产生了失真
+），那么你就需要对插件进行调试了。首先你需要用翻页键将当前图象切至有问题图象的前一副图象
+，然后切到 VC++ 编译器，打开 testView.cpp 文件，在该文件的255行或266行附近设置断点，然后
+再切至测试软件，用翻页键显示问题图片。这时，系统会自动将控制权转到 VC++，并将光标停留在
+断点处。这样你就可以进入插件代码进行调试了。<br>
+<br>
+<br>
+<br>
+一个图象读写插件开发出来之后，插件开发者应首先自己测试一下插件是否有问题。测试时应尽可能
+多的搜集一些测试用图片，这样才能尽早的发现问题。在测试前，可先用 ACDSee 等商业软件先浏览
+一遍测试图片，以便对照。在测试之后（测试软件关闭之后），开发者应留意一下 VC++ 下部的
+DEBUG 信息窗口，看看里面是否有内存泄漏之类的消息。<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 028-20320</font></td>
+<td align="right"><a href="isnew_27.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="index.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

@@ -1,0 +1,301 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_17.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_19.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>插件初始代码含义</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+本节将详细讲解插件初始代码的含义及结构安排，这里所指的“插件初始代码”就是上
+一节“如何创建一个新的图像读写插件”中提到的 xxx.h 和 xxx.c 文件中包含的框架
+代码。理解这些代码的含义是创建新插件和修改插件代码的一个重要基础。因为 xxx.h 
+文件中的代码比较简单，所以在此暂不作说明，以下内容将主要针对 xxx.c 文件。<br>
+<br><br><br>
+<strong>1、代码文件结构</strong><br>
+<br>
+插件初始代码由几部分组成，以编写顺序排列如下：<br>
+<br><em>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) 文件首部注释信息<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) 全局变量、内部函数原型声明<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) DLL入口函数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) 插件接口函数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(5) 插件内部函数<br>
+</em><br>
+以下段落将根据这个顺序逐步讲解它们的结构及含义。<br>
+<br><br><br>
+<strong>2、文件首部注释信息说明</strong><br>
+<br>
+每当你打开一个ISeeExplorer图像读写插件的源码文件时，你都会在文件首部看到类似
+于下面一段文字的注释性信息：<br>
+<br>
+<table width=760><tr>
+<td width=10%>&nbsp;</td>
+<td align=left>
+<font color=green><pre>
+/*******************************************************************************
+
+	xxx.c
+
+	----------------------------------------------------------------
+	软件许可证 － GPL
+	版权所有 (C) 2002 VCHelp coPathway ISee workgroup.
+	----------------------------------------------------------------
+	这一程序是自由软件，你可以遵照自由软件基金会出版的GNU 通用公共许
+	可证条款来修改和重新发布这一程序。或者用许可证的第二版，或者（根
+	据你的选择）用任何更新的版本。
+
+	发布这一程序的目的是希望它有用，但没有任何担保。甚至没有适合特定
+	目地的隐含的担保。更详细的情况请参阅GNU通用公共许可证。
+
+	你应该已经和程序一起收到一份GNU通用公共许可证的副本（本目录
+	GPL.txt文件）。如果还没有，写信给：
+	The Free Software Foundation, Inc.,  675  Mass Ave,  Cambridge,
+	MA02139,  USA
+	----------------------------------------------------------------
+	如果你在使用本软件时有什么问题或建议，请用以下地址与我们取得联系：
+
+		http://isee.126.com
+		http://cosoft.org.cn/projects/iseeexplorer
+
+	或发信到：
+
+		isee##vip.163.com
+	----------------------------------------------------------------
+	本文件用途：	ISee图像浏览器—XXX图像读写模块实现文件
+
+			读取功能：
+							  
+			保存功能：
+							   
+
+	本文件编写人：	
+
+	本文件版本：	
+	最后修改于：	
+
+	注：以上E-Mail地址中的##请用@替换，这样做是为了抵制恶意的E-Mail
+	    地址收集软件。
+  	----------------------------------------------------------------
+	修正历史：
+
+
+*******************************************************************************/
+</pre></font></td>
+<td width=10%>&nbsp;</td>
+</tr></table>
+<br>
+其实这些文字都是从初始代码文件复制过去的。这些信息有以下的几个作用：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) 告知代码浏览人当前的文件名是什么。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) 声明ISeeExplorer的开发、使用许可证，及相关的版权信息。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) 根据GPL协议给出的建议，附带了一段简短的GPL协议声明。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) 项目的联络方式。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(5) 这个代码文件在整个项目中的用途及功能描述。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(6) 代码编写人的信息（包括开发人名称、电邮地址）。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(7) 代码文件的版本号及最后修改时间。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(8) 最后是这个代码文件的修正历史。<br>
+<br>
+这一段注释性信息是很重要的，它可以让开发员迅速的了解这些代码的作用及编写背景，
+尤其是对于一个新加入的开发员来说，这些信息将是非常宝贵的。所以，出于这个目的
+，建议所有开发员都尽量采用这个注释信息格式，并仔细填写其中的内容。<br>
+<br>
+在实际填写这些注释信息的时候，有几点需要注意。首先是代码编写人的信息，如果编
+写代码的人不只是一个，那么每个人的信息都要独占一行，不要都写在一起。而且编写
+人E-Mail地址中的@字符要用两个#字符替换。再者就是代码文件的版本号，这个版本号
+由5位十进制数组成，最前面的一位是年（2001年就写1，2002年就写2，等等），第二位
+和第三位是月（六月就写06，十二月写12，等等），最后两位是日（格式如月）。还有
+就是修正历史信息，这个信息格式是先写上修正的日期（年－月），然后再写上修正的
+内容。而且在每做完一次修正代码的工作后，都应及时变更文件版本号及最后修改时间
+。<br>
+<br>
+
+
+<br><br><br>
+<strong>2、全局变量、内部函数原型声明</strong><br>
+<br>
+初始代码的第二部分是全局变量（插件内部的全局变量）定义，以及内部函数的原型声明。
+在初始代码中共有四个全局变量（Win32平台），它们是：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)&nbsp;IRWP_INFO&nbsp;&nbsp;&nbsp;&nbsp;xxx_irwp_info;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xxx_irwp_info（在某个具体插件中，变量名中的xxx将会被该插件的缩词字母<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所替代）被称为“插件信息表”，这个变量中包含了有关这个插件的所有内部<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信息，包括插件名称、插件版本、插件作者、插件功能、插件接口等等一系列<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的重要数据，主程序在使用一个插件之前都会先获取这个变量的内容，然后才<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能使用这个插件。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)&nbsp;CRITICAL_SECTION&nbsp;&nbsp;&nbsp;&nbsp;xxx_get_info_critical;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3)&nbsp;CRITICAL_SECTION&nbsp;&nbsp;&nbsp;&nbsp;xxx_load_img_critical;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4)&nbsp;CRITICAL_SECTION&nbsp;&nbsp;&nbsp;&nbsp;xxx_save_img_critical;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上的这三个变量将为插件的三个主要接口提供线程安全保护（变量名中的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xxx 将会被具体插件的缩词字母所替代）。ISeeExplorer主程序将采用多线程<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术来使用图象读写插件，为了避免潜在的线程同步问题，接口函数将使用这<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;些变量来防止接口的重入。<br>
+<br>
+另外，如果插件中需要编写内部用函数，那么函数的原型声明最好也能放在这一段中，以便
+接口函数使用。
+<br><br><br>
+<strong>3、DLL入口函数</strong><br>
+<br>
+DLL入口函数（即DllMain函数）将在插件被装载和卸载时做一些初始化和收尾工作。这些
+工作对于软件的一个运行区间来说（即一个运行期）都是一次性的，也就是在插件被装载
+之后、卸载之前都不会再做这些工作了。<br>
+<br>
+其中，插件装载时的初始化工作包括：初始化插件信息表 xxx_irwp_info，和创建接口同步
+变量xxx_get_info_critical、xxx_load_img_critical、和 xxx_save_img_critical。插件
+的收尾工作包括销毁接口同步变量。如果需要，插件编制者也可以在DLL入口函数中加入一些
+自己的初始化和收尾代码。
+<br><br><br>
+<strong>4、插件接口函数</strong><br>
+<br>
+根据接口文档的定义，图像读写插件的接口函数一共有四个，它们分别是：is_irw_plugin()、
+xxx_get_image_info()、xxx_load_image()、xxx_save_image()。在初始代码文件中，除了
+is_irw_plugin()接口函数以外，其它三个函数都采用了非常类似的初始框架代码。<br>
+<br>
+<em>(1) is_irw_plugin()接口</em><br>
+<br>
+这个接口函数的代码非常简单，它只是将插件的“插件信息表”地址返回给调用者。新插件
+编写人无需改动这个函数的代码，直接使用它就可以。有关“插件信息表”的结构说明请参
+见插件用结构说明一章。<br>
+<br>
+<em>(2) xxx_get_image_info()、xxx_load_image()、xxx_save_image()接口</em><br>
+<br>
+这三个接口的初始代码都比较类似，所以集中说明一下。它们都采用了Windows系统的“结构
+化异常处理（SEH）”机制以及多线程同步代码（MTC），并将它们组合为一种较为固定的格
+式应用到所有的图像读写插件中。下面就是这种 SEH + MTC 的典型格式：<br>
+<br>
+<table width=760><tr>
+<td width=10%>&nbsp;</td>
+<td align=left>
+<pre>
+	<font color=blue>__try</font>
+	{
+	    <font color=blue>__try</font>
+	    {
+		<font color=green>/* 进入关键段 */</font>
+		EnterCriticalSection(&xxx_xxx_xxxxx_critical);
+
+		<font color=green>/********************************************/</font>
+		<font color=green>/* 此处将放置接口函数的具体读写代码 */</font>
+		<font color=green>/********************************************/</font>
+	    }
+	    <font color=blue>__finally</font>
+	    {
+		<font color=green>/********************************************/</font>
+		<font color=green>/* 此处释放上面__try块中分配的各种临时资源 */</font>
+		<font color=green>/********************************************/</font>
+
+		<font color=green>/* 退出关键段 */</font>
+		LeaveCriticalSection(&xxx_xxx_xxxxx_critical);
+	    }
+	}
+	<font color=blue>__except</font>(EXCEPTION_EXECUTE_HANDLER)
+	{
+	    <font color=green>/********************************************/</font>
+	    <font color=green>/* 此处将返回一个相应的错误信息给调用者 */</font>
+	    <font color=green>/********************************************/</font>
+	}
+</pre></font></td>
+<td width=10%>&nbsp;</td>
+</tr></table>
+<br>
+这种格式共分为两层，外面的一层称为 __try ... __except 层，它的主要作用是收集图像读写
+代码在执行过程中发生的所有异常情况，包括文件读写异常、内存读写异常、操作系统异常、硬
+件异常等等，并将这些异常转换为对应的错误码以正常的流程返回给插件调用者，这种转换对于
+增强插件代码的稳定性是非常重要的，它基本可以杜绝因插件不稳定而导致主程序崩溃现象的发
+生。<br>
+<br>
+SEH + MTC 格式中第二层称为 __try ... __finally 层，它的主要作用是为每一个插件接口做
+具体的收尾工作。比如我们在编写插件读写代码时打开了一个ISeeIO流，或是申请了一些临时内
+存块，那么我们无需在这一层的 __try 块中显式的释放它们，而只需将这些释放代码集中放置在
+该层的 __finally 块中就行了。这样一来不但简化了程序设计，而且在有异常发生时，插件也会
+正确的释放那些已申请的资源，从而避免了内存泄漏的发生。<br>
+<br>
+一个稳定、健壮的模块是受人欢迎的，这是真理 :-)<br>
+<br>
+有关多线程同步的代码放置在第二层中，使用的同步对象是每个接口函数的“关键段（critical）”
+变量。接口函数在开始时执行进入关键段的操作，在即将退出时执行退出关键段的操作，这样可以
+有效的防止插件中某个接口函数同时被多个线程调用的情况的发生。这样一来新插件编写人就无需考
+虑那些令人头疼的有关线程同步的问题了。<br>
+<br>
+* 注：有关SEH、多线程同步的资料请参见MSDN中相关说明。<br>
+<br><br><br>
+<strong>5、插件内部函数</strong><br>
+<br>
+为了完成某个具体格式图像的读写操作，插件编写人可能需要制作一些辅助函数，这些函数称之为
+内部函数（因为它们不会被插件调用者看到）。这些函数的编制方法没有什么硬性规定，插件编写
+人可以根据自己的思路自由发挥。不过，为了适应多人协作开发的实际情况和最大限度的让插件代
+码具有可移植性，你的代码风格应尽量遵循以下规则：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(1)、内部函数的实现代码应放在插件接口函数的后面，原型声明放在文件首部（见初始<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代码结构中的第二部分：全局变量、内部函数原型声明），而不能放到.h文件中。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(2)、内部函数的函数名应以“_”（下划线）开始，以使其与插件接口函数相区别。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(3)、内部函数的函数名及函数内部的变量名应都使用英文小写字母，以符合ANSI标准。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(4)、变量类型应尽量采用 C 语言标准类型关键字，不要使用诸如DWORD、BYTE等类型。<br>
+<br><br><br>
+以上就是插件初始代码结构及含义的说明，有关插件编写方法的资料请参见下一节。<br>
+<br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 018-20606</font></td>
+<td align="right"><a href="isnew_17.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_19.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

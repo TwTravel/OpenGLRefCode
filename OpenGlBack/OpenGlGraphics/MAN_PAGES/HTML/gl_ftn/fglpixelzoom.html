@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglPixelZoom</STRONG> - specify the pixel zoom	factors
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglPixelZoom</STRONG>( REAL*4 <EM>xfactor</EM>,
+				   REAL*4 <EM>yfactor</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>xfactor</EM>, <EM>yfactor</EM> Specify the x and y zoom factors for	pixel
+			   write operations.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglPixelZoom</STRONG> specifies values	for the	x and y	zoom factors.
+	  During the execution of <STRONG>fglDrawPixels</STRONG>	or <STRONG>fglCopyPixels</STRONG>, if
+	  (xr, yr) is the current raster position, and a given element
+	  is in	the mth	row and	nth column of the pixel	rectangle,
+	  then pixels whose centers are	in the rectangle with corners
+	  at
+
+		       (xr + n.xfactor,	yr + m.yfactor)
+
+		    (xr	+ (n+1).xfactor, yr + (m+1).yfactor)
+
+	  are candidates for replacement.  Any pixel whose center lies
+	  on the bottom	or left	edge of	this rectangular region	is
+	  also modified.
+
+	  Pixel	zoom factors are not limited to	positive values.
+	  Negative zoom	factors	reflect	the resulting image about the
+	  current raster position.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglPixelZoom</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_ZOOM_X</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_ZOOM_Y</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglCopyPixels</STRONG>, <STRONG>fglDrawPixels</STRONG>
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglEnableClientState,</STRONG>	<STRONG>fglDisableClientState</STRONG> -	enable or
+	  disable client-side capability
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglEnableClientState</STRONG>( INTEGER*4 <EM>cap</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>cap</EM>  Specifies the capability	to enable.  Symbolic constants
+	       <STRONG>GL_COLOR_ARRAY</STRONG>, <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>, <STRONG>GL_INDEX_ARRAY</STRONG>,
+	       <STRONG>GL_NORMAL_ARRAY</STRONG>,	<STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>,	and
+	       <STRONG>GL_VERTEX_ARRAY</STRONG> are accepted.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglDisableClientState</STRONG>( INTEGER*4 <EM>cap</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>cap</EM>  Specifies the capability	to disable.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglEnableClientState</STRONG> and <STRONG>fglDisableClientState</STRONG> enable	or
+	  disable individual client-side capabilities. By default, all
+	  client-side capabilities are disabled.  Both
+	  <STRONG>fglEnableClientState</STRONG> and <STRONG>fglDisableClientState</STRONG> take a	single
+	  argument, <EM>cap</EM>, which can assume one of the following values:
+
+	  <STRONG>GL_COLOR_ARRAY</STRONG>	   If enabled, the color array is
+				   enabled for writing and used	during
+				   rendering when <STRONG>fglDrawArrays</STRONG>	or
+				   <STRONG>fglDrawElement</STRONG> is called. See
+				   <STRONG>fglColorPointer</STRONG>.
+
+	  <STRONG>GL_EDGE_FLAG_ARRAY</STRONG>	   If enabled, the edge	flag array is
+				   enabled for writing and used	during
+				   rendering when <STRONG>fglDrawArrays</STRONG>	or
+				   <STRONG>fglDrawElements</STRONG> is called. See
+				   <STRONG>fglEdgeFlagPointer</STRONG>.
+
+	  <STRONG>GL_INDEX_ARRAY</STRONG>	   If enabled, the index array is
+				   enabled for writing and used	during
+				   rendering when <STRONG>fglDrawArrays</STRONG>	or
+				   <STRONG>fglDrawElements</STRONG> is called. See
+				   <STRONG>fglIndexPointer</STRONG>.
+
+	  <STRONG>GL_NORMAL_ARRAY</STRONG>	   If enabled, the normal array	is
+				   enabled for writing and used	during
+				   rendering when <STRONG>fglDrawArrays</STRONG>	or
+				   <STRONG>fglDrawElements</STRONG> is called. See
+				   <STRONG>fglNormalPointer</STRONG>.
+
+	  <STRONG>GL_TEXTURE_COORD_ARRAY</STRONG>   If enabled, the texture coordinate
+				   array is enabled for	writing	and
+				   used	for rendering when
+				   <STRONG>fglDrawArrays</STRONG> or <STRONG>fglDrawElements</STRONG> is
+				   called. See <STRONG>fglTexCoordPointer</STRONG>.
+
+	  <STRONG>GL_VERTEX_ARRAY</STRONG>	   If enabled, the vertex array	is
+				   enabled for writing and used	during
+				   rendering when <STRONG>fglDrawArrays</STRONG>	or
+				   <STRONG>fglDrawElements</STRONG> is called. See
+				   <STRONG>fglVertexPointer</STRONG>.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglEnableClientState</STRONG> is available only if the	GL version is
+	  1.1 or greater.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>cap</EM> is not an	accepted
+	  value.
+
+	  <STRONG>fglEnableClientState</STRONG> is not allowed between the execution of
+	  <STRONG>fglBegin</STRONG> and the corresponding <STRONG>fglEnd</STRONG>, but an	error may or
+	  may not be generated.	If no error is generated, the behavior
+	  is undefined.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglDrawElements</STRONG>, <STRONG>fglEdgeFlagPointer</STRONG>, <STRONG>fglEnable</STRONG>,
+	  <STRONG>fglGetPointerv</STRONG>, <STRONG>fglIndexPointer</STRONG>, <STRONG>fglInterleavedArrays</STRONG>,
+	  <STRONG>fglNormalPointer</STRONG>, <STRONG>fglTexCoordPointer</STRONG>,	<STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

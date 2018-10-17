@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_12.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_14.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>图像读写插件接口</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+本章将详细描述ISeeExplorer图像读写插件的接口规范，图像读写插件接口设计将以此文档为准。<br>
+<br><br>
+ISeeExplorer图像读写插件采用的是DLL插件形式，它的接口由四个导出函数组成（注：如果移
+植到Linux系统下将是六个），它们分别是：<br>
+<br><font color=blue>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、is_irw_plugin();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、xxx_get_image_info();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、xxx_load_image();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、xxx_save_image();<br>
+</font><br>
+也就是说，主程序只能通过这四个接口函数与插件取得联系。下面将简要描述这四个接口函数的
+作用。<br>
+<br>
+* 在描述之前，需要先解释一下“插件缩词字母”的概念。可能你已经注意到了，上面给出的
+四个接口函数中，后三个函数的函数名前面有xxx_这样的字符，其实这只是占位符，在某个具
+体的插件中它们会被该插件的插件缩词字母所代替。比如在BMP插件中，接口函数xxx_get_image_info()
+的实际函数名是bmp_get_image_info()，其中的“bmp_”就是BMP插件的“插件缩词字母”。每
+个插件的插件缩词字母都是不同的。之所以采用插件缩词字母来改变插件接口函数名主要是出于
+移植方面的考虑，在Linux系统中，ISeeExplorer的图像读写插件采用的是代码库的形式，也就
+是说所有插件的代码都是静态编译到软件中去的，所以不能存在同名函数的情况。插件缩词字母
+存在于插件的内部信息结构中，可用接口函数is_irw_plugin()来获取该结构的地址。<br>
+<br>
+* 接口函数is_irw_plugin()没有采用插件缩词字母，但在移植时它会被另外的三个函数取代。<br>
+<br><br><br>
+<strong>接口函数简介：</strong><br><br><br>
+<strong>1、is_irw_plugin()</strong><br><br>这是一个用于判断某个DLL文件是否是ISeeExplorer图像读写插件的
+接口函数。与其它三个接口函数不同的是，is_irw_plugin()的函数名首部没有插件名缩词字
+母，也就是说ISeeExplorer的所有图像读写插件中都肯定含有一个is_irw_plugin()导出函数
+。主程序可以利用这一特性，来检查某个DLL是否是ISeeExplorer的图像读写插件。<br>
+<br>
+另外，除了上面提到的判断功能之外，is_irw_plugin()函数还有获取插件内部信息的功能。
+每个读写插件中都有一个“内部信息结构”（参见结构类型IRWP_INFO的说明），这个结构包
+含了很多有关这个插件的内部信息，比如插件版本、作者、能处理哪些格式的图像、及该插
+件的缩词字母等等，这些信息对于插件的管理和使用都是很有用的。主程序可以通过调用
+is_irw_plugin()接口函数来获取这个内部信息结构的首地址（函数的返回值），进而可以
+访问这个结构中的所有信息。<br>
+<br><br>
+<strong>2、xxx_get_image_info()</strong><br><br>本函数及下面的两个函数的函数名中都
+存在插件缩词字母（xxx_），它们的含义见本节首部给出的注释。主程序在调用本接口函数及
+下面的两个接口函数时，应先根据缩词字母拼接出正确的接口函数名，然后才能调用。<br>
+<br>
+xxx_get_image_info()函数的作用是让插件获取某幅图像的信息，这些信息包括图像的宽度、
+高度、位深度、压缩方式、图像类型等等，但不包括图像的象素数据及调色板数据（如果有的话
+），这个函数的目的就是让主程序快速的（因为它不读取象素数据，所以速度很快）对一副图像
+的结构有个大概的了解。在ISeeExplorer中，用户经常会以非缩图方式来浏览一个图像目录，这
+时ISeeExplorer为了能快速的将每幅图像的宽、高等信息显示给用户，它将调用插件的
+xxx_get_image_info()接口函数。<br>
+<br><br>
+<strong>3、xxx_load_image()</strong><br><br>
+xxx_load_image()接口函数的作用是读取主程序指定的一副图像，包括图像的宽度、高度、位深
+度等结构性信息，及图像的象素数据和调色板数据（如果有的话）。这些数据将被存放到一个由
+主程序提供的结构中（参见结构类型INFOSTR的说明）。xxx_load_image()将图像读出后，还要对
+读出的象素数据进行适当地转换，将它们转为对应的ISeeExplorer图像读写插件输出格式。有关
+ISeeExplorer图像读写插件输出格式的有关资料请见相关章节。<br>
+<br>
+可能你已经有所察觉，就是xxx_load_image()中似乎包含了xxx_get_image_info()的功能（它也能
+获取图像宽、高等信息）。可以说xxx_load_image()在功能上是xxx_get_image_info()的一个超集
+。不过，如果主程序曾经为某幅图像调用过xxx_get_image_info()函数，那么主程序在为该图像调
+用xxx_load_image()函数时将会节省部分时间。有关这一点的详细说明请参见插件结构一章。<br>
+<br><br>
+<strong>4、xxx_save_image()</strong><br><br>
+xxx_save_image()函数的作用是将主程序传过来的图像数据（插件输出格式）以该插件特有的格式
+保存到用户指定的地方。比如BMP插件中的xxx_save_image()接口函数会将主程序传过来的图像按
+BMP格式保存，而JPEG插件中的xxx_save_image()则会以JPEG格式保存图像。<br>
+<br>
+值得注意的是，如果主程序传给xxx_save_image()的图像数据不是以ISeeExplorer图像读写插件
+输出格式存放的话，则保存的图像可能会有失真。<br>
+<br><br>
+以上就是ISeeExplorer图像读写插件接口函数的简要说明，有关这些函数的详细说明请参见各函数
+的参数说明文档。
+<br><br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 013-20225</font></td>
+<td align="right"><a href="isnew_12.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_14.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

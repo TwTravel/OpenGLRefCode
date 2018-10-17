@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglDepthMask</STRONG> - enable	or disable writing into	the depth
+	  buffer
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglDepthMask</STRONG>( LOGICAL*1 <EM>flag</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>flag</EM>	Specifies whether the depth buffer is enabled for
+		writing.  If <EM>flag</EM> is <STRONG>GL_FALSE</STRONG>, depth buffer writing is
+		disabled.  Otherwise, it is enabled.  Initially, depth
+		buffer writing is enabled.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglDepthMask</STRONG> specifies whether the depth buffer is enabled
+	  for writing.	If <EM>flag</EM>	is <STRONG>GL_FALSE</STRONG>, depth buffer writing is
+	  disabled.  Otherwise,	it is enabled.	Initially, depth
+	  buffer writing is enabled.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglDepthMask</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_DEPTH_WRITEMASK</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglColorMask</STRONG>,	<STRONG>fglDepthFunc</STRONG>, <STRONG>fglDepthRange</STRONG>, <STRONG>fglIndexMask</STRONG>,
+	  <STRONG>fglStencilMask</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

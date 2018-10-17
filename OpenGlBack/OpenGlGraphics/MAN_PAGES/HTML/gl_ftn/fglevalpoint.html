@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglEvalPoint1,</STRONG> <STRONG>fglEvalPoint2</STRONG> - generate and evaluate a
+	  single point in a mesh
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglEvalPoint1</STRONG>( INTEGER*4 <EM>i</EM>	)
+	  SUBROUTINE <STRONG>fglEvalPoint2</STRONG>( INTEGER*4 <EM>i</EM>,
+				    INTEGER*4 <EM>j</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>i</EM>  Specifies the integer value for grid domain variable i.
+
+	  <EM>j</EM>  Specifies the integer value for grid domain variable j
+	     (<STRONG>fglEvalPoint2</STRONG> only).
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglMapGrid</STRONG> and <STRONG>fglEvalMesh</STRONG> are used in tandem	to efficiently
+	  generate and evaluate	a series of evenly spaced map domain
+	  values.  <STRONG>fglEvalPoint</STRONG>	can be used to evaluate	a single grid
+	  point	in the same gridspace that is traversed	by
+	  <STRONG>fglEvalMesh</STRONG>.	Calling	<STRONG>fglEvalPoint1</STRONG> is equivalent to calling
+
+	  glEvalCoord1(i . DELTA u + u );
+				      1
+	  where
+
+	  DELTA	u = (u - u  ) /	n
+		      2	  1
+
+	  and n, u , and u
+		  1	  2
+
+	  are the arguments to the most	recent <STRONG>fglMapGrid1</STRONG> command.
+	  The one absolute numeric requirement is that if i = n, then
+	  the value computed from
+	  i . DELTA u +	u  is exactly u	.
+			 1	       2
+
+
+	  In the two-dimensional case, <STRONG>fglEvalPoint2</STRONG>, let
+	  DELTA	u = (u	- u )/n
+		      2	   1
+
+	  DELTA	v = (v	- v )/m
+		      2	   1
+
+	  where	n, u , u , m, v	, and v
+		    1	2      1       2
+
+	  are the arguments to the most	recent <STRONG>fglMapGrid2</STRONG> command.
+	  Then the <STRONG>fglEvalPoint2</STRONG> command is equivalent to calling
+
+	  glEvalCoord2(i .  DELTA u + u	, j . DELTA v +	v );
+				       1		 1
+
+	  The only absolute numeric requirements are that if i = n,
+	  then the value computed from
+
+	  i . DELTA u +	u  is exactly u	,
+			 1	       2
+	  and if j = m,	then the value computed	from
+
+	  j cdot DELTA v + v  is exactly v .
+			    1		  2
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP1_GRID_DOMAIN</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP2_GRID_DOMAIN</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP1_GRID_SEGMENTS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP2_GRID_SEGMENTS</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglEvalCoord</STRONG>,	<STRONG>fglEvalMesh</STRONG>, <STRONG>fglMap1</STRONG>, <STRONG>fglMap2</STRONG>, <STRONG>fglMapGrid</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

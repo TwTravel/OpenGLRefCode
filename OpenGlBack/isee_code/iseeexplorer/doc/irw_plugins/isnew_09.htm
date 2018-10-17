@@ -1,0 +1,348 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_08.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>子图像的组织方式及结构说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<font color="#4444cc"><strong>一、子图像的存在意义</strong></font><br>
+<br>
+从图像的类型来看，可分为静态图像（如BMP）和动态图像（如动态GIF），而动态图像其实
+就是由多幅图像在短时间连续播放而形成的一种视觉效果。所以从本质上说，动态图像
+也是静态图像，只不过图像个数多一些罢了。<br>
+<br>
+ISeeExplorer作为一个图像浏览器，将同时支持单幅图像和多幅图像，这就对图像读写插件
+的接口提出了要求：这个接口必须能够传送单幅图像数据和多幅图像数据。为了满足这
+一要求，于是就诞生了“子图像”这一概念。可以举个例子，比如有一动态GIF 图像，其中
+共包括了6 幅图像，由它们连续播放形成动画（这在网页广告中很常见）。那么我们就将这6
+幅图像中的第一幅称为主图像（也可以称为背景图像），它的数据将存放在数据包中
+(INFOSTR)，而其余的5幅图像我就称它们为“子图像”。这些图像的数据将以一个双向链表
+的方式组织起来，每一幅子图像的数据都存放在一个对应的节点中，而这个链表的首地址就
+存放在数据包变量psubimg 中，这样就把主图像与子图像给链接起来了。从而使这一个数据
+包既可以描述单幅图像（psubimg==null），也可以描述多幅图像（psubimg!=null）。最终
+，完成了上述对插件接口的技术要求。<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<font color="#4444cc"><strong>二、子图像的组织方式</strong></font><br>
+<br>
+从上一节的内容可以知道，子图像是以一个双向链表的形式被组织起来的，每一幅子图像的
+数据都被保存在对应的链表节点中，这个节点就是SUBIMGBLOCK结构（见iseeirw.h文件），
+其中包括对子图像的宽、高、位深、调色板、位数据等信息，还包括了延迟时间、关键色、
+播放序号等信息。<br>
+<br>
+这个链表由接口函数xxx_load_image()在读取多幅图像时自动生成，并且在调用
+isirw_free_INFOSTR()函数释放数据包时被自动销毁，客户程序无需干预。<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left"><td align="left">
+<font color="#4444cc"><strong>三、子图像结构(SUBIMGBLOCK)说明</strong></font><br><br>
+</td></tr>
+
+
+<tr align="center"><td align="center">
+
+<table align="center" bgcolor="white" cols="2" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>number;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+子图像块的序列号。它指出了本节点中子图像在播放序列中的位置。比如子图像链表中第一个节点
+中的图像序号是1，第二个节点序号就是2，依此类推。主图像（数据包INFOSTR中的图象）的缺省
+序号是 0。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>left, top;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+子图像相对于主图像左上角的显示偏移（以象素为单位）。在动态图像的播放中，主图像将担当起
+一个背景的作用，子图像将显示在这个背景之上，为了能减小图像流的尺寸，动态图像设计人员往
+往只在子图像中保存那些变动的部分，这就导致子图像的尺寸可能不同于背景图像的尺寸，这时就
+需要设定子图像相对于背景的偏移。left和top两个变量就包含了这个偏移量（left为横向偏移、
+top为纵向偏移）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>width, height;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+子图像块的图像宽度及高度（以象素为单位）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>bitcount;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的位深度（每个像素所占的位数）。通过该变量你可以计算出图像调色板尺寸及目标格式中
+图像扫描行的尺寸。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>order;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像的放置顺序，也就是图像是正向放置的，还是倒向放置的（倒向放置的含义就是图像最上部的
+象素数据被放在了图像数据的尾部），如果该值是0，则说明图像是正向的，如果是1则是倒向的。<br>
+注：大多数的图像格式都是按正向存储图像数据的，只有很少的几种格式才采用倒向存储方式，如ANI、ICO格式的图像等。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>dowith
+</td>
+<td align="left" bgcolor="#fbfbfb">
+处置方法（针对于动画GIF）。这是动态GIF特有的一个变量，在ISeeExplorer的显示模块中将被
+忽略。插件可以不填写该变量。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">int</font><br>userinput
+</td>
+<td align="left" bgcolor="#f4f4f4">
+用户输入（针对于动画GIF）。这是动态GIF特有的一个变量，在ISeeExplorer的显示模块中将被
+忽略。插件可以不填写该变量。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">int</font><br>time;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+显示的延迟时间（以毫秒为单位）。也就是本幅图像显示在用户视野中的时间，超过这个时间后，
+显示模块即可显示下一幅子图像。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned long</font>	r_mask;<br>
+<font color="blue">unsigned long</font>	g_mask;<br>
+</td>
+<td align="left" bgcolor="#f4f4f4">
+图像象素的红（R）、绿（G）、蓝（B）及alpha的掩码。这四个变量的作用很大，它们不单单通知
+调用者R、G、B、A各占了多少位，而且也指出了它们所处的位置。也就是说，图像的象素数据可能
+是RGBA方式排列的，也可能是BGRA方式的。调用者在显示图像时应仔细判断这四个变量中的值。<br>
+注：1～8位的图像无掩码数据。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font>	b_mask;<br>
+<font color="blue">unsigned long</font>	a_mask;<br>
+</td>
+<td align="left" bgcolor="#fbfbfb">
+见上...
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">long</font><br>colorkey
+</td>
+<td align="left" bgcolor="#f4f4f4">
+关键色（透明色）分量值。它指定了图像中哪种颜色将被作为透明色而不被显示出来（透明色
+下方的图像不会被掩盖）。-1表示没有关键色。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned char</font><br>
+*p_bit_data;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+目标图像缓冲区。它的格式与主图像相同，并由xxx_load_image()函数自动申请并维护（可参见数据
+包结构说明中的对应变量）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">void</font><br>
+**pp_line_addr;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+目标图像缓冲区行首地址数组。该数组的元素个数等于子图像的高度，其中每一个元素都是一个指针，
+指向目标图像缓冲区(p_bit_data)中某一行图像数据的首地址，通过使用本数组，客户程序可以迅速
+的定位某个象素点在缓冲区中的位置（可参见数据包结构说明中的对应变量）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">unsigned long</font><br>
+palette[MAX_PALETTE_COUNT];
+</td>
+<td align="left" bgcolor="#fbfbfb">
+图像的调色板数据。位深度1～8的图像将具有调色板数据（8位以上则没有），palette将用于
+存储这些数据。其中每个调色板项都拥有4个字节，分别用于描述蓝、绿、红（由低位到高位），
+最高位的字节置0。如果是在Windows平台下应用，可将palette强制转换为RGBQUAD型指针来访问
+其中的数据（注：子图像可以拥有与主图像不同的调色板数据）。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">unsigned int</font><br>
+pal_count;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+调色板尺寸。该变量描述了在palette中前多少个元素是有效的（从[0]元素算起）。在
+ISeeExplorer的图像读写插件输出格式中，1位位深的图像调色板尺寸恒定为2，2位位
+深的恒定为4，4位的恒定为16，8位的恒定为256。pal_count的值是多少，就说明
+palette数组中前多少个项是有效的。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f0f0ff">&nbsp;</td>
+<td align="left" bgcolor="#f0f0ff">&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">LPINFOSTR</font><br>parents;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+主图像数据的结构地址（所属数据包的地址）。通过该指针，子图像可以迅速定位它的拥有者
+数据包地址，从而可以获取主图像的一些数据。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">
+<font color="blue">LPSUBIMGBLOCK</font><br>prev;
+</td>
+<td align="left" bgcolor="#f4f4f4">
+前一桢子图像节点的结构地址。如果本节点是第一个节点，则该变量为0。
+</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">
+<font color="blue">LPSUBIMGBLOCK</font><br>next;
+</td>
+<td align="left" bgcolor="#fbfbfb">
+后一桢子图像节点的结构地址。如果本节点是最后一个节点，则该变量为0。
+</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="%40" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="%60"><font color="#ffffff"><strong>含  义</strong></font></td>
+</tr>
+
+</table>
+
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 009-20330</font></td>
+<td align="right"><a href="isnew_08.htm"><img src="..\prev.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_16.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+	
+
+</font>
+
+</BODY>
+</HTML>

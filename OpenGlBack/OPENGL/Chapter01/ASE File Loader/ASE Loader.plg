@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ASE Loader - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP54.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"Debug/ASE Loader.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\文稿\《OpenGL三维图形系统开发与实用技术》\本书所附源代码光盘\Chapter09\ASE File Loader\Main.cpp"
+]
+Creating command line "cl.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP54.tmp" 
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP55.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glaux.lib glu32.lib opengl32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/ASE Loader.pdb" /debug /machine:I386 /out:"Debug/ASE Loader.exe" /pdbtype:sept 
+".\Debug\Ase.obj"
+".\Debug\Init.obj"
+".\Debug\Main.obj"
+]
+Creating command line "link.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP55.tmp"
+<h3>Output Window</h3>
+Compiling...
+Main.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+ASE Loader.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

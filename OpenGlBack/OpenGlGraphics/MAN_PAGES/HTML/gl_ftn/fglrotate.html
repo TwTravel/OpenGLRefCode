@@ -1,0 +1,111 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglRotated,</STRONG> <STRONG>fglRotatef</STRONG> - multiply the	current	matrix by a
+	  rotation matrix
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglRotated</STRONG>( REAL*8	<EM>angle</EM>,
+				 REAL*8	<EM>x</EM>,
+				 REAL*8	<EM>y</EM>,
+				 REAL*8	<EM>z</EM> )
+	  SUBROUTINE <STRONG>fglRotatef</STRONG>( REAL*4	<EM>angle</EM>,
+				 REAL*4	<EM>x</EM>,
+				 REAL*4	<EM>y</EM>,
+				 REAL*4	<EM>z</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>angle</EM>	 Specifies the angle of	rotation, in degrees.
+
+	  <EM>x</EM>, <EM>y</EM>,	<EM>z</EM>
+		 Specify the <EM>x</EM>,	<EM>y</EM>, and <EM>z</EM> coordinates of	a vector,
+		 respectively.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglRotate</STRONG> produces a rotation	of <EM>angle</EM> degrees around	the
+	  vector (x,y,z).  The current matrix (see <STRONG>fglMatrixMode</STRONG>) is
+	  multiplied by	a rotation matrix with the product replacing
+	  the current matrix, as if <STRONG>fglMultMatrix</STRONG> were called with the
+	  following matrix as its argument:
+
+		  ( xx(1-c)+c	xy(1-c)-zs  xz(1-c)+ys	 0  )
+		  |					    |
+		  | yx(1-c)+zs	yy(1-c)+c   yz(1-c)-xs	 0  |
+		  | xz(1-c)-ys	yz(1-c)+xs  zz(1-c)+c	 0  |
+		  |					    |
+		  (	 0	     0		 0	 1  )
+	  Where	c = cos(angle),	s = sine(angle), and ||( x,y,z )|| = 1
+	  (if not, the GL will normalize this vector).
+
+
+
+	  If the matrix	mode is	either <STRONG>GL_MODELVIEW</STRONG> or <STRONG>GL_PROJECTION</STRONG>,
+	  all objects drawn after <STRONG>fglRotate</STRONG> is called are rotated.
+	  Use <STRONG>fglPushMatrix</STRONG> and	<STRONG>fglPopMatrix</STRONG> to	save and restore the
+	  unrotated coordinate system.
+
+     <STRONG>NOTES</STRONG>
+	  This rotation	follows	the right-hand rule, so	if the vector
+	  (x,y,z) points toward	the user, the rotation will be
+	  counterclockwise.
+
+     <STRONG>ERRORS</STRONG>
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglRotate</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MATRIX_MODE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MODELVIEW_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_PROJECTION_MATRIX</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_TEXTURE_MATRIX</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglMatrixMode</STRONG>, <STRONG>fglMultMatrix</STRONG>,	<STRONG>fglPushMatrix</STRONG>, <STRONG>fglScale</STRONG>,
+	  <STRONG>fglTranslate</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

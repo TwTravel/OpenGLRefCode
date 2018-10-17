@@ -1,0 +1,43 @@
+--------------------Configuration: SpinLine - Win32 Debug--------------------
+Begining build with project "E:\xsmvc\SpinL\SpinLine\SpinLine.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MLd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp"Debug/SpinLine.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x804 /d "_DEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/SpinLine.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/SpinLine.pdb" /debug /machine:I386 /out:"Debug/SpinLine.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "D:\WIN95\TEMP\RSP2E4.TMP" with contents </nologo /MLd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp"Debug/SpinLine.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\xsmvc\SpinL\SpinLine\spinLine.cpp"
+>
+Creating command line "cl.exe @D:\WIN95\TEMP\RSP2E4.TMP" 
+Creating temp file "D:\WIN95\TEMP\RSP02E5.TMP" with contents <kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opengl32.lib glu32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/SpinLine.pdb" /debug /machine:I386 /out:"Debug/SpinLine.exe" /pdbtype:sept 
+.\Debug\spinLine.obj>
+Creating command line "link.exe @D:\WIN95\TEMP\RSP02E5.TMP" 
+Compiling...
+spinLine.cpp
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(38) : warning C4305: 'initializing' : truncation from 'const double' to 'float'
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(222) : warning C4305: '=' : truncation from 'const double' to 'float'
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(248) : warning C4101: 'iTimer' : unreferenced local variable
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(425) : warning C4305: '=' : truncation from 'const double' to 'float'
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(428) : warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(429) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(440) : warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(445) : warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(447) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(447) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(447) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(448) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(448) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(498) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(499) : warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+E:\xsmvc\SpinL\SpinLine\spinLine.cpp(534) : warning C4305: '=' : truncation from 'const double' to 'float'
+Linking...
+
+
+
+SpinLine.exe - 0 error(s), 16 warning(s)

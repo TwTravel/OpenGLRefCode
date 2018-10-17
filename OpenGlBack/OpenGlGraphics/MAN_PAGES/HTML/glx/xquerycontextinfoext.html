@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXQueryContextInfoEXT</STRONG> - query context information
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  int <STRONG>glXQueryContextInfoEXT</STRONG>( Display *<EM>dpy</EM>,
+				      GLXContext <EM>ctx</EM>,
+				      int <EM>attribute</EM>,
+				      int *<EM>value</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	     Specifies the connection to the X server.
+
+
+	  <EM>ctx</EM>	     Specifies a GLX rendering context.
+
+
+	  <EM>attribute</EM>  The visual	ID that	the context was	created	with.
+
+
+	  <EM>value</EM>	     The X screen the the context was created for.
+
+
+	  _param5    The context with which this context shares
+		     display lists.  or	<STRONG>NULL</STRONG> if	this context does not
+		     share display lists.
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXQueryContextInfoEXT</STRONG>  returns the the visual id, screen
+	  number, and share list of <EM>ctx</EM>. This call may cause a round
+	  trip to the server.
+
+	  <STRONG>glXQueryContextInfoEXT</STRONG> is part of the	<STRONG>EXT_import_context</STRONG>
+	  extension, not part of the core GLX command set. If
+	  <STRONG>GLX_EXT_import_context</STRONG> is included in	the string returned by
+	  <STRONG>glXQueryExtensionsString</STRONG>, when called	with argument
+	  <STRONG>GLX_EXTENSIONS</STRONG>, extension <STRONG>EXT_import_context</STRONG> is supported.
+
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> does not refer to a	valid
+	  context.
+
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>, <STRONG>glXQueryVersion</STRONG>, <STRONG>glXQueryExtensionsString</STRONG>
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

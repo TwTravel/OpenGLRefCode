@@ -1,0 +1,215 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglEvalMesh1,</STRONG>	<STRONG>fglEvalMesh2</STRONG> - compute a one- or two-
+	  dimensional grid of points or	lines
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglEvalMesh1</STRONG>( INTEGER*4 <EM>mode</EM>,
+				   INTEGER*4 <EM>i1</EM>,
+				   INTEGER*4 <EM>i2</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mode</EM>	In <STRONG>fglEvalMesh1</STRONG>, specifies whether to compute a	one-
+		dimensional mesh of points or lines.  Symbolic
+		constants <STRONG>GL_POINT</STRONG> and <STRONG>GL_LINE</STRONG> are accepted.
+
+	  <EM>i1</EM>, <EM>i2</EM>
+		Specify	the first and last integer values for grid
+		domain variable	i.
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglEvalMesh2</STRONG>( INTEGER*4 <EM>mode</EM>,
+				   INTEGER*4 <EM>i1</EM>,
+				   INTEGER*4 <EM>i2</EM>,
+				   INTEGER*4 <EM>j1</EM>,
+				   INTEGER*4 <EM>j2</EM>	)
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mode</EM> In <STRONG>fglEvalMesh2</STRONG>,	specifies whether to compute a two-
+	       dimensional mesh	of points, lines, or polygons.
+	       Symbolic	constants <STRONG>GL_POINT</STRONG>, <STRONG>GL_LINE</STRONG>, and <STRONG>GL_FILL</STRONG> are
+	       accepted.
+
+	  <EM>i1</EM>, <EM>i2</EM>
+	       Specify the first and last integer values for grid
+	       domain variable i.
+
+	  <EM>j1</EM>, <EM>j2</EM>
+	       Specify the first and last integer values for grid
+	       domain variable j.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglMapGrid</STRONG> and <STRONG>fglEvalMesh</STRONG> are used in tandem	to efficiently
+	  generate and evaluate	a series of evenly-spaced map domain
+	  values.  <STRONG>fglEvalMesh</STRONG> steps through the integer domain	of a
+	  one- or two-dimensional grid,	whose range is the domain of
+	  the evaluation maps specified	by <STRONG>fglMap1</STRONG> and <STRONG>fglMap2</STRONG>.	 <EM>mode</EM>
+	  determines whether the resulting vertices are	connected as
+	  points, lines, or filled polygons.
+
+	  In the one-dimensional case, <STRONG>fglEvalMesh1</STRONG>, the mesh is
+	  generated as if the following	code fragment were executed:
+
+	  glBegin (<EM>type</EM>);
+	  for (i = <EM>i1</EM>; i &lt;= <EM>i2</EM>;	i += 1)
+	       glEvalCoord1(i .	DELTA u	+ u sub	1)
+	  glEnd();
+
+	  where
+
+	  DELTA	u = (u	- u ) /	1
+		      2	   1
+
+	  and n, u, and	u  are the arguments to	the most recent
+		  1	 2
+	  <STRONG>fglMapGrid1</STRONG> command.	<EM>type</EM> is	<STRONG>GL_POINTS</STRONG> if <EM>mode</EM> is <STRONG>GL_POINT</STRONG>,
+	  or <STRONG>GL_LINES</STRONG> if <EM>mode</EM> is <STRONG>GL_LINE</STRONG>.
+
+	  The one absolute numeric requirement is that if i = n, then
+	  the value computed from
+
+	  i . DELTA u +	u
+
+	  is exactly u.
+
+	  In the two-dimensional case, <STRONG>fglEvalMesh2</STRONG>, let
+
+	  DELTA	u = (u	- u )/n
+		      2	   1
+
+	  DELTA	v = (v - v )/m,
+		      2	  1
+
+	  where	n, u , u , m, v	, and v
+		    1	2      1       2
+	  are the arguments to the most	recent <STRONG>fglMapGrid2</STRONG> command.
+	  Then,	if <EM>mode</EM>	is <STRONG>GL_FILL</STRONG>, the	<STRONG>fglEvalMesh2</STRONG> command is
+	  equivalent to:
+
+	  for (j = <EM>j1</EM>;	j &lt; <EM>j2</EM>;	j += 1)	{
+	      glBegin (GL_QUAD_STRIP);
+	      for (i = <EM>i1</EM>; i &lt;=	<EM>i2</EM>; i += 1) {
+		  glEvalCoord2(i . DELTA u + u , j . DELTA v + v );
+					      1			1
+		  glEvalCoord2(i . DELTA u + u , (j+1) . DELTA v + v );
+					      1			    1
+	      }
+	      glEnd();
+	  }
+
+
+	  If <EM>mode</EM> is <STRONG>GL_LINE</STRONG>, then a call to <STRONG>fglEvalMesh2</STRONG> is
+	  equivalent to:
+	  for (j = <EM>j1</EM>;	j &lt;= <EM>j2</EM>; j += 1) {
+	      glBegin(GL_LINE_STRIP);
+	      for (i = <EM>i1</EM>; i &lt;=	<EM>i2</EM>; i += 1)
+		  glEvalCoord2(i . DELTA u + u , j . DELTA v + v );
+					      1			1
+	      glEnd();
+	  }
+	  for (i = <EM>i1</EM>;	i &lt;= <EM>i2</EM>; i += 1) {
+	      glBegin(GL_LINE_STRIP);
+	      for (j = <EM>j1</EM>; j &lt;=	<EM>j1</EM>; j += 1)
+		  glEvalCoord2)(i . DELTA u + u	, j . DELTA v +	v );
+					       1		 1
+	      glEnd();
+	  }
+
+
+	  And finally, if <EM>mode</EM> is <STRONG>GL_POINT</STRONG>, then a call	to
+	  <STRONG>fglEvalMesh2</STRONG> is equivalent to:
+
+	  glBegin (GL_POINTS);
+	  for (j = <EM>j1</EM>;	j &lt;= <EM>j2</EM>; j += 1) {
+	      for (i = <EM>i1</EM>; i &lt;=	<EM>i2</EM>; i += 1) {
+		  glEvalCoord2(i . DELTA u + u , j . DELTA v + v );
+					      1			1
+	      }
+	  }
+	  glEnd();
+
+	  In all three cases, the only absolute	numeric	requirements
+	  are that if i	= n, then the value computed from
+	  i . DELTA u +	u is exactly u ,
+			 1	      2
+	  and if j = m,
+	  then the value computed from
+	  j . DELTA v +	v is exactly v .
+			 1	      2
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>mode</EM> is not an accepted
+	  value.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglEvalMesh</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP1_GRID_DOMAIN</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP2_GRID_DOMAIN</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP1_GRID_SEGMENTS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAP2_GRID_SEGMENTS</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+
+	  <STRONG>fglBegin</STRONG>, <STRONG>fglEvalCoord</STRONG>, <STRONG>fglEvalPoint</STRONG>,	<STRONG>fglMap1</STRONG>, <STRONG>fglMap2</STRONG>,
+	  <STRONG>fglMapGrid</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

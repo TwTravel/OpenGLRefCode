@@ -1,0 +1,32 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Shapes - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "c:\windows\TEMP\RSP3373.TMP" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Release/Shapes.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Book\Samples\Chapt03\Shapes\Shapes.c"
+]
+Creating command line "cl.exe @c:\windows\TEMP\RSP3373.TMP" 
+Creating temporary file "c:\windows\TEMP\RSP3374.TMP" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib /nologo /subsystem:console /incremental:no /pdb:"Release/Shapes.pdb" /machine:I386 /out:"Release/Shapes.exe" 
+.\Release\Shapes.obj
+]
+Creating command line "link.exe @c:\windows\TEMP\RSP3374.TMP"
+<h3>Output Window</h3>
+Compiling...
+Shapes.c
+Linking...
+
+
+
+<h3>Results</h3>
+Shapes.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

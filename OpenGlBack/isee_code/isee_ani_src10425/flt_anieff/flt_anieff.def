@@ -1,0 +1,9 @@
+; flt_anieff.def : Declares the module parameters for the DLL.
+
+LIBRARY      "flt_anieff"
+DESCRIPTION  'flt_anieff Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here
+
+	AccessAniEffFilter		@1

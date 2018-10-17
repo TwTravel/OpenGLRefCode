@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluGetTessProperty</STRONG> -	get a tessellation object property
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluGetTessProperty</STRONG>( CHARACTER*8 <EM>tess</EM>,
+					  INTEGER*4 <EM>which</EM>,
+					  CHARACTER*8 <EM>data</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>tess</EM>	 Specifies the tessellation object (created with
+		 <STRONG>fgluNewTess</STRONG>).
+
+	  <EM>which</EM>	 Specifies the property	whose value is to be fetched.
+		 Valid values are <STRONG>GLU_TESS_WINDING_RULE</STRONG>,
+		 <STRONG>GLU_TESS_BOUNDARY_ONLY</STRONG>, and <STRONG>GLU_TESS_TOLERANCE</STRONG>.
+
+	  <EM>data</EM>	 Specifies a pointer to	the location into which	the
+		 value of the named property is	written.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluGetTessProperty</STRONG> retrieves	properties stored in a
+	  tessellation object. These properties	affect the way that
+	  tessellation objects are interpreted and rendered. See the
+	  <STRONG>fgluTessProperty</STRONG> reference page for information about	the
+	  properties and what they do.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluNewTess</STRONG>, <STRONG>fgluTessProperty</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

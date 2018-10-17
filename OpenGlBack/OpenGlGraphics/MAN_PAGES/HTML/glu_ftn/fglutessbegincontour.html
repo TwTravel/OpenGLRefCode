@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluTessBeginContour,</STRONG>	<STRONG>fgluTessEndContour</STRONG> - delimit a contour
+	  description
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluTessBeginContour</STRONG>( CHARACTER*8 <EM>tess</EM> )
+
+	  SUBROUTINE <STRONG>fgluTessEndContour</STRONG>( CHARACTER*8 <EM>tess</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>tess</EM>	Specifies the tessellation object (created with
+		<STRONG>fgluNewTess</STRONG>).
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluTessBeginContour</STRONG> and <STRONG>fgluTessEndContour</STRONG> delimit the
+	  definition of	a polygon contour. Within each
+	  <STRONG>fgluTessBeginContour</STRONG>/<STRONG>fgluTessEndContour</STRONG> pair,	there can be
+	  zero or more calls to	<STRONG>fgluTessVertex</STRONG>.	The vertices specify a
+	  closed contour (the last vertex of each contour is
+	  automatically	linked to the first).  See the <STRONG>fgluTessVertex</STRONG>
+	  reference page for more details.  <STRONG>fgluTessBeginContour</STRONG> can
+	  only be called between <STRONG>fgluTessBeginPolygon</STRONG> and
+	  <STRONG>fgluTessEndPolygon</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluNewTess</STRONG>, <STRONG>fgluTessBeginPolygon</STRONG>, <STRONG>fgluTessVertex</STRONG>,
+	  <STRONG>fgluTessCallback</STRONG>, <STRONG>fgluTessProperty</STRONG>, <STRONG>fgluTessNormal</STRONG>,
+	  <STRONG>fgluTessEndPolygon</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

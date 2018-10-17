@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXQueryExtensionsString</STRONG> - return list of supported
+	  extensions
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  const	char * <STRONG>glXQueryExtensionsString</STRONG>( Display *<EM>dpy</EM>,
+						 int <EM>screen</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	  Specifies the	connection to the X server.
+
+	  <EM>screen</EM>  Specifies the	screen.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXQueryExtensionsString</STRONG>  returns a pointer to a string
+	  describing which GLX extensions are supported	on the
+	  connection. The string is null-terminated and	contains a
+	  space-separated list of extension names.  (The extension
+	  names	themselves never contain spaces.) If there are no
+	  extensions to	GLX, then the empty string is returned.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>glXQueryExtensionsString</STRONG> is available	only if	the GLX
+	  version is 1.1 or greater.
+
+	  <STRONG>glXQueryExtensionsString</STRONG> only	returns	information about GLX
+	  extensions. Call <STRONG>glGetString</STRONG> to get a	list of	GL extensions.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glGetString</STRONG>, <STRONG>glXQueryVersion</STRONG>,	<STRONG>glXQueryServerString</STRONG>,
+	  <STRONG>glXGetClientString</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

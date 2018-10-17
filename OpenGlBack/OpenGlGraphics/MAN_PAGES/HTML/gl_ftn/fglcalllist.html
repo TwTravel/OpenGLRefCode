@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglCallList</STRONG> -	execute	a display list
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglCallList</STRONG>( INTEGER*4 <EM>list</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>list</EM>	Specifies the integer name of the display list to be
+		executed.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglCallList</STRONG> causes the named display list to be executed.
+	  The commands saved in	the display list are executed in
+	  order, just as if they were called without using a display
+	  list.	 If <EM>list</EM> has not been defined as a display list,
+	  <STRONG>fglCallList</STRONG> is ignored.
+
+	  <STRONG>fglCallList</STRONG> can appear inside	a display list.	 To avoid the
+	  possibility of infinite recursion resulting from display
+	  lists	calling	one another, a limit is	placed on the nesting
+	  level	of display lists during	display-list execution.	 This
+	  limit	is at least 64,	and it depends on the implementation.
+
+	  GL state is not saved	and restored across a call to
+	  <STRONG>fglCallList</STRONG>.	Thus, changes made to GL state during the
+	  execution of a display list remain after execution of	the
+	  display list is completed.  Use <STRONG>fglPushAttrib</STRONG>, <STRONG>fglPopAttrib</STRONG>,
+	  <STRONG>fglPushMatrix</STRONG>, and <STRONG>fglPopMatrix</STRONG> to preserve GL state across
+	  <STRONG>fglCallList</STRONG> calls.
+
+     <STRONG>NOTES</STRONG>
+	  Display lists	can be executed	between	a call to <STRONG>fglBegin</STRONG> and
+	  the corresponding call to <STRONG>fglEnd</STRONG>, as long as the display
+	  list includes	only commands that are allowed in this
+	  interval.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MAX_LIST_NESTING</STRONG>
+	  <STRONG>fglIsList</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglCallLists</STRONG>,	<STRONG>fglDeleteLists</STRONG>,	<STRONG>fglGenLists</STRONG>, <STRONG>fglNewList</STRONG>,
+	  <STRONG>fglPushAttrib</STRONG>, <STRONG>fglPushMatrix</STRONG>
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

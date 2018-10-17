@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglClearAccum</STRONG>	- specify clear	values for the accumulation
+	  buffer
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglClearAccum</STRONG>( REAL*4 <EM>red</EM>,
+				    REAL*4 <EM>green</EM>,
+				    REAL*4 <EM>blue</EM>,
+				    REAL*4 <EM>alpha</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>red</EM>, <EM>green</EM>, <EM>blue</EM>, <EM>alpha</EM>
+				Specify	the red, green,	blue, and
+				alpha values used when the
+				accumulation buffer is cleared.	 The
+				initial	values are all 0.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglClearAccum</STRONG>	specifies the red, green, blue,	and alpha
+	  values used by <STRONG>fglClear</STRONG> to clear the accumulation buffer.
+
+	  Values specified by <STRONG>fglClearAccum</STRONG> are	clamped	to the range
+	  [-1,1].
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglClearAccum</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_ACCUM_CLEAR_VALUE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglClear</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="index.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_13.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>图像读写插件综述</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+“插件”(Plug-in)的概念大概是从计算机硬件方面借鉴过来的。想一想你的计算机主板上那些
+排列整齐的PCI插槽，想必你就能理解“插件”是个什么样的东西了。总的来说“插件”具备有
+以下的两个特征：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、同类型插件的接口完全相同，简化设计<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、具有高度的可配置性和灵活的功能扩展性<br>
+<br>
+近年来软件开发领域大规模采用插件设计方案，主要都是为了得到上面提到的两点好处。比如
+我们比较熟悉的IE、ACDSee、WinAmp、WORD、PhotoShop等软件都或多或少的采用了插件技术，
+它们因此而体现出的强大功能是有目共睹的。<br>
+<br>
+本章将概略的描述有关ISeeExplorer图像读写插件（IRWP）的相关信息，插件的详细技术资料
+请参阅接口、结构等章节。<br>
+<br><br>
+<strong>1、图像读写插件的设计起源</strong><br>
+<br>
+ISeeExplorer作为一个图像浏览器，其最重要的一个特性就是能将用户指定的图像读出来，并
+显示在屏幕上供用户浏览，而且在某些时候还必须能将用户指定的图像以某种格式保存起来。
+这里就涉及到了一个图像的读、写问题。图像的存储格式是五花八门的，多达上百种，如果我
+们将这些格式的读写代码都编写在一起，而且这些代码之间都相互关联，那么主程序要管理这
+些代码是极其困难的，几乎就不可能。<br>
+<br>
+唯一的解决方案就是采用插件技术，为每一种格式的读写代码制作一个相对独立的插件，而且
+每一个插件的接口都完全相同，这样一来程序的结构将变得非常清晰：主程序想读写哪种格式
+的图像就可以通过这个统一的接口访问这种格式的插件。从主程序的角度来看，几乎可以不用
+考虑各种图像格式之间的不同，因为各插件的接口都是相同的，读写不同格式的图像只是切换
+一些插件接口而已，主程序的代码几乎不用对某种图像格式作特殊处理。这便是ISeeExplorer
+图像读写插件的设计起源。<br>
+<br>
+那么这个插件是以什么形式呈现出来的呢？或者说某一个格式的插件到底是一个什么样的东西
+呢？其实ISeeExplorer的图像读写插件<font color=red>就是一个DLL（动态链接库），每一种
+格式插件对应一个DLL文件，每个DLL文件设定相同的导出函数（就是接口）</font>。比如说
+BMP图像的读写插件文件名就是bmp.dll，GIF插件的文件名就是gif.dll，依此类推。<br>
+<br>
+插件的实现形式有很多种，比如有COM形式的、EXE形式的，等等，之所以ISeeExplorer的图像
+读写插件要采用DLL这种形式，主要是为了方便代码的管理，降低插件开发难度，而且也有利于
+ISee组的分散式开发模式。<br>
+<br><br>
+<strong>2、图像读写插件如何与主程序协调工作</strong><br>
+<br>
+一种图像读写插件被开发出来之后，它是如何被“插”到主程序中发挥作用的呢？请看下面的
+示意图：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="isnew_12_01.png"><br>
+<br>
+上图中，每一个插件都有一个象数据线一样的接口与主程序的接口模块（也就是图像读写引擎）
+相连。当主程序要读取或保存一副图像时，它会向接口模块发送一个指令，接口模块会根据指
+令连通某个特定的插件，完成图像的读、写操作。<br>
+<br>
+不同于ISeeExplorer的其它插件类型的是，图像读写插件完全是一种被动型插件，主程序只有在
+需要的时候才会通过接口调用插件，而且在调用期间插件不会反过来调用主程序的功能函数。并
+且插件也没有任何可显示的界面元素（比如插件自己的对话框等等），它是以一种准后台程序的
+方式运行在软件的底层。<br>
+<br><br>
+<strong>3、图像读写插件代码目录说明</strong><br><br>
+ISeeExplorer图像读写插件的代码位于 iseeexplorer\irw\ 目录下，每一个插件模块对应一个
+目录，比如BMP插件的代码就在 iseeexplorer\irw\bmp 目录下，以此类推。任何新插件代码都
+应存放在iseeexplorer \irw\下的一个新目录中。<br><br>
+注：iseeexplorer\irw\下的iseeio、iseeirw、ce、irwconv四个目录不是插件代码目录，它们
+分别存放的是ISeeIO系统、ISee插件接口管理系统、图像转换引擎、图像读写引擎。<br>
+<br><br>
+</td>
+</tr>
+
+</table>
+	
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 012-20225</font></td>
+<td align="right"><a href="index.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_13.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

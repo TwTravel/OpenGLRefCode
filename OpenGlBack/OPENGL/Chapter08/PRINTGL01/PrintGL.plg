@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: PrintGL - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP141.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /Fp"Release/PrintGL.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\文稿\《OpenGL三维图形系统开发与实用技术》\本书所附源代码光盘\Chapter16\PRINTGL01\ClientCapture.cpp"
+"E:\文稿\《OpenGL三维图形系统开发与实用技术》\本书所附源代码光盘\Chapter16\PRINTGL01\PrintGLView.cpp"
+]
+Creating command line "cl.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP141.tmp" 
+Creating temporary file "D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP142.tmp" with contents
+[
+opengl32.lib glu32.lib vfw32.lib /nologo /subsystem:windows /incremental:no /pdb:"Release/PrintGL.pdb" /machine:I386 /out:"Release/PrintGL.exe" 
+".\Release\ClientCapture.obj"
+".\Release\MainFrm.obj"
+".\Release\PrintGL.obj"
+".\Release\PrintGLDoc.obj"
+".\Release\PrintGLView.obj"
+".\Release\StdAfx.obj"
+".\Release\PrintGL.res"
+]
+Creating command line "link.exe @D:\DOCUME~1\PINGTA~1\LOCALS~1\Temp\RSP142.tmp"
+<h3>Output Window</h3>
+Compiling...
+ClientCapture.cpp
+PrintGLView.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+PrintGL.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

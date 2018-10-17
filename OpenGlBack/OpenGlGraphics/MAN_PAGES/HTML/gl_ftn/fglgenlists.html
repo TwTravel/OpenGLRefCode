@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglGenLists</STRONG> -	generate a contiguous set of empty display
+	  lists
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  INTEGER*4 <STRONG>fglGenLists</STRONG>( INTEGER*4 <EM>range</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>range</EM>	 Specifies the number of contiguous empty display
+		 lists to be generated.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglGenLists</STRONG> has one argument,	<EM>range</EM>.	It returns an integer
+	  <EM>n</EM> such that <EM>range</EM> contiguous empty display lists, named <EM>n</EM>,
+	  <EM>n</EM>+1, ..., <EM>n</EM>+<EM>range</EM> -1,	are created.  If <EM>range</EM> is 0, if	there
+	  is no	group of <EM>range</EM> contiguous names	available, or if any
+	  error	is generated, no display lists are generated, and 0 is
+	  returned.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if <EM>range</EM> is negative.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglGenLists</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglIsList</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglCallList</STRONG>, <STRONG>fglCallLists</STRONG>, <STRONG>fglDeleteLists</STRONG>, <STRONG>fglNewList</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

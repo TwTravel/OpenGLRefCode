@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglArrayElement</STRONG> - render a vertex using the specified	vertex
+	  array	element
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglArrayElement</STRONG>( INTEGER*4	<EM>i</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>i</EM>  Specifies an index	into the enabled vertex	data arrays.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglArrayElement</STRONG> commands are used within <STRONG>fglBegin</STRONG>/<STRONG>fglEnd</STRONG>
+	  pairs	to specify vertex and attribute	data for point,	line,
+	  and polygon primitives. If <STRONG>GL_VERTEX_ARRAY</STRONG> is	enabled	when
+	  <STRONG>fglArrayElement</STRONG> is called, a single vertex is	drawn, using
+	  vertex and attribute data taken from location	<EM>i</EM> of the
+	  enabled arrays. If <STRONG>GL_VERTEX_ARRAY</STRONG> is	not enabled, no
+	  drawing occurs but the attributes corresponding to the
+	  enabled arrays are modified.
+
+	  Use <STRONG>fglArrayElement</STRONG> to construct primitives by indexing
+	  vertex data, rather than by streaming	through	arrays of data
+	  in first-to-last order. Because each call specifies only a
+	  single vertex, it is possible	to explicitly specify per-
+	  primitive attributes such as a single	normal per individual
+	  triangle.
+
+	  Changes made to array	data between the execution of <STRONG>fglBegin</STRONG>
+	  and the corresponding	execution of <STRONG>fglEnd</STRONG> may	affect calls
+	  to <STRONG>fglArrayElement</STRONG> that are made within the same
+	  <STRONG>fglBegin</STRONG>/<STRONG>fglEnd</STRONG> period in non-sequential ways.  That is, a
+	  call to
+	  <STRONG>fglArrayElement</STRONG> that precedes	a change to array data may
+	  access the changed data, and a call that follows a change to
+	  array	data may access	original data.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglArrayElement</STRONG> is available only if the GL version is 1.1
+	  or greater.
+
+	  <STRONG>fglArrayElement</STRONG> is included in display lists.	If
+	  <STRONG>fglArrayElement</STRONG> is entered into a display list, the
+	  necessary array data (determined by the array	pointers and
+	  enables) is also entered into	the display list. Because the
+	  array	pointers and enables are client-side state, their
+	  values affect	display	lists when the lists are created, not
+	  when the lists are executed.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>, <STRONG>fglEdgeFlagPointer</STRONG>,
+	  <STRONG>fglGetPointerv</STRONG>,
+	  <STRONG>fglIndexPointer</STRONG>, <STRONG>fglInterleavedArrays</STRONG>, <STRONG>fglNormalPointer</STRONG>,
+	  <STRONG>fglTexCoordPointer</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

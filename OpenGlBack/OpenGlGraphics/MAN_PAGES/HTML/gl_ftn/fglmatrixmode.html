@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglMatrixMode</STRONG>	- specify which	matrix is the current matrix
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglMatrixMode</STRONG>( INTEGER*4 <EM>mode</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mode</EM>	Specifies which	matrix stack is	the target for
+		subsequent matrix operations.  Three values are
+		accepted:  <STRONG>GL_MODELVIEW</STRONG>, <STRONG>GL_PROJECTION</STRONG>,	and
+		<STRONG>GL_TEXTURE</STRONG>.  The initial value is <STRONG>GL_MODELVIEW</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglMatrixMode</STRONG>	sets the current matrix	mode.  <EM>mode</EM> can	assume
+	  one of three values:
+
+	  <STRONG>GL_MODELVIEW</STRONG>		   Applies subsequent matrix
+				   operations to the modelview matrix
+				   stack.
+
+	  <STRONG>GL_PROJECTION</STRONG>		   Applies subsequent matrix
+				   operations to the projection	matrix
+				   stack.
+
+	  <STRONG>GL_TEXTURE</STRONG>		   Applies subsequent matrix
+				   operations to the texture matrix
+				   stack.
+
+	  To find out which matrix stack is currently the target of
+	  all matrix operations, call <STRONG>fglGet</STRONG> with argument
+	  <STRONG>GL_MATRIX_MODE</STRONG>. The initial value is <STRONG>GL_MODELVIEW</STRONG>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>mode</EM> is not an accepted
+	  value.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglMatrixMode</STRONG> is
+	  executed between the execution of <STRONG>fglBegin</STRONG> and the
+	  corresponding	execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_MATRIX_MODE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglLoadMatrix</STRONG>, <STRONG>fglPushMatrix</STRONG>
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

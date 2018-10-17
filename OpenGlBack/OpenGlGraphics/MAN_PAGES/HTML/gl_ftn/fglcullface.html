@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglCullFace</STRONG> -	specify	whether	front- or back-facing facets
+	  can be culled
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglCullFace</STRONG>( INTEGER*4 <EM>mode</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>mode</EM>	Specifies whether front- or back-facing	facets are
+		candidates for culling.	 Symbolic constants <STRONG>GL_FRONT</STRONG>,
+		<STRONG>GL_BACK</STRONG>, and <STRONG>GL_FRONT_AND_BACK</STRONG> are accepted.  The
+		initial	value is <STRONG>GL_BACK</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglCullFace</STRONG> specifies	whether	front- or back-facing facets
+	  are culled (as specified by <EM>mode</EM>) when facet culling is
+	  enabled. Facet culling is initially disabled.	 To enable and
+	  disable facet	culling, call the <STRONG>fglEnable</STRONG> and	<STRONG>fglDisable</STRONG>
+	  commands with	the argument <STRONG>GL_CULL_FACE</STRONG>.  Facets include
+	  triangles, quadrilaterals, polygons, and rectangles.
+
+	  <STRONG>fglFrontFace</STRONG> specifies which of the clockwise	and
+	  counterclockwise facets are front-facing and back-facing.
+	  See <STRONG>fglFrontFace</STRONG>.
+
+     <STRONG>NOTES</STRONG>
+	  If  <EM>mode</EM> is <STRONG>GL_FRONT_AND_BACK</STRONG>, no facets are drawn, but
+	  other	primitives such	as points and lines are	drawn.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>mode</EM> is not an accepted
+	  value.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglCullFace</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> with argument <STRONG>GL_CULL_FACE</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_CULL_FACE_MODE</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglEnable</STRONG>, <STRONG>fglFrontFace</STRONG>
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

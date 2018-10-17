@@ -1,0 +1,569 @@
+Object Oriented System for Scene
+Graph
+--------------------------------------
+This project is a
+library of objects and methods used for creating 3D Scene
+Graphs.
+This tookit's foundation is supplied by OpenGL and Unix.
+
+
+The
+Objects in this library includes some basic objects for creating a
+scene:
+camera, light, attributes, transformations and some
+geometry objects. They can
+be summarized as the following class
+tree:
+
+Class Tree
+----------
+(Base classes are at the left, and
+derived classes are at the right.)
+
+
+      1.Node-----------
+Camera
+     ------- Light
+      --------TurnOff
+
+
+------- DrawStyle
+      ------- Color
+      ------- Material
+
+
+------- Transformation
+     ------- Geometry---------------Cube
+
+----Cylinder
+                          ----Sphere
+
+----Triangle
+                       ----Polygon
+
+----Line
+
+      2.GLViewer
+
+
+Creating a Scene
+Graph:
+-----------------------
+1.basic knowledge:
+
+The node is the
+basic building block used to create three-dimensional scene
+graph.
+Different type of nodes hold different information, such as a
+surface
+material, shape description, geometric transformation,
+light or camera.
+
+We can use a tree data structure to describe the
+relationships among camera,
+lights, and attributes. This
+structure is created by adding nodes as children
+grouping nodes.
+During rendering, the scene graph structure is traversed,
+
+starting from the root node, from left to right and from top to
+bottom. Child
+node inherits the transformation state of its
+parent.
+
+    for example:
+
+           Root
+
+
+
+   Camera
+Light0  Color0  Transformation0
+
+               Object0
+
+
+Transformation1
+
+                Object1
+
+
+
+
+
+2.What's in a Node:
+Each node is composed of a set of data
+elements, known as fields, that describe
+the parameters of the
+node and some metheds to access those fields.
+
+
+3.Node type
+
+
+Node:
+  -----
+  It is the base node class which has the
+information and methods for
+  creating the tree structure. The
+methods in the base node can also
+  be used in its derived
+objects.
+
+  Methods in the base node:
+  AddChild(Node *N),
+
+adds the specified node to the beginning of the children group,
+
+note that the child added last will be rendered first.
+
+  Camera
+
+------
+  Camera node is derived from the base class "Node".
+
+
+Camera has the following Fields:
+
+  Type:
+   specifies the type
+of the projection is perspective or orthographic.
+
+  Position:
+
+location of the camera viewpoint.
+  default value is (0,0,0).
+
+
+Aimat:
+    a point at which the camera is pointing.
+   default
+value is looking down the negative z-axis. (0,0,-100)
+
+
+UpDirection:
+        indicates which direction is up.
+
+  Near:
+
+distance from the camera viewpoint to the near clipping plane
+
+
+Far:
+  distance from the camera viewpoint to the far clipping
+plane
+
+  Height:
+    specifies the height of the camera view
+volume, this field is
+  only useful for a orthograhic
+projection.
+
+  Aspect:
+   ratio of the camera viewing width to
+height.
+
+  YAngle:
+    specifies the vertical angle in radians of
+the camera view volume.
+
+
+  Camera has the method:
+SetValue{v}(),
+
+      SetValuev(Enum PName, float *v)
+
+SetValue(Enum PName, float v1, float v2, float v3)
+
+SetValue(Enum PName, float v)
+
+     to set the value for the
+camera:
+   parameter PName can be: POSITION, AIMAT, UPDIRECTION,
+NEAR,
+    FAR, HEIGHT, ASPECT, YANGLE.
+
+
+   For example:
+
+
+Camera *C=new Camera(ORTHO);
+   float p[]={5, 5, 5};
+
+C->SetValuev(POSITION, p);
+
+
+  Note that there should be only one
+camera in the scene, and it should be
+  the first child of the
+root.
+
+  Light
+  -----
+  Light node is derived from the base class
+"Node".
+
+  Light Node has the following Fields:
+
+
+  Position:
+
+location of the light.
+ default value is (0,0,10,0).
+   If the
+last value is 0, the light source is a directional one,
+ and the
+(x,y,z) values describe its direction.
+
+  Specular:
+    specular
+intensity of light
+
+
+  Ambient:
+ ambient intensity of light
+
+
+  SpotDirection:
+   direction of spotlight
+
+
+  CutOffAngle:
+
+specifies the spotlight cutoff angle
+
+  On:
+    whether the light
+is on, default value is false.
+
+
+  The method for Light node:
+
+SetValue(Enum PName, Enum color)
+       SetValue(Enum PName,
+float v1, float v2, float v3, float v4 )
+       SetValue(Enum
+PName, float v1, float v2, float v3)
+       SetValue(Enum PName,
+float f)
+       SetValuev(Enum PName, float *)
+
+   parameter
+PName can be: DIFFUSE, SPECULAR, AMBIENT, POSITION,
+
+SPOTDIRECTION, DROPOFFRATE, or CUTOFFANGLE.
+
+   For example:
+
+
+Light *L=new Light;
+    float a[]={1.0 ,1.0, 1.0, 1.0}
+
+L->SetValuev(AMBIENT, a);
+
+
+    TurnOn(), TurnOn the light.
+
+
+
+TurnOff
+  -------
+  TurnOff node is derived from the base class
+"Node".
+
+  This Node is to turn off the specified light. Insert
+this node in the
+  scene tree structure is to bind the light on
+some particular objects.
+
+      the following example is to bind
+light L to one cube:
+
+   Light *L=new Light;
+    L->TurnOn;
+
+Cube *C=new Cube;
+  TurnOff *Off=new TurnOff(L);
+
+
+L->AddChild(C);
+    C->AddChild(Off);
+
+
+  Color
+  -----
+  Color
+node is derived from the base class "Node".
+
+  Color node includes
+the following fields:
+
+  Color: specifies RGB color.
+
+  Methods
+for Color node:
+    SetValuev(float *v)
+    SetValue(float v1,
+float v2, float v3)
+     SetValue(Enum Type)
+
+   The color can be
+set by RGE value or the name for a often used
+ color, for
+example:
+
+   Color *C=new Color;
+    C->SetValue(RED);
+ Other
+parameters can be: BLACK, WHITE, RED, GREEN, YELLOW,
+    BLUE,
+MAGENTA, CYAN, GREY.
+
+
+
+  Material
+  --------
+  Material node is
+derived from the base class "Node".
+
+  Material Node has the
+following Fields:
+
+  Ambient:
+ reflected color of an object in
+response to the ambient
+    lighting in the scene.
+    The
+default value is (0.2, 0.2, 0.2, 1.0)
+
+  Specular:
+ reflective
+quality of an object's highlights. The default
+  value for this
+field is (0.0, 0.0, 0.0, 1.0)
+
+  Diffuse:
+   an object's base
+color. The default value for this field is
+    (0.8, 0.8, 0.8,
+1.0)
+
+  Emission:
+    Emissive color of material.
+    The
+default value is (0.0, 0.0, 0.0, 1.0)
+
+  Shininess:
+    Degree of
+Shininess of an object's surface.
+   default value is 0.0 for a
+diffuse surface with no shininess.
+
+
+  Methods for Material node:
+
+  SetValuev(Enum Pname, float *v)
+  SetValue(Enum Pname, float
+v1, float v2, float v3, float v4)
+  SetValue(Enum Pname, float
+Value)
+
+    parameter PName can be: DIFFUSE, SPECULAR, AMBIENT,
+EMISSION,
+  SHININESS
+
+
+  Transformation
+  --------------
+
+Transformation node is derived from the base class "Node".
+
+
+Transformation Node has the following Fields:
+
+  Translation:
+
+the translaton in x, y and z.
+ the default value is (0.0, 0.0,
+0.0)
+
+  Rotation:
+  the rotation in terms of an axis and an angle.
+
+    the default value is 0.0 degree for(0.0, 0.0, 1.0)
+
+  Scale:
+
+the scaling factor in x, y and z.
+ the default value for this
+field is (1.0, 1.0, 1.0)
+
+  Methods for Transformation node:
+
+SetValuev(Enum PName, float *, int Order);
+        SetValue(Enum
+PName, float x, float y, float z, int Order);
+
+SetValue(Enum PName, float a, float x, float y, float z, int
+Order);
+
+
+  parameter PName can be: TRANSLATION, ROTATION, SCALE
+
+parameter Order: specifies the order for the execution of the
+
+transformation
+
+
+  Geometry Nodes:
+  All Geometry nodes are
+derived from the class Geometry. This library
+  provides the
+following simple Geometries:
+
+  Cube
+  ----
+  You specify the
+width, height, and depth;
+
+  Cylinder
+
+  --------
+  You specify the height and the radius;
+
+  Sphere
+
+------
+  You specify the radius;
+
+  Polygon
+  -------
+  You
+specify the vertices for the polygon and how many vertices in the
+
+  polygon;
+
+  Line
+  ----
+  You specify the start point and the
+end point;
+
+
+  Note: the geometry object allow you to set its
+attribute by binding attribute
+        nodes or set its attribute
+directly.
+
+  following is the setting methods:
+
+   SetColor(Enum)
+
+SetColor(float, float, float)
+      SetColorv(float *)
+
+SetColor(Color *)
+
+     SetMaterial(Enum, float, float, float,
+float)
+      SetMaterialv(Enum, float *)
+    SetMaterial(Enum,
+float)
+   SetMaterial(Material *)
+
+   SetTransform(Enum, float *,
+int)
+   SetTransform(Enum, float, float, float, int)
+
+SetTransform(Enum, float, float, float, float, int)
+
+SetTransform(Transformation *)
+
+    SetStyle(Enum, Enum)
+
+SetStyle(Enum, float)
+      SetStyle(DrawStyle *)
+
+
+  for
+example:
+
+  Material *M=new Material;
+           .
+           .
+------>Setting M
+           .
+ Sphere *S=new Sphere;
+
+Sphere->SetMaterial(M); //Set M to be the Material of S
+
+
+
+GLViewer
+  --------
+    GLViewer class is not a derived class of
+Node. After you create a whole
+    scene tree structure, you must
+attach the root of the tree to a GLViewer
+    object to show the
+scene.
+
+    methods in GLViewer class:
+
+    CreateWin(char *Name,
+int Width, int Height)
+   create a window by giving the name,
+width and height.
+
+    SetValue(Enum PName, Enum Type)
+ set the
+buffer style: single buffer or double buffer.
+      the backcolor
+for the window
+
+  parameter for PName: BUFFER, BACKCOLOR.
+
+parameter for Type:
+     SINGLE, DOUBLE for PName=BUFFER.
+
+BLACK, WHITE, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, GREY
+
+for PName=BACKCOLOR
+
+    Init(int argc, char **argv)
+    Show(Node
+*N) N is the root for the scene graph
+
+    Note: If you create
+more than one GLViewer object, you can open multiple
+
+windows(now you can create 3 windows in this version).
+
+Futhermore, if you attach the same root to different GLViewer
+
+you can see the same scene in different window just like the
+example
+    program.
+
+    If you create more than one window, you
+must create all of them one by one
+    first, and call
+Viewer->show(root) at last.
+
+
+Source files:
+-------------
+
+GLoo.a is the libirary.
+    Makefile.lib is the Makefile for this
+library.
+
+    You must include "Scene.h" in your program.
+
+Future
+Work
+-----------
+    1. Add animation.
+    2. Add callback node
+for dealing with events.
+    3. Add detail property to make a
+nicer scene.

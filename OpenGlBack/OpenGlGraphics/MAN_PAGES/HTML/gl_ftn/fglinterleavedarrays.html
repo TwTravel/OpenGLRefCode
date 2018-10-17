@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglInterleavedArrays</STRONG> - simultaneously	specify	and enable
+	  several interleaved arrays
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglInterleavedArrays</STRONG>( INTEGER*4 <EM>format</EM>,
+					   INTEGER*4 <EM>stride</EM>,
+					   CHARACTER*8 <EM>pointer</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>format</EM>   Specifies the type of array to enable. Symbolic
+		   constants <STRONG>GL_V2F</STRONG>, <STRONG>GL_V3F</STRONG>, <STRONG>GL_C4UB_V2F</STRONG>, <STRONG>GL_C4UB_V3F</STRONG>,
+		   <STRONG>GL_C3F_V3F</STRONG>, <STRONG>GL_N3F_V3F</STRONG>, <STRONG>GL_C4F_N3F_V3F</STRONG>, <STRONG>GL_T2F_V3F</STRONG>,
+		   <STRONG>GL_T4F_V4F</STRONG>, <STRONG>GL_T2F_C4UB_V3F</STRONG>,	<STRONG>GL_T2F_C3F_V3F</STRONG>,
+		   <STRONG>GL_T2F_N3F_V3F</STRONG>, <STRONG>GL_T2F_C4F_N3F_V3F</STRONG>, and
+		   <STRONG>GL_T4F_C4F_N3F_V4F</STRONG> are accepted.
+
+	  <EM>stride</EM>   Specifies the offset	in bytes between each
+		   aggregate array element.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglInterleavedArrays</STRONG> lets you	specify	and enable individual
+	  color, normal, texture and vertex arrays whose elements are
+	  part of a larger aggregate array element.  For some
+	  implementations, this	is more	efficient than specifying the
+	  arrays seperately.
+
+	  If <EM>stride</EM> is 0, the aggregate	elements are stored
+	  consecutively.  Otherwise, <EM>stride</EM> bytes occur	between	the
+	  beginning of one aggregate array element and the beginning
+	  of the next aggregate	array element.
+
+	  <EM>format</EM> serves	as a 'key' describing the extraction of
+	  individual arrays from the aggregate array.  If <EM>format</EM>
+	  contains a T,	then texture coordinates are extracted from
+	  the interleaved array.  If C is present, color values	are
+	  extracted. If	N is present, normal coordinates are
+	  extracted.  Vertex coordinates are always extracted.
+
+	  The digits 2,	3, and 4 denote	how many values	are extracted.
+	  F indicates that values are extracted	as floating-point
+	  values.  Colors may also be extracted	as 4 unsigned bytes if
+	  4UB follows the C.  If a color is extracted as 4 unsigned
+	  bytes, the vertex array element which	follows	is located at
+	  the first possible floating-point aligned address.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>fglInterleavedArrays</STRONG> is available only if the	GL version is
+	  1.1 or greater.
+
+	  If <STRONG>fglInterleavedArrays</STRONG> is called while compiling a display
+	  list,	it is not compiled into	the list, and it is executed
+	  immediately.
+
+	  Execution of <STRONG>fglInterleavedArrays</STRONG> is not allowed between the
+	  execution of <STRONG>fglBegin</STRONG>	and the	corresponding execution	of
+	  <STRONG>fglEnd</STRONG>, but an error may or may not be generated. If no
+	  error	is generated, the operation is undefined.
+
+	  <STRONG>fglInterleavedArrays</STRONG> is typically implemented	on the client
+	  side.
+
+	  Vertex array parameters are client-side state	and are
+	  therefore not	saved or restored by <STRONG>fglPushAttrib</STRONG> and
+	  <STRONG>fglPopAttrib</STRONG>.	 Use <STRONG>fglPushClientAttrib</STRONG> and
+	  <STRONG>fglPopClientAttrib</STRONG> instead.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_ENUM</STRONG> is generated if <EM>format</EM> is not	an accepted
+	  value.
+
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if <EM>stride</EM> is negative.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fglArrayElement</STRONG>, <STRONG>fglColorPointer</STRONG>, <STRONG>fglDrawArrays</STRONG>,
+	  <STRONG>fglDrawElements</STRONG>, <STRONG>fglEdgeFlagPointer</STRONG>, <STRONG>fglEnableClientState</STRONG>,
+	  <STRONG>fglGetPointer</STRONG>, <STRONG>fglIndexPointer</STRONG>, <STRONG>fglNormalPointer</STRONG>,
+	  <STRONG>fglTexCoordPointer</STRONG>, <STRONG>fglVertexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

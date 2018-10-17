@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXWaitX</STRONG> - complete X	execution prior	to subsequent GL calls
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXWaitX</STRONG>( void )
+
+
+     <STRONG>DESCRIPTION</STRONG>
+	  X rendering calls made prior to <STRONG>glXWaitX</STRONG> are guaranteed to
+	  be executed before GL	rendering calls	made after <STRONG>glXWaitX</STRONG>.
+	  Although the same result can be achieved using <STRONG>XSync</STRONG>,
+	  <STRONG>glXWaitX</STRONG> does	not require a round trip to the	server,	and it
+	  is therefore more efficient in cases where client and	server
+	  are on separate machines.
+
+	  <STRONG>glXWaitX</STRONG> is ignored if there is no current GLX context.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>glXWaitX</STRONG> may or may not flush	the GL stream.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadCurrentWindow</STRONG> is generated if the drawable associated
+	  with the current context of the calling thread is a window,
+	  and that window is no	longer valid.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glFinish</STRONG>, <STRONG>glFlush</STRONG>, <STRONG>glXWaitGL</STRONG>,	<STRONG>XSync</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

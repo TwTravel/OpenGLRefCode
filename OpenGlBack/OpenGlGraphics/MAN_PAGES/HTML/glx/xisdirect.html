@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXIsDirect</STRONG> -	indicate whether direct	rendering is enabled
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  Bool <STRONG>glXIsDirect</STRONG>( Display *<EM>dpy</EM>,
+			    GLXContext <EM>ctx</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>  Specifies the connection	to the X server.
+
+	  <EM>ctx</EM>  Specifies the GLX context that is being queried.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXIsDirect</STRONG> returns <STRONG>True</STRONG> if <EM>ctx</EM> is a direct rendering
+	  context, <STRONG>False</STRONG> otherwise.  Direct rendering contexts pass
+	  rendering commands directly from the calling process's
+	  address space	to the rendering system, bypassing the X
+	  server.  Nondirect rendering contexts	pass all rendering
+	  commands to the X server.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GLXBadContext</STRONG>	is generated if	<EM>ctx</EM> is not a valid GLX
+	  context.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXCreateContext</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

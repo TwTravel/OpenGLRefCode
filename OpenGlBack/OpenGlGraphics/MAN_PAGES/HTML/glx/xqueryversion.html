@@ -1,0 +1,58 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXQueryVersion</STRONG> - return the version numbers of the GLX
+	  extension
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  Bool <STRONG>glXQueryVersion</STRONG>(	Display	*<EM>dpy</EM>,
+				int *<EM>major</EM>,
+				int *<EM>minor</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>dpy</EM>	 Specifies the connection to the X server.
+
+	  <EM>major</EM>	 Returns the major version number of the GLX server
+		 extension.
+
+	  <EM>minor</EM>	 Returns the minor version number of the GLX server
+		 extension.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXQueryVersion</STRONG> returns the major and	minor version numbers
+	  of the GLX extension implemented by the server associated
+	  with connection <EM>dpy</EM>.	Implementations	with the same major
+	  version number are upward compatible,	meaning	that the
+	  implementation with the higher minor number is a superset of
+	  the version with the lower minor number.
+
+	  <EM>major</EM>	and <EM>minor</EM> do not return	values if they are specified
+	  as <STRONG>NULL</STRONG>.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>glXQueryVersion</STRONG> returns <STRONG>False</STRONG>	if it fails, <STRONG>True</STRONG> otherwise.
+
+	  <EM>major</EM>	and <EM>minor</EM> are not updated when <STRONG>False</STRONG> is	returned.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glXQueryExtension</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

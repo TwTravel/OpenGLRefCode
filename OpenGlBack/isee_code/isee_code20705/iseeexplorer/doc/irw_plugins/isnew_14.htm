@@ -1,0 +1,367 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+<a name="f0">
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_13.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>接口函数参数说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+本节将详细描述ISeeExplorer图像读写插件四个接口函数的出、入口参数，请选择查阅。<br>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f1"><b>1、is_irw_plugin()</b></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f2"><b>2、xxx_get_image_info()</b></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f3"><b>3、xxx_load_image()</b></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f4"><b>4、xxx_save_image()</b></a><br>
+</td></tr>
+</table>
+
+<br><br>
+<strong>接口函数参数说明：</strong>
+<br><br>
+
+<a name="f1">
+<table align="center" bgcolor="#fbfbfb" cols="0" width="760" title="is_irw_plugin">
+<tr bgcolor="#0000cc">
+<td width=170><font color="white"><strong>is_irw_plugin</strong></font></td>
+<td width=590>&nbsp;</td>
+</tr>
+<tr>
+<td valign=top><strong>描述</strong></td>
+<td>获取图像读写插件内部信息。<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>原型</strong></td>
+<td><strong>LPIRWP_INFO	is_irw_plugin(void);</strong><br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>入口参数</strong></td>
+<td>无<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>返回值</strong></td>
+<td>is_irw_plugin函数返回一个指向插件内部信息表－IRWP_INFO结构－的指针，如果返回值
+为NULL，则说明该插件已受损，或不是一个正规的ISeeExplorer图像读写插件。<br><br>
+</td>
+</tr>
+<tr>
+<td valign=top><strong>注释</strong></td>
+<td>is_irw_plugin函数的功能一共有两个。首先，主程序可以用它来判断某个DLL文件是否是
+ISeeExplorer的图像读写插件。因为在Windows平台下，ISeeExplorer的图像读写插件中都会包
+含is_irw_plugin这个导出函数，只要判断出DLL中是否有这个导出函数，就能确定它是否是图像
+读写插件。其次，在确定了某个DLL文件是图像读写插件之后，主程序可以利用is_irw_plugin
+函数来获取该插件的内部信息（is_irw_plugin的返回值就是指向这个信息结构的指针）。<br>
+<br>
+插件的内部信息对于主程序来说是非常重要的，它是主程序了解插件功能的唯一途径。如果得不
+到这些信息，主程序甚至连插件的其它三个接口函数都将无法访问。<br>
+<br>
+插件的内部信息存放在一个IRWP_INFO类型的变量中。该变量定义于每个插件的实现文件
+（即.c文件）首部。变量内容由插件内部的初始化函数填写。
+<br><br>
+</td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td><strong>参见</strong></td>
+<td>IRWP_INFO结构说明</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align=right><a href="#f0">返回首部</a></td>
+</tr>
+</table>
+<br><br>
+
+<a name="f2">
+<table align="center" bgcolor="#fbfbfb" cols="0" width="760" title="xxx_get_image_info">
+<tr bgcolor="#0000cc">
+<td width=170><font color="white"><strong>xxx_get_image_info</strong></font></td>
+<td width=590>&nbsp;</td>
+</tr>
+<tr>
+<td valign=top><strong>描述</strong></td>
+<td>获取指定图像的概要性信息。<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>原型</strong></td>
+<td><strong>int	xxx_get_image_info(PISADDR psct, LPINFOSTR pinfo);</strong><br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>入口参数</strong></td>
+<td>
+psct - 
+一个指向ISADDR结构的指针，这个结构中存放着图像所在地的信息。<br><br>
+pinfo - 
+一个指向INFOSTR结构的指针，这个结构称为“数据包”。本函数将读取到的图像信息填写到这
+个包（结构）的对应变量中。
+<br><br>
+</td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>返回值</strong></td>
+<td>
+如果函数返回 ER_SUCCESS 则表示执行成功，其它值表示失败：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_USERBREAK - 操作被用户中断<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_BADIMAGE&nbsp; - 指定图像已受损<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_NONIMAGE&nbsp; - 指定的图像不是本插件支持的图像<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_MEMORYERR - 内存不足，导致操作失败<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_FILERWERR - 图像在读写过程中发生错误（读写异常）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_SYSERR&nbsp;&nbsp;&nbsp; - 操作系统不稳定，无法执行命令<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_NOTSUPPORT- 插件不支持的命令<br>
+<br><br>
+</td>
+</tr>
+<tr>
+<td valign=top><strong>注释</strong></td>
+<td>
+为了能让图像读写插件读写不同介质（比如本地磁盘、本地内存、远程磁盘等等）中的图像
+数据，本函数没有采用char *的方式来接收图像所在地的信息，而是采用了一个指向ISADDR
+结构的指针。主程序可以通过这个ISADDR结构指定图像数据在哪儿。比如，如果图像是以文
+件的方式存储在用户本地的硬盘上，那么ISADDR结构中就会包含一个指向这个文件的路径串
+。如果图像数据是在用户机的内存中，那么ISADDR结构中就会包含这个内存地址等等。有关
+ISADDR的详细信息及用法请查阅ISeeIO系统一章。<br><br>
+入口参数pinfo是指向INFOSTR结构的指针，INFOSTR结构被称为“数据包”。它在图像读写
+插件中扮演了极为重要的角色。主程序与插件的数据传递大部分要靠这个结构来完成。<br><br>
+入口参数pinfo指向的必须是主程序提供的一个空的数据包，如果这个数据包中已经存储了某
+幅图像的信息（包中的data_state变量值不为0），那么在调试版插件中将会引发断言。<br><br>
+如果本函数成功返回，它将填写数据包的下列内容：<br>
+<hr width=580>
+imgtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像类型<br>
+imgformat&nbsp;&nbsp;&nbsp;&nbsp;- 图像存储格式<br>
+compression&nbsp; - 图像数据的压缩方式<br>
+width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像宽度<br>
+height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像高度<br>
+bitcount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 每个像素所占的位数（位深度）<br>
+order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像的上下顺序 （0－正向，1－倒向）<br><br>
+r_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 各颜色分量的掩码值<br>
+g_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 注：1~8位的图像无掩码数据<br>
+b_mask<br>
+a_mask<br><br>
+data_state&nbsp;&nbsp;&nbsp;- 数据包当前的数据状态（执行成功后该变量将被设为1）：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 － 空的数据包，没有任何变量数据是有效的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 － 存在图像的描述信息<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 － 存在图像数据<br>
+<hr width=580>
+除了上面列出的变量之外，本函数不会修改任何其它变量的值。<br><br>
+如果本函数执行失败，数据包中的data_state变量的值将不变（保持为0），上表列出的其它
+变量可能有一些会被改动，改动值的含义无定义。
+<br><br>
+</td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td><strong>参见</strong></td>
+<td>ISeeIO系统、ISADDR结构、INFOSTR结构</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align=right><a href="#f0">返回首部</a></td>
+</tr>
+</table>
+<br><br>
+
+<a name="f3">
+<table align="center" bgcolor="#fbfbfb" cols="0" width="760" title="xxx_load_image">
+<tr bgcolor="#0000cc">
+<td width=150><font color="white"><strong>xxx_load_image</strong></font></td>
+<td width=610>&nbsp;</td>
+</tr>
+<tr>
+<td valign=top><strong>描述</strong></td>
+<td>读取指定图像。<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>原型</strong></td>
+<td><strong>int	xxx_load_image(PISADDR psct, LPINFOSTR pinfo);</strong><br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>入口参数</strong></td>
+<td>
+psct - 
+一个指向ISADDR结构的指针，这个结构中存放着图像所在地的信息。<br><br>
+pinfo - 
+一个指向INFOSTR结构的指针，本函数将读取到的图像信息、象素数据、及调色板数据填写到
+这个结构的对应变量中。
+<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>返回值</strong></td>
+<td>
+如果函数返回 ER_SUCCESS 则表示执行成功，其它值表示失败（参见xxx_get_image_info函数
+中有关返回值的说明）。
+<br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>注释</strong></td>
+<td>
+有关入口参数中ISADDR结构的说明及用法，请参见ISeeIO系统一章。<br><br>
+由主程序传过来的INFOSTR结构可以是一个空的数据包（包变量data_state为0），也可以是包含
+了这幅图像的概略性信息的数据包（也就是主程序曾经为这幅图像调用过xxx_get_image_info()
+函数，包变量data_state为1），但不能是一个含有象素数据或/和调色板数据的数据包（包变量
+data_state为2），否则在调试版插件中会引发断言。<br><br>
+如果入口参数pinfo指向的数据包中含有这幅图像的概略性信息，则本函数在执行过程中会跨过
+提取图像概略信息的代码，这样可以略微加快本函数的执行速度。<br><br>
+本函数将图像的象素数据读出后，转换为最为接近的ISeeExplorer图像读写插件输出格式。<br><br>
+如果本函数成功返回，下列的数据包变量值是有效的：<br>
+<hr width=590>
+imgtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像类型<br>
+imgformat&nbsp;&nbsp;&nbsp;&nbsp;- 图像存储格式<br>
+compression&nbsp; - 图像数据的压缩方式<br>
+width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像宽度<br>
+height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像高度<br>
+bitcount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 每个像素所占的位数（位深度）<br>
+order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 图像的上下顺序 （0－正向，1－倒向）<br><br>
+r_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 各颜色分量的掩码值<br>
+g_mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 注：1~8位的图像无掩码数据<br>
+b_mask<br>
+a_mask<br><br>
+pp_line_addr - 图像位数据中从0行到n-1行每一行的首地址<br>
+p_bit_data&nbsp;&nbsp; - 图像位数据缓冲区首地址（即象素数据）<br>
+pal_count&nbsp;&nbsp;&nbsp; - 调色板有效项的个数<br>
+palette&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 调色板数据<br>
+<br>
+imgnumbers&nbsp;&nbsp; - 该文件中图像的个数<br>
+psubimg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 子图像数据链地址（如果是单幅图像则psubimg会被设为0）<br>
+<br>	
+data_state&nbsp;&nbsp;&nbsp;- 数据包当前的数据状态（执行成功后该变量将被设为2）<br>
+<hr width=590>
+<br>
+如果本函数执行失败，数据包中的data_state变量的值可能是1或者是0。这将视函数代码在何处
+失败而定。如果data_state变量的值是1，则数据包中该图像的概略性信息还是有效的，如果
+data_state变量的值为0，则所有变量的值都无意义。
+<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td><strong>参见</strong></td>
+<td>ISeeIO系统、ISADDR结构、INFOSTR结构、图像读写插件输出格式</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align=right><a href="#f0">返回首部</a></td>
+</tr>
+</table>
+<br><br>
+
+<a name="f4">
+<table align="center" bgcolor="#fbfbfb" cols="0" width="760" title="xxx_save_image">
+<tr bgcolor="#0000cc">
+<td width=150><font color="white"><strong>xxx_save_image</strong></font></td>
+<td width=610>&nbsp;</td>
+</tr>
+<tr>
+<td valign=top><strong>描述</strong></td>
+<td>将图像数据按本插件的格式保存到指定的地方。<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>原型</strong></td>
+<td><strong>int	xxx_save_image(PISADDR psct, LPINFOSTR pinfo, LPSAVESTR lpse);</strong><br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>入口参数</strong></td>
+<td>
+psct - 
+一个指向ISADDR结构的指针，这个结构中存放着图像的保存目的地的信息。<br><br>
+pinfo - 
+一个指向INFOSTR结构的指针，该结构中存放着待保存的图像数据。<br><br>
+lpse - 
+一个指向SAVESTR结构的指针，该结构中存放的是主程序设定的保存参数。详细说明参见插件结构
+一章中对SAVESTR结构的说明。
+<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td valign=top><strong>返回值</strong></td>
+<td>
+如果函数返回 ER_SUCCESS 则表示保存成功，其它值表示失败：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_USERBREAK - 操作被用户中断<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_MEMORYERR - 内存不足，导致操作失败<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_FILERWERR - 图像在读写过程中发生错误（读写异常）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_SYSERR&nbsp;&nbsp;&nbsp; - 操作系统不稳定，无法执行命令<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_NOTSUPPORT- 插件不支持的命令<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ER_NSIMGFOR&nbsp; - 保存功能不支持的图像格式
+<br><br></td>
+</tr>
+<tr>
+<td valign=top><strong>注释</strong></td>
+<td>
+通过使用ISADDR型的入口参数，主程序可以将图像以插件支持的格式保存到任何一个ISeeIO系统支持
+的介质中，比如可以保存到硬盘中、内存中、或是保存到远程计算机的磁盘中等等。<br><br>
+入口参数pinfo指定的INFOSTR结构中必须要包含图像数据（即象素数据），也就是说数据包变量
+data_state的值必须是2，如果是1或是0，那么在调试版插件中将会引发断言。而且数据包中的象素
+数据必须符合ISeeExplorer图像读写插件输出格式，否则保存的图像可能会有失真。<br><br>
+入口参数lpse指向的SAVESTR结构是一个很重要的结构，主程序将通过它告诉插件以什么样的格式
+保存图像。举例来说，比如用户想将一幅图像保存为JPEG格式的磁盘文件，那么主程序就会向用户
+询问以什么样的图像品质来保存图像，用户在作出选择之后，主程序会通过这个SAVESTR结构将
+品质值传给JPEG插件，插件再根据这个值来保存图像。<br><br>
+如果用户以磁盘文件的方式保存图像，并且目标地址有同名文件的话，本函数将不会给出任何提示，
+直接覆盖。所以主程序有责任确保这样的事情不会发生（至少应该提示用户将要发生什么，并给
+用户一个选择的机会）。<br><br>
+不论成功与否，本函数都不会修改入口参数pinfo指向的数据包中的任何变量。<br><br>
+如果某插件不支持保存功能，本函数将什么也不作，直接返回ER_NOTSUPPORT。如果主程序传入的
+图像格式与插件支持的图像格式不符，本函数将返回ER_NSIMGFOR。一个插件是否支持保存功能，
+以及支持那些图像格式的信息可从is_irw_plugin()函数返回的插件内部信息表中得到。
+<br><br></td>
+</tr>
+<tr bgcolor="#f4f4f4">
+<td><strong>参见</strong></td>
+<td>ISeeIO系统、ISADDR结构、INFOSTR结构、图像读写插件输出格式</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align=right><a href="#f0">返回首部</a></td>
+</tr>
+</table>
+<br><br>
+以上就是图像读写插件接口函数的参数说明，有关接口的结构定义、宏、枚举等信息请查看
+位于iseeexplorer\include目录下的iseeirw.h文件。<br>
+<br>
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 014-20225</font></td>
+<td align="right"><a href="isnew_13.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_15.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+
+	
+	
+
+
+</font>
+
+</BODY>
+</HTML>

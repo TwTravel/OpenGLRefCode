@@ -1,0 +1,7 @@
+; BmpModule.def : Declares the module parameters for the DLL.
+
+LIBRARY      "BmpModule"
+DESCRIPTION  'BmpModule Windows Dynamic Link Library'
+
+EXPORTS
+    AccessBMPModule		@1

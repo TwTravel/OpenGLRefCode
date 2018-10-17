@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluPwlCurve</STRONG> - describe a piecewise linear NURBS trimming
+	  curve
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluPwlCurve</STRONG>( CHARACTER*8 <EM>nurb</EM>,
+				   INTEGER*4 <EM>count</EM>,
+				   CHARACTER*8 <EM>data</EM>,
+				   INTEGER*4 <EM>stride</EM>,
+				   INTEGER*4 <EM>type</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>nurb</EM>	  Specifies the	NURBS object (created with
+		  <STRONG>fgluNewNurbsRenderer</STRONG>).
+
+	  <EM>count</EM>	  Specifies the	number of points on the	curve.
+
+	  <EM>data</EM>	  Specifies an array containing	the curve points.
+
+	  <EM>stride</EM>  Specifies the	offset (a number of single-precision
+		  floating-point values) between points	on the curve.
+
+	  <EM>type</EM>	  Specifies the	type of	curve.	Must be	either
+		  <STRONG>GLU_MAP1_TRIM_2</STRONG> or <STRONG>GLU_MAP1_TRIM_3</STRONG>.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluPwlCurve</STRONG> describes a piecewise linear trimming curve for
+	  a NURBS surface.  A piecewise	linear curve consists of a
+	  list of coordinates of points	in the parameter space for the
+	  NURBS	surface	to be trimmed. These points are	connected with
+	  line segments	to form	a curve. If the	curve is an
+	  approximation	to a curve that	is not piecewise linear, the
+	  points should	be close enough	in parameter space that	the
+	  resulting path appears curved	at the resolution used in the
+	  application.
+
+	  If <EM>type</EM> is <STRONG>GLU_MAP1_TRIM_2</STRONG>, then it describes	a curve	in
+	  two-dimensional (<EM>u</EM> and <EM>v</EM>) parameter space. If	it is
+	  <STRONG>GLU_MAP1_TRIM_3</STRONG>, then	it describes a curve in	two-
+	  dimensional homogeneous (<EM>u</EM>, <EM>v</EM>, and <EM>w</EM>)	parameter space. See
+	  the <STRONG>fgluBeginTrim</STRONG> reference page for more information	about
+	  trimming curves.
+
+     <STRONG>NOTES</STRONG>
+	  To describe a	trim curve that	closely	follows	the contours
+	  of a NURBS surface, call <STRONG>fgluNurbsCurve</STRONG>.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluBeginCurve</STRONG>, <STRONG>fgluBeginTrim</STRONG>, <STRONG>fgluNewNurbsRenderer</STRONG>,
+	  <STRONG>fgluNurbsCurve</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

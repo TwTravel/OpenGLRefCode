@@ -1,0 +1,234 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_31.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_27.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>ISeeMem系统使用说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<br>
+因为ISeeMem当前还处在一个有待完善的阶段，所以它的用法可能会随着它的版本升级而变
+化，本文档随时处于修正的状态中。ISeeMem的用法非常简单（不像它的原理那么复杂:）。
+下面的内容将详细描述ISeeMem的使用方法。<br>
+<br><br>
+<strong>一、如何将ISeeMem应用于一个新的项目</strong><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ISeeMem可以用于任何C/C++程序中，方法很简单，下面分步骤给出应用的方法：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;1、用VC++编译ISeeMem，得到iseemem.dll和iseemem.lib文件。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2、将iseemem.h文件拷入你的项目目录。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3、将iseemem.dll和iseemem.lib拷入你的项目的Debug目录（发布时可能还要拷入Release目录）。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4、用VC++打开你的项目，将iseemem.h和iseemem.lib加入项目。<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;OK，就这么简单，现在你的项目已经可以使用ISeeMem系统了。<br>
+<br><br><br>
+<strong>二、如何使用ISeeMem</strong><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;ISeeMem共为用户提供了四个接口函数，它们分别是：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、im_malloc()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、im_calloc()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、im_realloc()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、im_free()<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;它们分别对应于C语言中的malloc()、calloc()、realloc()和free()函数。 在应用时，你只需简单<br>
+&nbsp;&nbsp;&nbsp;&nbsp;的将程序中的内存分配和内存释放函数用ISeeMem系统提供的这四个接口函数替换即可。此后，你的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;程序便拥有了基本的内存防护能力，诸如内存泄漏、 内存写溢出等问题，防护系统都可以为你自动<br>
+&nbsp;&nbsp;&nbsp;&nbsp;找出。如果你不想对你的程序进行过多的修改，或是只想知道程序中是否有内存方面的错误， 那么<br>
+&nbsp;&nbsp;&nbsp;&nbsp;以上的方法就可以满足你的要求了（是不是很简单:）。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;如果你想获得更强大、更彻底的内存防护性能，ISeeMem提供了下面四个宏（你可以把它们看作是新<br>
+&nbsp;&nbsp;&nbsp;&nbsp;的关键字），通过把这些宏和上面给出的接口函数配合使用，ISeeMem将发挥它的全部防护功能。这<br>
+&nbsp;&nbsp;&nbsp;&nbsp;四个宏是：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、<font color=blue>watch</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、<font color=blue>end</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、<font color=blue>constant</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、<font color=blue>over</font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;在说明这些宏的含义及用法之前，请先浏览下面的代码，这会给你一个使用这些宏的直观印象。<br>
+<br>
+<pre>
+	int foo()
+	{
+	    char *p;
+
+	    if ((p=(char*)im_malloc(8)) == 0)	<font color=green>/* 用防护系统的接口函数分配一块8字节的内存 */</font>
+	    {
+	        return 0;
+	    }
+
+	    <font color=blue>watch</font>					<font color=green>/* 监测开始 */</font>
+	    {
+	        strcpy(p, "hello world!\n");		<font color=green>/* 将可能引起内存操作错误的语句放在监测块中 */</font>
+
+	        <font color=blue>constant</font> p <font color=blue>over</font>;			<font color=green>/* 将内存置为只读属性（保护），监测下面语句 */</font>
+						<font color=green>/* 是否对该内存进行了写操作 */</font>
+	        printf(p);
+
+	    }<font color=blue>end</font>;					<font color=green>/* 监测结束 */</font>
+
+	    im_free(p);				<font color=green>/* 释放内存 */</font>
+
+	    return 1;
+	}
+
+</pre>
+&nbsp;&nbsp;&nbsp;&nbsp;下面将分别介绍这些宏的含义及语法：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<em>1、<font color=blue>watch、end</font>宏</em><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>语法</strong>：watch和end是必须连用的两个宏，语法有点类似于do...while，它们的语法形式如下：<br>
+<pre>
+		<font color=blue>watch</font>
+		{
+			.....
+			.....  /* 受监控的用户代码 */
+			.....
+		} <font color=blue>end</font>;
+</pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>含义</strong>：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它们的作用就是对两个花括号之间的用户代码进行监控，如果这些代码对<font color=red>由防护系统分配<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的内存</font>进行了非法操作（比如溢出、非法写入等）， 那么watch...end宏将向开发人员提<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示相关的错误信息，包括引发错误的原因、地点等。开发人员可以将那些内存操作密集的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代码用watch...end包起来，以监测这些代码是否有异常行为。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>注解</strong>：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* watch...end允许嵌套使用，嵌套的最大深度为16层。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 用户代码不能使用 goto、return、break、continue 等控制语句直接跳入或跳出<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;watch...end块。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* watch...end块中的用户代码（包括函数中的代码）不能使用__try...__except语<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;句来拦截内存访问异常，因为watch...end也使用了相同的技术。如果提前拦截，<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;watch...end将无法察觉任何内存操作错误。不过，在watch...end外层使用<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__try...__except是被允许的。<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<em>2、<font color=blue>constant、over</font>宏</em><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>语法</strong>：constant和over宏也是必须连用的两个宏，而且它们只能出现于watch...end块中。语<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;法如下：<br>
+<pre>
+		watch
+		{
+			.....
+			<font color=blue>constant</font> p1, p2, p3 <font color=blue>over</font>;	<font color=green>/* 将指针p1、p2、p3指向的内存块设为只读内存 */</font>
+			.....
+			.....
+		} end;
+</pre>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>含义</strong>：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它们的作用是将constant和over之间给出的、<font color=red>由防护系统分配的内存块</font>设为只读内存块。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何对只读内存的写操作都将被视为非法操作。通过使用constant...over，开发人员可<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以迅速的查出哪些代码执行了非法写入操作。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>注解</strong>：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* constant 和 over 之间可以放置一个或一个以上的内存块（必须是由防护系统<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分配的）。 如果指定了多个内存块， 它们之间用逗号分隔。在书写上，可以在<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个constant...over中指定多个内存块，也可以分别在多个constant...over中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指定。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 待设定的内存块在over宏之后变为只读属性，在constant...over所在的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;watch...end结束之后自动恢复为正常的可读写属性。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 在一个watch...end中，多次对同一块内存使用constant...over是不被允许的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（但在嵌套的watch...end中是可以的）。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 在一个watch...end中，最多能同时对8块内存设置只读属性。超过将引发断言。<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;通过灵活的运用上面给出的四个宏和四个接口函数，你几乎可以挖出程序中所有的内存类BUGS， 这<br>
+&nbsp;&nbsp;&nbsp;&nbsp;意味着你可以节省出更多的时间用于软件开发。这里借用侯捷的一句话－“人寿几何”?! 我们没有<br>
+&nbsp;&nbsp;&nbsp;&nbsp;必要将过多的时间用在枯燥的“捉虫”工作上。<br>
+<br>
+<br>
+<strong>三、ISeeMem的错误报告机制</strong><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;如果你在程序中应用了ISeeMem，并且ISeeMem真的在程序中发现了一个内存类的错误，那么你在哪<br>
+&nbsp;&nbsp;&nbsp;&nbsp;儿能看到描述这些错误的信息呢？从下面的内容中你就能找到答案。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ISeeMem的错误信息输出有两种方式，一种是将信息输出到VC++的调试器输出窗口（通常是IDE中最<br>
+&nbsp;&nbsp;&nbsp;&nbsp;下面的那个），另一种是将信息写到一个以iseemem.txt为名称的日志文件中（文本）。 具体采用<br>
+&nbsp;&nbsp;&nbsp;&nbsp;哪种输出方法将由程序的启动方式决定。如果程序是由VC++启动的，那么防护系统的错误信息将输<br>
+&nbsp;&nbsp;&nbsp;&nbsp;出到VC++的调试器输出窗口，如果程序是自启动的，那么信息将写入与iseemem.dll文件同目录的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;iseemem.txt日志文件中。<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;输出到调试器输出窗口或日志文件的信息具有一定的格式，它们一般由下面三个部分组成：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --->XXX: 错误信息	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 一行完整的防护系统错误信息 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |__________ 【详细的错误信息】<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|_________________ 【报告者名称的缩写】<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_____________________ 【防护系统信息标签符号】<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你可以根据其中的“错误信息”了解发生错误的原因，进而排除错误。这里值得一提的是【报告者<br>
+&nbsp;&nbsp;&nbsp;&nbsp;名称的缩写】一项，这一项的内容有时也会给开发人员提供一些有用的帮助。它简要的描述了是内<br>
+&nbsp;&nbsp;&nbsp;&nbsp;存防护系统的哪一部分侦测到的这个错误，当前有以下这些名称缩写是有意义的（方括号内）：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[IN ] - 内存防护系统在初始化时发生的错误<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[OUT] - 内存防护系统在退出时发生的错误<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[INF] - 表明该信息不是错误信息，只是一个提示<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FRE] - 内存防护系统的im_free接口侦测到的错误<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[WAT] - watch...end块侦测到的错误<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;最后，当程序被关闭时，内存防护系统还会输出一些关于内存使用情况的统计数据，比如分配内存<br>
+&nbsp;&nbsp;&nbsp;&nbsp;的次数、释放内存的次数、瞬间最大内存用量等等。有时这些信息对开发人员是非常有用的（比如<br>
+&nbsp;&nbsp;&nbsp;&nbsp;有时你感觉程序没有使用多少内存，但统计结果出来以后往往会吓你一跳:-）。<br>
+<br>
+<br>
+<strong>四、注意事项</strong><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;1、如果内存防护系统侦测到了一个错误，有时它会以内存访问异常的方式终止程序的运行，这是<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正常情况。此时你应注意VC++自动定位的光标位置，大多数情况下就是光标所在行的代码引发<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的问题。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2、内存防护系统的所有防护功能均只在程序的调试版（Debug）中有效，在发布版（Release）中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，内存防护系统的接口将被ANSI C中的malloc之类的函数替换。宏则被定义为空操作。<br>
+<br>
+<br>
+<br>
+
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 032-20703</font></td>
+<td align="right"><a href="isnew_31.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_27.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+
+</font>
+
+</BODY>
+</HTML>

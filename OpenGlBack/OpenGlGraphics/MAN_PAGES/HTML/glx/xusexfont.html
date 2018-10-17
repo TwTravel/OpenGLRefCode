@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glXUseXFont</STRONG> -	create bitmap display lists from an X font
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glXUseXFont</STRONG>( Font <EM>font</EM>,
+			    int	<EM>first</EM>,
+			    int	<EM>count</EM>,
+			    int	<EM>listBase</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>font</EM>	    Specifies the font from which character glyphs are
+		    to be taken.
+
+	  <EM>first</EM>	    Specifies the index	of the first glyph to be
+		    taken.
+
+	  <EM>count</EM>	    Specifies the number of glyphs to be taken.
+
+	  <EM>listBase</EM>  Specifies the index	of the first display list to
+		    be generated.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glXUseXFont</STRONG> generates	<EM>count</EM> display lists, named <EM>listBase</EM>
+	  through <EM>listBase</EM>+<EM>count</EM>-1, each containing a single <STRONG>glBitmap</STRONG>
+	  command.  The	parameters of the <STRONG>glBitmap</STRONG> command of display
+	  list <EM>listBase</EM>+<EM>i</EM> are derived from glyph <EM>first</EM>+<EM>i</EM>.  Bitmap
+	  parameters <EM>xorig</EM>, <EM>yorig</EM>, <EM>width</EM>, and <EM>height</EM> are computed from
+	  font metrics as <EM>descent</EM>-<EM>1</EM>, -<EM>lbearing</EM>,	<EM>rbearing</EM>-<EM>lbearing</EM>, and
+	  <EM>ascent</EM>+<EM>descent</EM>, respectively.	 <EM>xmove</EM> is taken	from the
+	  glyph's <EM>width</EM>	metric,	and <EM>ymove</EM> is set to zero.  Finally,
+	  the glyph's image is converted to the	appropriate format for
+	  <STRONG>glBitmap</STRONG>.
+
+	  Using	<STRONG>glXUseXFont</STRONG> may	be more	efficient than accessing the X
+	  font and generating the display lists	explicitly, both
+	  because the display lists are	created	on the server without
+	  requiring a round trip of the	glyph data, and	because	the
+	  server may choose to delay the creation of each bitmap until
+	  it is	accessed.
+
+	  Empty	display	lists are created for all glyphs that are
+	  requested and	are not	defined	in <EM>font</EM>.  <STRONG>glXUseXFont</STRONG> is
+	  ignored if there is no current GLX context.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>BadFont</STRONG> is generated if <EM>font</EM> is not a	valid font.
+
+	  <STRONG>GLXBadContextState</STRONG> is	generated if the current GLX context
+	  is in	display-list construction mode.
+
+	  <STRONG>GLXBadCurrentWindow</STRONG> is generated if the drawable associated
+	  with the current context of the calling thread is a window,
+	  and that window is no	longer valid.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glBitmap</STRONG>, <STRONG>glXMakeCurrent</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

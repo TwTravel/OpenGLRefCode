@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fgluCylinder</STRONG> - draw a	cylinder
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fgluCylinder</STRONG>( CHARACTER*8 <EM>quad</EM>,
+				   REAL*8 <EM>base</EM>,
+				   REAL*8 <EM>top</EM>,
+				   REAL*8 <EM>height</EM>,
+				   INTEGER*4 <EM>slices</EM>,
+				   INTEGER*4 <EM>stacks</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>quad</EM>	  Specifies the	quadrics object	(created with
+		  <STRONG>fgluNewQuadric</STRONG>).
+
+	  <EM>base</EM>	  Specifies the	radius of the cylinder at <EM>z</EM> = 0.
+
+	  <EM>top</EM>	  Specifies the	radius of the cylinder at <EM>z</EM> = <EM>height</EM>.
+
+	  <EM>height</EM>  Specifies the	height of the cylinder.
+
+	  <EM>slices</EM>  Specifies the	number of subdivisions around the <EM>z</EM>
+		  axis.
+
+	  <EM>stacks</EM>  Specifies the	number of subdivisions along the <EM>z</EM>
+		  axis.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fgluCylinder</STRONG> draws a cylinder	oriented along the <EM>z</EM> axis. The
+	  base of the cylinder is placed at <EM>z</EM> =	0, and the top at
+	  z=height. Like a sphere, a cylinder is subdivided around the
+	  <EM>z</EM> axis into slices, and along	the <EM>z</EM> axis into	stacks.
+
+	  Note that if <EM>top</EM> is set to 0.0, this routine generates a
+	  cone.
+
+	  If the orientation is	set to <STRONG>GLU_OUTSIDE</STRONG> (with
+	  <STRONG>fgluQuadricOrientation</STRONG>), then	any generated normals point
+	  away from the	<EM>z</EM> axis.	Otherwise, they	point toward the <EM>z</EM>
+	  axis.
+
+	  If texturing is turned on (with <STRONG>fgluQuadricTexture</STRONG>), then
+	  texture coordinates are generated so that <EM>t</EM> ranges linearly
+	  from 0.0 at <EM>z</EM>	= 0 to 1.0 at <EM>z</EM>	= <EM>height</EM>, and <EM>s</EM>	ranges from
+	  0.0 at the +<EM>y</EM>	axis, to 0.25 at the +<EM>x</EM>	axis, to 0.5 at	the -<EM>y</EM>
+	  axis,	to 0.75	at the -<EM>x</EM> axis,	and back to 1.0	at the +<EM>y</EM>
+	  axis.
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>fgluDisk</STRONG>, <STRONG>fgluNewQuadric</STRONG>, <STRONG>fgluPartialDisk</STRONG>,
+	  <STRONG>fgluQuadricTexture</STRONG>, <STRONG>fgluSphere</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>fglScissor</STRONG> - define the scissor box
+
+
+     <STRONG>FORTRAN</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  SUBROUTINE <STRONG>fglScissor</STRONG>( INTEGER*4 <EM>x</EM>,
+				 INTEGER*4 <EM>y</EM>,
+				 INTEGER*4 <EM>width</EM>,
+				 INTEGER*4 <EM>height</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>x</EM>, <EM>y</EM> Specify the lower left corner of	the scissor box.
+	       Initially (0, 0).
+
+	  <EM>width</EM>, <EM>height</EM>
+	       Specify the width and height of the scissor box.	 When
+	       a GL context is first attached to a window, <EM>width</EM> and
+	       <EM>height</EM> are set to the dimensions	of that	window.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>fglScissor</STRONG> defines a rectangle, called the scissor box, in
+	  window coordinates.  The first two arguments,	<EM>x</EM> and <EM>y</EM>,
+	  specify the lower left corner	of the box.  <EM>width</EM> and <EM>height</EM>
+	  specify the width and	height of the box.
+
+	  To enable and	disable	the scissor test, call <STRONG>fglEnable</STRONG> and
+	  <STRONG>fglDisable</STRONG> with argument <STRONG>GL_SCISSOR_TEST</STRONG>. The	test is
+	  initially disabled. While the	test is	enabled, only pixels
+	  that lie within the scissor box can be modified by drawing
+	  commands.  Window coordinates	have integer values at the
+	  shared corners of frame buffer pixels.  glScissor(0,0,1,1)
+	  <STRONG>allows</STRONG> <STRONG>modification</STRONG> <STRONG>of</STRONG> <STRONG>only</STRONG> <STRONG>the</STRONG> <STRONG>lower</STRONG>	<STRONG>left</STRONG> <STRONG>pixel</STRONG> <STRONG>in</STRONG> <STRONG>the</STRONG>
+	  <STRONG>window,</STRONG> <STRONG>and</STRONG> <STRONG>glScissor(0,0,0,0)</STRONG> doesn't allow modification of
+	  any pixels in	the window.
+
+	  When the scissor test	is disabled, it	is as though the
+	  scissor box includes the entire window.
+
+     <STRONG>ERRORS</STRONG>
+	  <STRONG>GL_INVALID_VALUE</STRONG> is generated	if either <EM>width</EM>	or <EM>height</EM> is
+	  negative.
+
+	  <STRONG>GL_INVALID_OPERATION</STRONG> is generated if <STRONG>fglScissor</STRONG> is executed
+	  between the execution	of <STRONG>fglBegin</STRONG> and	the corresponding
+	  execution of <STRONG>fglEnd</STRONG>.
+
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>fglGet</STRONG> with argument <STRONG>GL_SCISSOR_BOX</STRONG>
+	  <STRONG>fglIsEnabled</STRONG> with argument <STRONG>GL_SCISSOR_TEST</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+
+	  <STRONG>fglEnable</STRONG>, <STRONG>fglViewport</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

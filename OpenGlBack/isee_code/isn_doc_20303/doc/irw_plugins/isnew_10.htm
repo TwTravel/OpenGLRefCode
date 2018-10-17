@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href=""><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href=""><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>ISeeIO系统</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+<br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+<br>
+看过新版ISee代码的人可能会发现一个新的子系统－ISeeIO系统（irw\iseeio目录）。这在
+老版本的ISee中是没有的。之所以新增这套系统，主要是为了加强图像读写插件的适用范围
+，和增强代码的重用性。下面是对这套系统的一些综述性信息，详细技术资料请参阅相关文
+档。<br>
+<br>
+众所周知，一套图像读写代码写出来之后，它往往针对的是一种特定的存储介质（比如磁盘
+文件）。如果要用这套代码去读写其它介质中的图像数据（比如内存中的图像数据），就需
+要修改源代码，非常的不灵活，也违反代码重用原则。所以在改版之初，我和Kenny 就协意
+设立一个输入设备抽象层，并将这个抽象层的一个执行副本安插在实际输入设备和图像读写
+插件之间，为插件提供统一的读写接口，它们之间的关系可由下图演示：<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+<br><img src="isnew_10_01.png"><br><br>
+</td>
+</tr>
+
+<tr align="left">
+<td align="left">
+这样一来图像读写插件面对的将不再是实际的IO设备，而是一个抽象（虚拟）的IO接口，图
+像数据从何而来，又写到何处对于插件来说是不可见的，或者说是完全透明的。选择实际IO
+设备的责任将由插件调用者来负责。<br>
+<br>
+如此，在开发上和使用上就形成了一种非常灵活的运作机制，我们可以让同一套读写代码处
+理来自磁盘文件、内存、网络等不同介质中的图像数据。同时，随着需求的增加，我们也可
+以逐步增加ISeeIO系统所支持的IO设备。而这一切都不需要改动插件源代码。我们最初设定
+的扩展插件使用范围、增强代码重用性的目的也就基本达到了。<br><br><br>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 010-20210</font></td>
+<td align="right"><a href=""><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href=""><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+
+</font>
+
+</BODY>
+</HTML>

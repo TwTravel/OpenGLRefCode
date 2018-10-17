@@ -1,0 +1,110 @@
+<HTML>
+<BODY>
+<PRE>
+     <STRONG>NAME</STRONG>
+	  <STRONG>glIndexd,</STRONG> <STRONG>glIndexf,</STRONG> <STRONG>glIndexi,</STRONG>	<STRONG>glIndexs,</STRONG> <STRONG>glIndexub,</STRONG>
+	  <STRONG>glIndexdv,</STRONG> <STRONG>glIndexfv,</STRONG>	<STRONG>glIndexiv,</STRONG> <STRONG>glIndexsv,</STRONG> <STRONG>glIndexubv</STRONG> - set
+	  the current color index
+
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glIndexd</STRONG>( GLdouble <EM>c</EM> )
+	  void <STRONG>glIndexf</STRONG>( GLfloat <EM>c</EM> )
+	  void <STRONG>glIndexi</STRONG>( GLint <EM>c</EM> )
+	  void <STRONG>glIndexs</STRONG>( GLshort <EM>c</EM> )
+	  void <STRONG>glIndexub</STRONG>( GLubyte <EM>c</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>c</EM>  Specifies the new value for the current color index.
+
+     <STRONG>C</STRONG> <STRONG>SPECIFICATION</STRONG>
+	  void <STRONG>glIndexdv</STRONG>( const	GLdouble *<EM>c</EM> )
+	  void <STRONG>glIndexfv</STRONG>( const	GLfloat	*<EM>c</EM> )
+	  void <STRONG>glIndexiv</STRONG>( const	GLint *<EM>c</EM> )
+	  void <STRONG>glIndexsv</STRONG>( const	GLshort	*<EM>c</EM> )
+	  void <STRONG>glIndexubv</STRONG>( const GLubyte *<EM>c</EM> )
+
+
+     <STRONG>PARAMETERS</STRONG>
+	  <EM>c</EM>    Specifies a pointer to a	one-element array that
+	       contains	the new	value for the current color index.
+
+     <STRONG>DESCRIPTION</STRONG>
+	  <STRONG>glIndex</STRONG> updates the current (single-valued) color index.  It
+	  takes	one argument, the new value for	the current color
+	  index.
+
+	  The current index is stored as a floating-point value.
+	  Integer values are converted directly	to floating-point
+	  values, with no special mapping.  The	initial	value is 1.
+
+	  Index	values outside the representable range of the color
+	  index	buffer are not clamped.	 However, before an index is
+	  dithered (if enabled)	and written to the frame buffer, it is
+	  converted to fixed-point format.  Any	bits in	the integer
+	  portion of the resulting fixed-point value that do not
+	  correspond to	bits in	the frame buffer are masked out.
+
+     <STRONG>NOTES</STRONG>
+	  <STRONG>glIndexub</STRONG> and	<STRONG>glIndexubv</STRONG> are available only if the GL
+	  version is 1.1 or greater.
+
+	  The current index can	be updated at any time.	 In
+	  particular, <STRONG>glIndex</STRONG> can be called between a call to <STRONG>glBegin</STRONG>
+	  and the corresponding	call to	<STRONG>glEnd</STRONG>.
+     <STRONG>ASSOCIATED</STRONG>	<STRONG>GETS</STRONG>
+	  <STRONG>glGet</STRONG>	with argument <STRONG>GL_CURRENT_INDEX</STRONG>
+
+     <STRONG>SEE</STRONG> <STRONG>ALSO</STRONG>
+	  <STRONG>glColor</STRONG>, <STRONG>glIndexPointer</STRONG>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

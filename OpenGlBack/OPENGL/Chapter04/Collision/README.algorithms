@@ -1,0 +1,60 @@
+The sparta code keeps track of a number
+of structures for computation. These are:
+
+POINTS: Basically a vertex with some
+inherent mass.
+
+SPRINGS: In order to tweak the velocity of
+two connected points according to their 
+relative position. Springs can be set to
+break if their lenght exceeds some 
+threshold. We call stiff, breakable,
+inter-object springs virtual staples.
+
+FACES: Made up of 3 points. They are for
+collision detection and display updates.
+
+CDLINES: These are line segments between
+2 points for collision detection purposes.
+Originally we used springs, but this is
+more efficient, and avoids some friction
+problems.
+
+
+Here is some simplified psuedocode:
+
+For each step
+{
+  For every object
+    For every spring
+    {
+      compute force due to displacement
+      compute force due to damping
+    }  
+  For every object            <- There are other methods with better order
+    For every object             but our cpus limit us to small N anyhow
+      For every cdline in object 1
+        For every face in object 2
+        {
+          Do bounding box check for early exit
+          if we have a collision (this is complicated)
+            tweak velocities taking into account mass
+            and friction
+        }
+}
+For each object
+  For each face
+    draw triangle
+
+
+Collision detection: we picked an unconventional collision
+  detection approach since some more traditional approaches
+  (inside/outside polygon test) have problems with flexible 
+  objects. For example, it is impossible to guarantee that
+  a flexible object is going to stay convex.
+
+Rigid bodies: Some performance gains could be made by limiting
+  these simulations to rigid bodies. Inside/outside polygon
+  test would work, and standard 3d hardware could be used to
+  accelerate object transformations. In the SPARTA project,
+  we are interested in flexible objects, however.

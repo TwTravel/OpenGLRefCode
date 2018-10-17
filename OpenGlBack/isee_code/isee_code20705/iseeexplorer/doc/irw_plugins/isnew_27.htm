@@ -1,0 +1,238 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>ISee图像读写插件开发文档</TITLE>
+</HEAD>
+<BODY>
+
+<font face="宋体" size="4">
+
+
+
+
+
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><img src="..\title.jpg"></td>
+<td align="right"><a href="isnew_32.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_28.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+<hr width=760 align=center>
+
+
+
+	
+<table align="center" bgcolor="white" cols="1" width="760">
+
+<tr align="center">
+<td align="center">
+<br><br><font face="宋体" size="5" color="#9999bb"><strong>插件输出格式说明</strong></font>
+</td>
+</tr>
+
+<tr align="center">
+<td align="center">
+&nbsp;<br>&nbsp;<br>
+</td>
+</tr>
+
+<tr align="center">
+<td align="left">
+本章将描述ISeeExplorer图象读写插件的输入、输出格式，因为这两种格式完全相同，所以我们
+统称它们为“插件输出格式”。当主程序调用一个读写插件读取一副图象时，插件应首先将图象
+转换为符合插件输出格式的数据，然后再返回给主程序。这样，主程序才能有条不紊的处理各式
+各样不同格式的图象。同样，如果主程序想保存一副图象，那么它也需先将图象数据转为插件输
+出格式，然后再发给图象读写插件来保存。<br>
+<br>
+从这个角度来看，插件输出格式是相当重要的，如果主程序或插件有任何一方不遵守这个格式协
+议，那么读出或保存的图象必然会产生失真。所以对于插件的使用者或制作者来说，在编码时都
+应该遵守这个格式协议。<br>
+<br>
+下面是插件输出格式的说明资料：<br>
+<br>
+<em>1、概述</em><br>
+<br>
+ISeeExplorer图象读写插件输出格式采用的是一种类似于BMP 的点阵图格式，不进行任何压缩处
+理。象素数据从左到右排列，每一扫描行的字节数 4字节对齐。图象的上下顺序没有特别的要求
+，可以是正向的，也可以是倒向的，格式协议中专门有一个变量用于描述图象的上下顺序。下面
+是输出格式的概貌图：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="isnew_27_01.png"><br>
+<br>
+每个象素所占的位数（即位深度）可以从 1位到32位，超过32位的图象数据必须经过适当裁剪。
+插件输出格式中还采用了颜色分量掩码的概念，当图象的位深度大于 8位时则必须提供掩码数据
+，小于则不用提供（但需要调色板数据）。当图象位深度小于 8位时，象素与象素之间以紧凑格
+式排列，也就是说可能会有一些象素数据跨字节。<br>
+<br>
+插件输出格式中没有灰度图的概念，所有灰度图象必须转换为调色板图象。灰度图的位深度最高
+只支持到 8位，超过 8位的灰度图需经过裁剪。<br>
+<br>
+<br>
+<em>2、规格</em><br>
+<br>
+插件输出格式具体由数据包结构INFOSTR中的一些变量来决定，这些变量是：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>bitcount</font>;&nbsp;&nbsp;&nbsp;&nbsp;/* 每个像素所占的位数（位深度） */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>order</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 图像的上下顺序 （0－正向，1－倒向）*/<br>
+<br>	
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>r_mask</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 各颜色分量的掩码值 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>g_mask</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>b_mask</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>a_mask</font>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**<font color=red>pp_line_addr</font>;&nbsp;&nbsp;/* 图像位数据中从0行到n-1行每一行的首地址 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned char	*<font color=red>p_bit_data</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 图像位数据缓冲区首地址 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned int &nbsp;<font color=red>pal_count</font>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 调色板有效项的个数 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unsigned long	<font color=red>palette</font>[MAX_PALETTE_COUNT];	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 调色板数据 */<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[1]、1～8位位深度输出格式：<br><br>
+<table align="center" bgcolor="white" cols="3" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="128" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>有效值范围</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>备  注</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">bitcount</td>
+<td align="center" bgcolor="#f4f4f4">1～8</td>
+<td align="left" bgcolor="#f4f4f4"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">order</td>
+<td align="center" bgcolor="#fbfbfb">0 | 1</td>
+<td align="left" bgcolor="#fbfbfb"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">r_mask<br>g_mask<br>b_mask<br>a_mask</td>
+<td align="center" bgcolor="#f4f4f4">0</td>
+<td align="left" bgcolor="#f4f4f4"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">pal_count</td>
+<td align="center" bgcolor="#fbfbfb">1～256</td>
+<td align="left" bgcolor="#fbfbfb">该变量的值应等于 2的bitcount次方。</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">palette[]</td>
+<td align="center" bgcolor="#f4f4f4">该数组前pal_count个元素的内容应该是有效的。</td>
+<td align="left" bgcolor="#f4f4f4">调色板项格式与Windows系统RGBQUAD结构相同。</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="128" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>有效值范围</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>备  注</strong></font></td>
+</tr>
+
+</table>
+
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2]、9～32位位深度输出格式：<br><br>
+<table align="center" bgcolor="white" cols="3" width="640" border=0>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="128" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>有效值范围</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>备  注</strong></font></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">bitcount</td>
+<td align="center" bgcolor="#f4f4f4">9～32</td>
+<td align="left" bgcolor="#f4f4f4"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">order</td>
+<td align="center" bgcolor="#fbfbfb">0 | 1</td>
+<td align="left" bgcolor="#fbfbfb"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">r_mask<br>g_mask<br>b_mask<br>a_mask</td>
+<td align="center" bgcolor="#f4f4f4">根据原始图象确定掩码值。</td>
+<td align="left" bgcolor="#f4f4f4">每个掩码的位置和长度没有限制，但掩码与掩码之间不能重叠。</td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#fbfbfb">pal_count</td>
+<td align="center" bgcolor="#fbfbfb">0</td>
+<td align="left" bgcolor="#fbfbfb"></td>
+</tr>
+
+<tr>
+<td align="center" bgcolor="#f4f4f4">palette[]</td>
+<td align="center" bgcolor="#f4f4f4">该数组中的所有元素内容均无效。</td>
+<td align="left" bgcolor="#f4f4f4">9～32位图象格式不使用调色板数据。</td>
+</tr>
+
+<tr bgcolor="#0000cc">
+<td align="center" width ="128" ><font color="#ffffff"><strong>变  量  名</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>有效值范围</strong></font></td>
+<td align="center" width ="256"><font color="#ffffff"><strong>备  注</strong></font></td>
+</tr>
+
+</table>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;注：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_line_addr&nbsp;&nbsp;&nbsp;&nbsp;图像位数据中从0行到n-1行每一行的首地址，该数组[0]元素指向图象的<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视觉第一行的象素数据首地址。 也就是说，不论图象是正向的还是倒向<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;的，该数组[0]元素将总是指向第一行的图象数据。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bit_data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图像位数据缓冲区首地址。 它所指向的内存块中存放的就是实际的图象<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;象素数据。<br>
+<br>
+<br>
+<em>3、转换</em><br>
+<br>
+当一个图象被插件读入时，插件该如何将其转换为符合插件输出格式的数据呢？下面是一些
+指导性的转换原则：<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[1]、当图象的位深度大于32时，需将其剪裁为32位。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2]、如果源图象是灰度图，应将其转为调色板图（调色板数据由程序生成）。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3]、如果源图象是灰度图并且位深度大于 8位，将其剪裁为 8位。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[4]、如果源图象位深度小于等于 8位，将象素数据转换为紧凑格式。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[5]、如果原图象有多个图象页，则必须全都转换为同一种输出格式。<br>
+<br><br><br>
+</td></tr>
+
+<tr align="center">
+<td align="center">
+<br><br>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+<hr width=760 align=center>
+<table align="center" bgcolor="white" cols="1" width="760" >
+<tr>
+<td align="left"><font name="system">ISee Document NEW s/n: 027-20620</font></td>
+<td align="right"><a href="isnew_32.htm"><img src="..\prev.jpg" border=0></a> <a href="index.htm"><img src="..\index.jpg" border=0></a> <a href="isnew_28.htm"><img src="..\next.jpg" border=0></a></td>
+</tr>
+</table>
+
+
+	
+	
+
+</font>
+
+</BODY>
+</HTML>
