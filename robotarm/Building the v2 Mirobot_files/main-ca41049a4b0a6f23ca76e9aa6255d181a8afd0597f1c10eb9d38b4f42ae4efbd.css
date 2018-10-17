@@ -1,0 +1,744 @@
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@font-face {
+  font-family: "T Star Mono Round";
+  src: url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.eot");
+  src: url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.woff") format("woff"), url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.svg#T Star Mono Round") format("svg");
+  font-style: normal;
+  font-weight: 400; }
+@font-face {
+  font-family: "T Star Mono Round";
+  src: url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.eot");
+  src: url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.woff") format("woff"), url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.svg#T Star Mono Round") format("svg");
+  font-style: normal;
+  font-weight: 700; }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: 'T Star Mono Round';
+    src: url("//db.onlinewebfonts.com/t/a921dd8a5b280b39e062c4ff49e03301.svg#T Star Mono Round") format("svg");
+    font-style: normal;
+    font-weight: 400; }
+  @font-face {
+    font-family: 'T Star Mono Round';
+    src: url("//db.onlinewebfonts.com/t/98675ac090184429eeeedf6987c56c25.svg#T Star Mono Round") format("svg");
+    font-style: normal;
+    font-weight: 700; } }
+html, body {
+  background-color: #EFEFEF;
+  font-family: "T Star Mono Round", "Lucida Console", Monaco, monospace; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: bold;
+  margin: 15px 0 20px; }
+
+h1 {
+  font-size: 250%; }
+
+h2 {
+  font-size: 150%; }
+
+ul {
+  padding: 0 50px;
+  margin: 10px 0; }
+
+li {
+  padding: 10px 10px 5px 0;
+  list-style: disc outside; }
+
+p {
+  margin: 10px 0; }
+
+p, li {
+  line-height: 120%; }
+
+strong {
+  font-weight: bold; }
+
+em {
+  font-style: italic; }
+
+a {
+  color: #00A3E0; }
+
+a:visited {
+  color: #00A3E0; }
+
+.centre {
+  width: 1040px;
+  margin: 0 auto 0; }
+
+header {
+  -webkit-transition: padding 0.25s;
+  -moz-transition: padding 0.25s;
+  -ms-transition: padding 0.25s;
+  -o-transition: padding 0.25s;
+  transition: padding 0.25s;
+  position: fixed;
+  z-index: 99999;
+  background: #00A3E0;
+  font-weight: bold;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 40px;
+  vertical-align: top;
+  -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6) ;
+  -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6) ;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6) ; }
+  @media all and (max-width: 870px) {
+    header {
+      padding: 10px; } }
+  header div.menu {
+    position: relative; }
+    header div.menu ul {
+      -webkit-transition: margin-top 0.25s;
+      -moz-transition: margin-top 0.25s;
+      -ms-transition: margin-top 0.25s;
+      -o-transition: margin-top 0.25s;
+      transition: margin-top 0.25s;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      padding: 0;
+      margin-top: 10px; }
+      @media all and (max-width: 870px) {
+        header div.menu ul {
+          padding: 0 10px;
+          margin-top: 0; } }
+      @media all and (max-width: 500px) {
+        header div.menu ul {
+          position: static; } }
+      header div.menu ul li {
+        list-style-type: none;
+        display: inline-block;
+        padding: 0;
+        margin: 10px 0 10px 50px; }
+        @media all and (max-width: 870px) {
+          header div.menu ul li {
+            margin-left: 10px; } }
+        header div.menu ul li a {
+          font-size: 130%;
+          text-decoration: none;
+          color: #FFF; }
+        header div.menu ul li a.button {
+          color: #FFF; }
+      header div.menu ul li.selected > a {
+        border-bottom: 10px solid #FFF; }
+      @media all and (max-width: 870px) {
+        header div.menu ul {
+          font-size: 80%; } }
+  header h1 {
+    margin: 10px 0;
+    padding: 0;
+    display: inline-block; }
+    header h1 a {
+      display: inline-block;
+      text-decoration: none;
+      color: #FFF; }
+    header h1 img {
+      -webkit-transition: height 0.25s;
+      -moz-transition: height 0.25s;
+      -ms-transition: height 0.25s;
+      -o-transition: height 0.25s;
+      transition: height 0.25s;
+      height: 50px; }
+      @media all and (max-width: 870px) {
+        header h1 img {
+          height: 30px; } }
+  header #productsDropdown {
+    text-align: center;
+    display: none; }
+    header #productsDropdown .productMenu {
+      position: relative;
+      display: inline-block;
+      width: 220px;
+      height: 80px;
+      text-align: left;
+      vertical-align: top;
+      margin: 3px;
+      background-color: rgba(255, 255, 255, 0.1); }
+      header #productsDropdown .productMenu:hover {
+        background-color: rgba(255, 255, 255, 0.2); }
+      header #productsDropdown .productMenu img {
+        width: 80px;
+        display: inline-block; }
+      header #productsDropdown .productMenu div {
+        vertical-align: top;
+        display: inline-block;
+        padding: 5px;
+        width: 130px; }
+      header #productsDropdown .productMenu a {
+        color: #FFF;
+        text-decoration: none; }
+      header #productsDropdown .productMenu p {
+        font-size: 80%;
+        color: #FFF; }
+      header #productsDropdown .productMenu strong {
+        font-weight: bold; }
+
+header.small {
+  padding: 5px 40px; }
+  header.small h1 img {
+    height: 30px; }
+  header.small div.menu ul {
+    margin-top: -2px; }
+
+@media all and (max-width: 870px) {
+  header.small {
+    padding: 0 10px; }
+    header.small h1 {
+      font-size: 140%; } }
+.button {
+  font-family: "T Star Mono Round", "Lucida Console", Monaco, monospace;
+  font-size: 140%;
+  color: #FFF;
+  background-color: #FF8200;
+  padding: 8px;
+  border: none;
+  text-align: center;
+  margin: 0;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -webkit-box-shadow: 2px 2px 6px #000 ;
+  -moz-box-shadow: 2px 2px 6px #000 ;
+  box-shadow: 2px 2px 6px #000 ; }
+  .button.sm {
+    font-size: 100%; }
+  @media all and (max-width: 640px) {
+    .button {
+      font-size: 130%;
+      padding: 3px 0;
+      margin: 3px; } }
+
+.button:hover {
+  background-color: #d96f00; }
+
+h2.start {
+  font-size: 250%; }
+
+video {
+  max-width: 490px; }
+
+.makeranim p {
+  font-size: 75% !important; }
+
+#home {
+  margin-top: 90px; }
+  #home .doc {
+    display: block;
+    position: relative;
+    width: 240px;
+    display: inline-block;
+    vertical-align: top;
+    background: #FFF;
+    margin: 10px;
+    padding-bottom: 3px;
+    text-align: left;
+    border: 3px solid #FAFAFA;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4); }
+    #home .doc .icon {
+      display: block;
+      width: 100%;
+      height: 150px;
+      background-size: cover;
+      -webkit-border-top-left-radius: 10px;
+      -webkit-border-top-right-radius: 10px;
+      -moz-border-radius-topleft: 10px;
+      -moz-border-radius-topright: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px; }
+    #home .doc a {
+      text-decoration: none; }
+    #home .doc h2 {
+      font-size: 150%;
+      font-weight: bold;
+      color: #333;
+      padding: 5px;
+      margin: 5px 0; }
+    #home .doc p {
+      padding: 0 5px;
+      margin: 5px 0;
+      color: #666; }
+  #home #sidebar {
+    margin-top: 10px;
+    padding-top: 10px;
+    float: right; }
+  #home .centre {
+    width: 1100px; }
+
+.doc .meta {
+  display: inline-block;
+  padding: 6px;
+  margin: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFF; }
+.doc .hw.meta {
+  position: absolute;
+  top: 10px;
+  left: -3px; }
+
+.doc .type.meta, a.type {
+  background-color: #00A3E0; }
+
+.doc .level.meta, a.level {
+  background-color: #FF8200; }
+
+.doc .hw.meta, a.hw {
+  background-color: #F1BE48; }
+
+a.tag {
+  background-color: #1B365D; }
+
+#docpage {
+  margin-top: 70px; }
+
+#sidebar {
+  float: right; }
+
+#doc, #sidebar {
+  padding: 25px 45px 45px 15px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #FFF; }
+
+#doc {
+  width: 700px;
+  position: relative; }
+  #doc img {
+    margin: 10px 0;
+    max-width: 100%; }
+
+#docs {
+  display: inline-block;
+  width: 820px;
+  padding: 0 5px; }
+
+#sidebar {
+  width: 200px;
+  margin-left: 10px; }
+  #sidebar h3 {
+    margin-bottom: 5px; }
+
+.solution * {
+  display: none; }
+
+.solution h4, .revealed h4 {
+  margin-bottom: 5px; }
+
+.solution button, .solution h4 {
+  display: block; }
+
+.revealed button {
+  display: none; }
+
+code, samp, kbd {
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  text-align: left;
+  color: #555; }
+
+pre {
+  padding: 0.1em 0.5em 0.3em 0.7em;
+  margin: 1em 0 1em 0.3em;
+  overflow: auto;
+  width: 93%; }
+  pre code {
+    line-height: 1.6em;
+    font-size: 11px; }
+
+/* target IE7 and IE6 */
+*:first-child + html pre {
+  padding-bottom: 2em;
+  overflow-y: hidden;
+  overflow: visible;
+  overflow-x: auto; }
+
+* html pre {
+  padding-bottom: 2em;
+  overflow: visible;
+  overflow-x: auto; }
+
+table td, table th {
+  text-align: left;
+  padding: 3px 10px 3px 5px; }
+
+table th {
+  font-weight: bold;
+  background-color: #EEE; }
+
+.hw-warning {
+  font-weight: bold;
+  padding: 10px;
+  background: #EEE; }
+  .hw-warning ul, .hw-warning p {
+    margin: 3px 0; }
+  .hw-warning ul li {
+    padding: 6px 0; }
+
+.doc .meta {
+  display: inline-block;
+  padding: 6px;
+  margin: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFF; }
+.doc .hw.meta {
+  position: absolute;
+  top: 10px;
+  left: -3px; }
+
+.doc .type.meta, a.type {
+  background-color: #00A3E0; }
+
+.doc .level.meta, a.level {
+  background-color: #FF8200; }
+
+.doc .hw.meta, a.hw {
+  background-color: #F1BE48; }
+
+a.tag {
+  background-color: #1B365D; }
+
+#docpage {
+  margin-top: 70px; }
+
+#sidebar {
+  float: right;
+  background: #FAFAFA; }
+
+#doc, #sidebar {
+  padding: 25px 45px 45px 15px;
+  display: inline-block;
+  vertical-align: top; }
+
+#doc {
+  width: 700px;
+  position: relative;
+  background: #FFF; }
+  #doc img {
+    margin: 10px 0;
+    max-width: 100%; }
+
+#docs {
+  display: inline-block;
+  width: 820px;
+  padding: 0 5px; }
+
+#sidebar {
+  width: 200px;
+  margin-left: 10px; }
+  #sidebar h3 {
+    margin-bottom: 5px; }
+
+.solution * {
+  display: none; }
+
+.solution h4, .revealed h4 {
+  margin-bottom: 5px; }
+
+.solution button, .solution h4 {
+  display: block; }
+
+.revealed button {
+  display: none; }
+
+code, samp, kbd {
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  text-align: left;
+  color: #555; }
+
+pre {
+  padding: 0.1em 0.5em 0.3em 0.7em;
+  margin: 1em 0 1em 0.3em;
+  overflow: auto;
+  width: 93%; }
+  pre code {
+    line-height: 1.6em;
+    font-size: 11px; }
+
+/* target IE7 and IE6 */
+*:first-child + html pre {
+  padding-bottom: 2em;
+  overflow-y: hidden;
+  overflow: visible;
+  overflow-x: auto; }
+
+* html pre {
+  padding-bottom: 2em;
+  overflow: visible;
+  overflow-x: auto; }
+
+table td, table th {
+  text-align: left;
+  padding: 3px 10px 3px 5px; }
+
+table th {
+  font-weight: bold;
+  background-color: #EEE; }
+
+.hw-warning {
+  font-weight: bold;
+  padding: 10px;
+  background: #EEE; }
+  .hw-warning ul, .hw-warning p {
+    margin: 3px 0; }
+  .hw-warning ul li {
+    padding: 6px 0; }
+
+body.wide #docpage #sidebar {
+  float: left;
+  width: 1000px;
+  padding: 15px; }
+body.wide #docpage #sidebar h3, body.wide #docpage #sidebar div {
+  display: inline-block; }
+body.wide #docpage #doc {
+  padding: 15px;
+  margin: 10px 0 0 10px;
+  width: 1000px; }
+
+.filter a {
+  display: inline-block;
+  padding: 6px;
+  margin: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFF; }
+.filter a.selected::before {
+  content: "\2611 ";
+  font-size: 150%;
+  margin-right: 3px;
+  line-height: 60%;
+  font-weight: normal; }
+.filter a.unselected::before {
+  content: "\2610 ";
+  font-size: 150%;
+  margin-right: 3px;
+  line-height: 60%;
+  font-weight: normal; }
+
+#type-filter a.selected {
+  background-color: #00A3E0; }
+#type-filter a.unselected {
+  border: 2px solid #00A3E0;
+  padding: 4px;
+  color: #00A3E0; }
+
+#level-filter a.selected {
+  background-color: #FF8200; }
+#level-filter a.unselected {
+  border: 2px solid #FF8200;
+  padding: 4px;
+  color: #FF8200; }
+
+#tag-filter a.selected {
+  background-color: #1B365D; }
+#tag-filter a.unselected {
+  border: 2px solid #1B365D;
+  padding: 4px;
+  color: #1B365D; }
+#tag-filter .count {
+  font-weight: normal; }
+
+#hw-filter a.selected {
+  background-color: #F1BE48; }
+#hw-filter a.unselected {
+  border: 2px solid #F1BE48;
+  padding: 4px;
+  color: #F1BE48; }
+
+.videoInstruction {
+  margin-top: 10px; }
+  .videoInstruction .flex {
+    display: flex; }
+  .videoInstruction video {
+    width: 100%; }
+  .videoInstruction .video {
+    position: relative;
+    flex: 2 0 0; }
+    .videoInstruction .video .controls {
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%; }
+      .videoInstruction .video .controls button {
+        display: none;
+        background: rgba(0, 0, 0, 0.3);
+        text-align: center;
+        border: none;
+        color: #FFF;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 120%;
+        margin: 10px;
+        outline: 0; }
+        .videoInstruction .video .controls button svg {
+          height: 50px; }
+        .videoInstruction .video .controls button span {
+          display: block;
+          font-family: "T Star Mono Round", "Lucida Console", Monaco, monospace;
+          font-weight: bold; }
+      .videoInstruction .video .controls .start {
+        display: inline-block; }
+      .videoInstruction .video .controls.small {
+        height: inherit;
+        top: inherit;
+        bottom: 0; }
+        .videoInstruction .video .controls.small button {
+          border-radius: 4px;
+          padding: 5px;
+          font-size: 90%;
+          margin: 6px; }
+          .videoInstruction .video .controls.small button svg {
+            height: 20px; }
+  .videoInstruction .steps {
+    flex: 1 0 0;
+    display: flex;
+    max-width: 300px;
+    flex-direction: column; }
+    .videoInstruction .steps h3 {
+      margin: 0;
+      padding: 10px 0;
+      background: #EEE; }
+    .videoInstruction .steps ul {
+      list-style-type: none;
+      overflow: auto;
+      position: relative;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      flex: 1 0 0; }
+      .videoInstruction .steps ul li {
+        padding: 10px 5px;
+        border-bottom: 1px solid #666;
+        cursor: pointer;
+        cursor: hand; }
+      .videoInstruction .steps ul li.active, .videoInstruction .steps ul li.active:hover {
+        background: #00A3E0;
+        color: #FFF;
+        font-weight: bold; }
+      .videoInstruction .steps ul li:hover {
+        background: #EEE; }
+  .videoInstruction .instructions {
+    display: block;
+    min-height: 200px;
+    background: #EAEAEA;
+    padding: 10px; }
+    .videoInstruction .instructions .instruction {
+      display: none; }
+    .videoInstruction .instructions .active {
+      display: block; }
+  .videoInstruction progress {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    color: #00F;
+    background-color: #FFF; }
+
+@media all and (max-width: 1060px) {
+  #docpage #sidebar {
+    float: left;
+    width: auto;
+    padding: 10px; }
+
+  #docpage #sidebar h3, #docpage #sidebar div {
+    display: inline-block; }
+
+  #docpage .centre {
+    width: 760px; }
+
+  #docpage #doc {
+    margin: 10px 0 0 10px; }
+
+  body.wide #docpage #sidebar {
+    margin: 0 10px;
+    width: auto !important; }
+  body.wide #docpage.centre {
+    width: 100%; }
+  body.wide #docpage #doc {
+    margin: 10px 10px 0 10px;
+    width: auto !important; } }
+@media all and (max-width: 780px) {
+  #docpage #sidebar {
+    margin: 0 10px; }
+
+  #docpage.centre {
+    width: 100%; }
+
+  #docpage #doc {
+    margin: 10px 10px 0 10px;
+    width: auto !important; } }
+@media all and (max-width: 1140px) {
+  #home #sidebar {
+    width: auto;
+    float: left;
+    padding: 10px;
+    margin: 10px;
+    font-size: 90%; }
+
+  #sidebar h3 {
+    display: inline-block; }
+
+  #home .centre {
+    position: relative;
+    width: 850px; }
+
+  #docs {
+    width: 100%; } }
+@media all and (max-width: 840px) {
+  #home .centre {
+    width: 100%; } }
+@media all and (max-width: 545px) {
+  #home .doc {
+    width: 90%; }
+
+  #home #sidebar {
+    font-size: 70%; } }

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://hackaday.io/project/181/logs?sort=oldest -->
+<html class="no-js wf-proximanova-n7-active wf-proximanova-i7-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-proximanova-i3-inactive wf-lettergothicstd-n7-inactive wf-active" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+
+<title>Project | MeArm - Your Robot | Hackaday.io</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#333333">
+<link rel="apple-touch-icon-precomposed" href="https://hackaday.io/project/181/apple-touch-icon.png">
+<link rel="stylesheet" href="./Project _ MeArm - Your Robot _ Hackaday.io_files/style.css">
+<script async="" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/analytics.js.下载"></script><script type="text/javascript" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/ymb0lgk.js.下载"></script>
+<style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}.tk-letter-gothic-std{font-family:"letter-gothic-std",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-proxima-nova-n7;src:url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:tk-proxima-nova-i7;src:url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/l?subset_id=2&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/d?subset_id=2&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/a?subset_id=2&fvd=i7&v=3) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:tk-proxima-nova-n4;src:url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:tk-proxima-nova-i4;src:url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:tk-proxima-nova-n3;src:url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:tk-proxima-nova-i3;src:url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/l?subset_id=2&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/d?subset_id=2&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/a?subset_id=2&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}@font-face{font-family:tk-letter-gothic-std-n7;src:url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}</style><script type="text/javascript">try{Typekit.load({ async: true });}catch(e){}</script><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/399a91/0000000000000000000158cf/23/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/l?subset_id=2&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/d?subset_id=2&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/f61233/0000000000000000000158d0/23/a?subset_id=2&fvd=i7&v=3) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/477d8d/0000000000000000000158d7/23/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/8adb93/0000000000000000000158d8/23/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/3693ba/0000000000000000000158d9/23/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/l?subset_id=2&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/d?subset_id=2&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/9c140d/0000000000000000000158da/23/a?subset_id=2&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}@font-face{font-family:letter-gothic-std;src:url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/2cd276/000000000000000000012e1b/23/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}</style>
+
+</head>
+<body class="logs">
+    
+
+<div class="header" id="header">
+
+    
+
+    <div class="container">
+
+        <a href="https://hackaday.io/" title="Hackaday.io Home" class="logo">Hack a Day</a>
+
+        <a href="javascript:void(0);" class="button-menu">Menu</a>
+
+        <ul class="nav" role="navigation">
+            <li><a href="https://hackaday.io/projects" class="">Projects</a></li>
+            <li><a href="https://hackaday.io/lists" class="">Lists</a></li>
+            <li><a href="https://hackaday.io/contests" class="">Contests</a></li>
+            <li><a href="https://hackaday.io/stack" class="">Stack</a></li>
+            <li class="dropdown j-more-open">
+                <a href="javascript:void(0)" class="dropdown-link">More 
+
+
+
+
+    <div class="icon icon-arrow-down">
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M8 9.702l4.79-4.79a.707.707 0 0 1 1 .999l-5.14 5.14a.705.705 0 0 1-.652.197.712.712 0 0 1-.646-.196l-5.14-5.14a.703.703 0 0 1-.004-1.002.708.708 0 0 1 1.003.004L8 9.702z" fill-rule="evenodd"></path></svg>
+        
+    </div>
+
+</a>
+                <ul role="menu" class="dropdown-menu more-menu" id="j-more">
+                    <li><a href="https://hackaday.com/blog/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+                    <li><a href="https://hackaday.io/events">Events</a></li>
+                    <li><a href="https://hackaday.io/hackerspaces">Hackerspaces</a></li>
+                    <li><a href="https://hackaday.io/hackers">Profiles</a></li>
+                    <li><a href="https://hackaday.io/submissions/prize2018/list">
+                        2018 Prize Entries
+                    </a></li>
+                    <li><a href="https://store.hackaday.com/" class="j-store-tracking" target="_blank" rel="noopener noreferrer">Store</a></li>
+                    <li><a href="https://hackaday.io/project/8563-jobs-board">Jobs Board</a></li>
+                </ul>
+            </li>
+            <li class="search-holder">
+                <form id="search-form" action="https://hackaday.io/search" onsubmit="return submitSearch();" method="GET">
+
+                    <input type="text" placeholder="Search projects, profiles ..." name="term" class="input-field j-add-search" id="j-add-search" value="" autocomplete="off" pattern=".{2,}" required="" title="2 characters minimum">
+                    <button type="submit" class="button-search" title="Search">
+                        
+
+
+
+
+    <div class="icon icon-search">
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M10.542 9.368a4.547 4.547 0 1 0-1.015 1.079c.04.086.094.166.165.237l2.727 2.727a.8.8 0 0 0 1.137.006.801.801 0 0 0-.006-1.136l-2.726-2.727a.812.812 0 0 0-.282-.185zm-1.72-.473a2.91 2.91 0 1 0-4.114-4.116 2.91 2.91 0 0 0 4.114 4.117z" fill-rule="evenodd"></path></svg>
+        
+    </div>
+
+
+                    </button>
+                </form>
+            </li>
+        </ul>
+
+        
+
+            <ul class="nav right nav-signin" role="navigation">
+                <li><a href="https://hackaday.io/signup" class="gold-white-button">Sign up</a></li>
+                <li><a href="https://hackaday.io/signin?returnUrl=%2Fproject%2F181%2Flogs%3Fsort%3Doldest">Log In</a></li>
+            </ul>
+
+        
+    </div>
+</div>
+
+<div id="topMessage" class="alert small hide">
+    <span class="j-top-content"></span>
+    <a href="javascript:void(0);" class="alert-close j-top-message-close" title="Close">
+        
+
+
+
+
+    <div class="icon icon-close-circle">
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M10.047 10.658a.562.562 0 0 1-.398-.165L7.984 8.828 6.32 10.493a.562.562 0 0 1-.961-.398.56.56 0 0 1 .164-.398L7.19 8.033 5.523 6.368a.561.561 0 1 1 .795-.796l1.665 1.665L9.65 5.572a.563.563 0 0 1 .795.796L8.78 8.033l1.665 1.664a.562.562 0 0 1-.398.961zm-2.062-7.5a4.875 4.875 0 1 0 .002 9.75 4.875 4.875 0 0 0-.004-9.75zm0 10.875a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" fill-rule="evenodd"></path></svg>
+        
+    </div>
+
+ Close
+    </a>
+</div>
+
+
+
+
+<script>
+    var HIO = HIO || {};
+</script>
+
+    
+<div class="project-header-menu">
+    <div class="container">
+
+        <div class="project-details">
+
+            <h1><a href="https://hackaday.io/project/181-mearm-your-robot">MeArm - Your Robot</a></h1>
+            <p class="description-title"><a href="https://hackaday.io/project/181">Back to project overview</a></p>
+            <p class="description-summary">Cheap, Small, Open Source Servo Controlled Robot Arm</p>
+
+            <div class="description-metainfo">
+                <span class="identity-card" data-id="654"><a href="https://hackaday.io/phenoptix"><img src="./Project _ MeArm - Your Robot _ Hackaday.io_files/4746751394551235218.jpg" alt="ben.phenoptix">ben.phenoptix</a></span> <!--&bull;
+                <span class='time-card' style='margin: 0' title='5 years ago'>02/24/2014 at 20:46</span>-->
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="project-menu-holder">
+        <ul class="project-menu container">
+            <li>
+                <a href="https://hackaday.io/project/181-mearm-your-robot#menu-description">Description</a>
+            </li>
+            <li class="">
+                
+                    Files <span>0</span>
+                
+            </li>
+            <li class="">
+                
+                
+                    <a href="https://hackaday.io/project/181/components">Components <span>4</span></a>
+                
+            </li>
+            <li class="active">
+                
+                    <a href="https://hackaday.io/project/181/logs">Logs <span>25</span></a>
+                
+            </li>
+            <li class="">
+                
+                    Instructions <span>0</span>
+                
+            </li>
+            <li>
+                
+                    <a href="https://hackaday.io/project/181-mearm-your-robot#j-discussions-title">Discussion <span>26</span></a>
+                
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <div class="container post-content">
+        <div class="section-buildsort">
+    <span class="pull-left">
+        <a href="https://hackaday.io/project/181">« Back to project details</a>
+    </span>
+    <span class="sort-holder pull-right">
+        <label for="sort-by">Sort by:</label>
+        <div class="j-select-holder select-holder" style="position: relative;"><div class="select-text" style="cursor: pointer; opacity: 1;">Oldest</div><select class="sort" id="sort-by" data-inited="yes" style="cursor: pointer; opacity: 0; position: absolute; top: 0px; left: 0px; height: 100%; width: 100%;">
+            <option value="/project/181/logs?sort=newest">Newest</option>
+            <option value="/project/181/logs?sort=oldest" selected="selected">Oldest</option>
+            
+        </select><span class="arrow-icon"></span></div>
+    </span>
+</div>
+
+
+        <div class="section section-buildlogs last">
+            
+                <ul class="buildlogs-list">
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/284-starter-for-10">Starter for 10</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="5 years ago">02/24/2014 at 20:51</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/284#discussion-list">
+                    1 comment
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-284"><p name="81d8">Sorry just getting a handle on what this site is for and love it. The project started about two weeks ago and I've not documented it elsewhere. So far I have a working robot arm that runs quite well on 3 hobby servos and £2 worth of acrylic and M3 fixings. Looking forward to getting back to the office tomorrow to work a bit more on it and upload some pictures and also the dxf files.​</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/1048-files-for-v01-published">Files for V0.1 Published</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="5 years ago">03/26/2014 at 19:31</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/1048#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-1048"><p name="4790">Well since this log started I've worked through at least three versions, and published naught. It's terrible of me and frankly makes me feel like the project is going nowhere. So with this in mind tonight there is a publication of the arm as featured in the project photo. Very much V0.1 but it's a starting point and we all know it's very difficult to edit a blank page. On my desk top at work lies a much improved but broken V0.2 that won't be touched for the next 30 hours at least. Hope to have time to work on it on Friday but you never know with my work schedule.</p><p name="38b9">Files are on thingiverse due to lack of knowledge of a viable alternative.&nbsp;<span>http://www.thingiverse.com/thing:257990</span><span></span></p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/1328-v02-blurted-out">v0.2 Blurted Out</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="5 years ago">04/09/2014 at 09:40</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/1328#discussion-list">
+                    1 comment
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-1328"><p name="27b0">Just published v0.2 of the MeArm. Entirely redesigned by Jack Howard. It's a leap forward from the last version but still needs some work and we're currently having at the following improvements:</p><p name="11f6">Adding central support to take the strain off the servo arms.<br>Moving parallelogram mounts backwards for wrist stabilisation<br>Reducing weight from claw and forearm.</p><p name="1347">DXF here:&nbsp;<span><a href="http://www.thingiverse.com/thing:293707">http://www.thingiverse.com/thing:293707</a></span></p><p name="03e9">Could do with some tips for software that generates stl files. Once those updates are made I'd really like to see a 3D printed version. Is an A4 envelope common in 3D printing? I know nothing about 3D printing.</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/1432-v03-is-here">v0.3 is here!</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="5 years ago">04/14/2014 at 15:44</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/1432#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-1432"><p name="b0c4">v0.3 is the first to have a working gripper, well working gripper that's light enough to be be moved on the arm with the hobby servos.&nbsp;<span>http://www.thingiverse.com/thing:298820</span></p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/3270-the-long-winding-road-to-v04-and-a-visit-to-the-science-museum">The long winding road to v0.4 and a visit to the science museum</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">06/06/2014 at 19:27</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/3270#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-3270"><p>So v0.4 has been kind of complete for a while, there are a number of tweaks I want to apply but they've not yet made it to the plans. &nbsp;Should really just publish and be dammed but I do like to take some good pictures of a new version and I've not had the time to do that hence not published.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/3439411402082085418.jpg" target="_blank"><img class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/3439411402082085418.jpg" style=""></a></p><p>Have had a lot of feedback on v0.3 and have now seen versions built in the UK, Switzerland, the USA and most recently Mexico (image above is the Mexican MeArm)! Not bad from a little robot arm from Nottingham England! Lots has been done on the code and I've now see it run on Arduino and the Raspberry Pi. Some great work has been done by Bob Stone on this front. His github repos are amazing&nbsp;<a href="https://github.com/RorschachUK">https://github.com/RorschachUK</a></p><p>The meArm was also very fortunate to be invited along to the Science Museum in London for the Make.Hack.Do festival. We build around 10 arms and probably 100 of the grippers over a 5 day period. We (that's me and the meArm) met a father and son from Switzerland (mentioned above) who had built a meArm from balsa wood on their home made CNC mill. They really made my day. There's some video of the arm in action here&nbsp;<iframe allowfullscreen="" width="500" height="281" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/KMF0qtKtf9c.html" frameborder="0"></iframe></p><p>Quite a bit more to tell but that will have to do for now!</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/3466-v04-completed-bar-the-glamour-shots">v0.4 Completed bar the glamour shots!</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">06/10/2014 at 16:44</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/3466#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-3466"><p>Actually found the time today to finish the list of updates to v0.4.</p><p>Added holes for cable management<br>Cradle redesigned using less fixings and reducing the number of incorrect configurations to one (left handed version<br>Longer elbow lever<br>Shortened "pig" (central support) to stop slight flexing on construction - wasn't a problem but people expressed concern.<br>Swapped fixings on bicep - no long can collide with elbow lever screw<br>Removed extra holes on base to avoid confusion<br>Added spare collar and claw clamp as they are most easily broken<br>Widened collars by 0.2mm to save stickers on the servos<br>Added extra spacer to reconfig wrist support rod allowing extra height - also adds a 10mm and removes a 6mm screw from build<br>Resized X slots to better accommodate 12mm fixings. Now you can add nut before mating (excuse any double entredres)</p><p>DSLR comes out tomorrow and we can push out the DXFs!</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/4432751402418623752.jpg" target="_blank"><img class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/4432751402418623752.jpg" style=""></a></p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/3486-whoomp-there-it-is-v04-that-is">Whoomp! (There It Is) v0.4 that is!</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">06/11/2014 at 16:03</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/3486#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-3486"><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2364311402502194346.jpg" target="_blank"><img class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2364311402502194346.jpg" style=""></a></p><p>So here it is! And here it is&nbsp;<a href="http://www.thingiverse.com/thing:360108">http://www.thingiverse.com/thing:360108</a> v0.4 all the tweaks previously mentioned rolled into an improved version. This is where the mechanical tinkering will largely park for now. Although I was looking at the gripper teeth and mechanism closely earlier... lets put that to the back of our minds eh!?</p><p>Next up is the electronics part. A lot of thought has gone into this already and currently it's an amalgam of multifunctional parts inside my head. Need to strip down and focus on what a single arm needs. I've already worked out how to control a couple of hundred at the same time but most people aren't going to want that! A mega328 board offers the most off the bat, would be easy to replicate from off the shelf components too keeping things reasonably accessible and open. Will be throwing together in KiCad too so it will be Open all the way down.</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/3972-fuller-write-up-of-the-mearm-at-the-science-museum">Fuller write up of the MeArm at the Science Museum</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">06/24/2014 at 15:52</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/3972#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-3972"><p>At the beginning of this month I had a great opportunity to run a workshop at the stupendous Science Museum in London. Admittedly this was my first time to the museum that I can remember. School always favoured the Natural History Museum next door, because dinosaurs. I could write another blog on my my love of the Natural History Museum, it was a really special pleasure to walk past it on my way to work for five days.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_09.38.10_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_09.38.10_grande.jpg"></a></p><p>It's a beautiful building that still gives me chills thinking about its contents and my childhood geeky wonderment.</p><p>The Science Museum was going to have to be pretty special to compete and oh my gosh it really is special. As I was there to work I wasn't able to enjoy the exhibits quite as much as I would have liked but it was something quite special to walk past items like Stevenson's Rocket, a Rolls Royce Merlin Engine and a full sized Lockheed <em>Electra</em> airliner as I meandered my way to the Make. Hack. Do event.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_09.26.20_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_09.26.20_grande.jpg"></a></p><p>Make. Hack. Do was set out to allow people to create electronic instruments from vegetables, build and program robots and get hands-on with 3D printing in a free festival. Where participants could design, hack and program in a series of workshops and meet the artists and inventors using electronics and 3D printing in innovative ways. It opened with a "Lates" event where grown ups with beer came along to find out what we were up to. It was a great way to start the festival as it was possible to test my plans of how to run the workshops, with an understanding, relaxed yet enthusiastic crowd. </p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4449_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4449_grande.jpg"></a></p><p>The next four days were advertised as suitable for ages 10 and above, in reality as long as a child was able to be attentive and hold a screwdriver they got to build robots! One lad came over and told me he was only five but he was "very good" and proceeded to build his claw faster and better than a group of 12 year olds that built along with him! Other workshops and activities included exploring creative uses of electronics and 3D printing, creating colourful 3D printed sculptures, helping stitch a tapestry made of electronic thread and sculpting circuits with special electronic playdough. It's possible we'll be copying the squishy circuits workshop locally in August.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4255_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4255_grande.jpg"></a></p><p>It was quite incredible to be among some fantastic artists and inventors from across the UK at <em>Make.Hack.Do</em> demonstrating how electronics and 3D printing can be used for art and music. Musical objects hacked together by Royal College of Art students were on show and along with some intricate 3D printed art byTobias Klein. LiveCodeLab showed how anyone can create live music using computer coding andOtoto turned furniture, toys and even vegetables into musical instruments using electronics.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4443_large.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4443_large.jpg"></a></p><p>One of the many highlights of the festival was meeting this young man and his father who were visiting from Switzerland. In the last week he'd downloaded the files of our #meArm robot arm and cut his own from balsa wood using a CNC milling machine. He had me sign a flier! It was fantastic meeting someone who had built their own arm, one of the many reasons we support open hardware. I think he wrote this in the guest book too. Really made my day!</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_11.17.23_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-30_11.17.23_grande.jpg"></a></p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-31_08.59.42-3_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-31_08.59.42-3_grande.jpg"></a></p><p>The festival was supported by Airbus Group, Renishaw, the Engineering and Physical Sciences Research Council (EPSRC) and the University of Nottingham. Two of whom supported my PhD, so extra thanks to EPSRC and the University of Nottingham. There are thanks for all of the organisers and volunteers. It was really well run and I was even able to take a break for lunch, that's really special in an event like this!</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4389_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/1505_MakeHackDo_ScienceMuseum-4389_grande.jpg"></a></p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-31_10.31.25_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/2014-05-31_10.31.25_grande.jpg"></a></p><p>Overall it was an amazing five days and a spectacular event in a world class venue. It was great to be a part of it.</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/4012-mearm-update-now-available-in-peru">#meArm - Update! Now available in Peru!</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">06/25/2014 at 14:03</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/4012#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-4012"><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/lama-and-machu-picchu-peru-1600x1067_grande.jpg" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/lama-and-machu-picchu-peru-1600x1067_grande.jpg"></a></p><p>Famed for Machu Picchu, lamas and roasted rodents on sticks Peru isn't the first place you think of for open hardware. However through a quick vanity search on twitter we've discovered a rather excellent Peruvian website selling our <a href="http://www.phenoptix.com/products/mearm-pocket-sized-robot-arm">super #meArm</a> under the open hardware licence.</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/IMG_0439-500x500_grande.JPG" target="_blank"><img style="margin: 10px; padding: 0px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline; max-width: 500px;" class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/IMG_0439-500x500_grande.JPG"></a></p><p>Kool Mechatronics are cutting and etching what looks to be the v0.3 of the MeArm and selling it on the <a href="http://www.openhardware.pe/store/lasercut_meArm">OpenHardware.pe website</a>. It's really fantastic to see the project spreading around the world like this. I'd like to thank the website and Kool Mechatronics for supplying all of the license information and links to our site so people can get involved with the #meArm project.</p><p>So if you're in South American and you're looking for a robot arm please check out their site!</p></div>
+            </div>
+        </li>
+    
+        
+        <li>
+            <h3 class="element-title">
+                <a href="https://hackaday.io/project/181/log/4272-lego-mearm-from-simon-monk-raspberry-pi-genius-himself">Lego #meArm from Simon Monk - Raspberry Pi Genius himself!</a>
+                
+            </h3>
+            <small class="authorship"><span class="time-card" style="margin: 0" title="4 years ago">07/01/2014 at 08:47</span>  •
+                <a class="gray-link" href="https://hackaday.io/project/181/log/4272#discussion-list">
+                    0 comments
+                </a>
+                </small>
+            <div style="position:relative">
+                <div id="post-body-4272"><p>Fantastic tweet popped up on my timeline last night from Simon Monk, the author of many a great tome on&nbsp;<a href="http://www.monkmakes.com/?page_id=408">Arduino and Raspberry Pi</a>, it seems that Simon has made a #meArm from Lego!</p><p><a href="./Project _ MeArm - Your Robot _ Hackaday.io_files/1533041404204394086.jpg" target="_blank"><img class="lazy" src="./Project _ MeArm - Your Robot _ Hackaday.io_files/1533041404204394086.jpg" style=""></a></p><p>The extra weight of the lego seems to be a little problematic for the servos, but I'm seriously impressed with the effort that's gone into this.</p></div>
+            </div>
+        </li>
+    
+</ul>
+
+                
+    <div class="pagination">
+        
+        
+            <a href="https://hackaday.io/project/181/logs?sort=oldest&amp;page=2" class="grey-gold-button next-button show">
+                <span>Next</span>
+                
+
+
+
+
+    <div class="icon icon-arrow-right--feed">
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M10.228 7.992l-4.79 4.79a.707.707 0 0 0 .999.999l5.14-5.14a.704.704 0 0 0 .197-.65.714.714 0 0 0-.196-.646l-5.14-5.14a.706.706 0 0 0-1 .997l4.79 4.79z" fill-rule="evenodd"></path></svg>
+        
+    </div>
+
+
+            </a>
+        
+    </div>
+
+
+
+
+            
+        </div>
+    </div>
+
+    <div id="footer" class="footer ">
+    
+        <a href="https://hackaday.io/project/181/logs?sort=oldest#header" class="back-to-top">
+            
+
+
+
+
+    <div class="icon icon-long-arrow-up">
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M8.023 2.03L4.78 5.26h2.688v1.11h1.11V5.26h2.688L8.023 2.03zm-.555 5.505V8.92h1.11V7.534H7.47zm0 2.56v1.383h1.11v-1.384H7.47zm0 2.55v1.384h1.11v-1.385H7.47z" fill-rule="evenodd"></path></svg>
+        
+    </div>
+
+ Going up?
+        </a>
+    
+    <p>
+        <a href="https://hackaday.com/about/">About Us</a>
+        <a href="mailto:projects-contact@hackaday.com">Contact Hackaday.io</a>
+        <a href="https://hackaday.io/project/37">Give Feedback</a> <a href="https://hackaday.io/tos">Terms of Use</a>
+        <a href="https://supplyframe.com/company/privacy">Privacy Policy</a>
+        <a href="https://dev.hackaday.io/" target="_blank" rel="noopener noreferrer">Hackaday API</a>
+    </p>
+    <p><a id="footer--home" href="https://hackaday.io/">© 2018 Hackaday</a></p>
+
+    
+</div>
+
+
+<script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-47229708-1', 'auto');
+
+    var dimensionValue = 'nonregistered';
+    ga('set', 'dimension1', dimensionValue);
+    ga('require', 'displayfeatures');
+
+    ga('send', 'pageview');
+</script>
+
+<script>
+    var csrftoken = 'k8kBNYjz-Lc_8NeDm13-2iFyAEKaZCP7FkQg';
+</script>
+
+
+<img src="./Project _ MeArm - Your Robot _ Hackaday.io_files/impression" alt="" class="sf-impression">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="./Project _ MeArm - Your Robot _ Hackaday.io_files/OkhhCeSBz5ZL%2FBE4f7QZBTswUbzMyssop5H1caXZkXKImKPN7f%2FCv0BjjjDWy+lHLlwzkG+AO+13Ufu%2FK5x47KlMR6xhx+AjXWd%2FfiD+qVRI00RZT+Q0pP5u+AWuViWAVF7s79oAlz3I++5aicn0uPo%2FnZ+9K.下载"></script>
+
+
+
+</body></html>
